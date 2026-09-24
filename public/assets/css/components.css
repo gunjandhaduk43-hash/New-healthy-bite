@@ -1,0 +1,568 @@
+/**
+ * HEALTHY BITE — Centralized UI Component System
+ * Clean, Accessible, Standardized Component Architecture
+ */
+
+/* ============================================================
+   1. BUTTON SYSTEM
+   ============================================================ */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: 10px 20px;
+    border-radius: var(--radius-btn);
+    font-family: var(--font-family);
+    font-weight: 600;
+    font-size: var(--font-size-base);
+    line-height: 1.25;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    border: 1px solid transparent;
+    text-decoration: none;
+    user-select: none;
+    white-space: nowrap;
+}
+
+.btn:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+}
+
+.btn:disabled,
+.btn[disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.btn-primary {
+    background-color: var(--primary-green);
+    color: #ffffff;
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:hover {
+    background-color: var(--dark-green);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-xs);
+}
+
+.btn-secondary {
+    background-color: var(--light-green);
+    color: var(--primary-green);
+    border-color: rgba(46, 125, 50, 0.15);
+}
+
+.btn-secondary:hover {
+    background-color: var(--light-green-hover);
+    color: var(--dark-green);
+}
+
+.btn-outline {
+    background-color: transparent;
+    border-color: var(--border-color);
+    color: var(--text-main);
+}
+
+.btn-outline:hover {
+    background-color: var(--surface-sunken);
+    border-color: var(--border-strong);
+}
+
+.btn-danger {
+    background-color: #FEF2F2;
+    color: var(--color-error);
+    border-color: #FCA5A5;
+}
+
+.btn-danger:hover {
+    background-color: var(--color-error);
+    color: #ffffff;
+}
+
+.btn-sm {
+    padding: 6px 14px;
+    font-size: var(--font-size-sm);
+    border-radius: var(--radius-sm);
+}
+
+.btn-lg {
+    padding: 14px 28px;
+    font-size: var(--font-size-lg);
+    border-radius: 12px;
+}
+
+.btn-icon {
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    border-radius: var(--radius-sm);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-icon.rounded {
+    border-radius: var(--radius-badge);
+}
+
+/* ============================================================
+   2. DIETARY LABELS & SYMBOLS (Section 18 - Non-color dependent)
+   ============================================================ */
+.diet-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: var(--radius-pill);
+    letter-spacing: 0.2px;
+    text-transform: uppercase;
+}
+
+/* Iconic square symbol indicator */
+.diet-symbol {
+    width: 13px;
+    height: 13px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    flex-shrink: 0;
+}
+
+.diet-symbol-veg {
+    border: 1.5px solid var(--diet-veg-border);
+}
+.diet-symbol-veg::after {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background-color: var(--diet-veg-border);
+    border-radius: 50%;
+}
+
+.diet-symbol-nonveg {
+    border: 1.5px solid var(--diet-nonveg-border);
+}
+.diet-symbol-nonveg::after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-left: 3.5px solid transparent;
+    border-right: 3.5px solid transparent;
+    border-bottom: 6px solid var(--diet-nonveg-border);
+}
+
+.diet-badge.veg {
+    background-color: var(--diet-veg-bg);
+    color: var(--diet-veg-text);
+    border: 1px solid rgba(22, 163, 74, 0.2);
+}
+
+.diet-badge.nonveg {
+    background-color: var(--diet-nonveg-bg);
+    color: var(--diet-nonveg-text);
+    border: 1px solid rgba(220, 38, 38, 0.2);
+}
+
+.diet-badge.vegan {
+    background-color: var(--diet-vegan-bg);
+    color: var(--diet-vegan-text);
+    border: 1px solid rgba(5, 150, 105, 0.2);
+}
+
+.diet-badge.jain {
+    background-color: var(--diet-jain-bg);
+    color: var(--diet-jain-text);
+    border: 1px solid rgba(37, 99, 235, 0.2);
+}
+
+/* ============================================================
+   3. STATUS PILLS (Section 33 - Unified across all portals)
+   ============================================================ */
+.status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11.5px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: var(--radius-pill);
+    letter-spacing: 0.2px;
+    text-transform: capitalize;
+    white-space: nowrap;
+}
+
+.status-pill::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: currentColor;
+    flex-shrink: 0;
+}
+
+.status-pill.placed {
+    background-color: var(--badge-placed-bg);
+    color: var(--badge-placed-text);
+}
+
+.status-pill.accepted {
+    background-color: var(--badge-accepted-bg);
+    color: var(--badge-accepted-text);
+}
+
+.status-pill.preparing {
+    background-color: var(--badge-preparing-bg);
+    color: var(--badge-preparing-text);
+}
+
+.status-pill.ready {
+    background-color: var(--badge-ready-bg);
+    color: var(--badge-ready-text);
+}
+
+.status-pill.completed {
+    background-color: var(--badge-completed-bg);
+    color: var(--badge-completed-text);
+}
+
+.status-pill.cancelled {
+    background-color: var(--badge-cancelled-bg);
+    color: var(--badge-cancelled-text);
+}
+
+.status-pill.approved,
+.status-pill.available,
+.status-pill.active {
+    background-color: var(--badge-approved-bg);
+    color: var(--badge-approved-text);
+}
+
+.status-pill.pending,
+.status-pill.occupied {
+    background-color: var(--badge-pending-bg);
+    color: var(--badge-pending-text);
+}
+
+.status-pill.suspended,
+.status-pill.unavailable,
+.status-pill.inactive {
+    background-color: var(--badge-suspended-bg);
+    color: var(--badge-suspended-text);
+}
+
+/* ============================================================
+   4. NUTRITION MACRO CHIPS & ALLERGEN NOTICES
+   ============================================================ */
+.macro-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background-color: var(--surface-sunken);
+    color: var(--text-secondary);
+    font-size: 11.5px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: var(--radius-sm);
+    white-space: nowrap;
+}
+
+.macro-chip.macro-highlight {
+    background-color: var(--light-green);
+    color: var(--primary-green);
+    font-weight: 700;
+}
+
+.allergen-notice-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #92400E;
+    background-color: #FEF3C7;
+    border: 1px solid #FDE68A;
+    padding: 2px 7px;
+    border-radius: var(--radius-xs);
+}
+
+/* ============================================================
+   5. FORM SYSTEM
+   ============================================================ */
+.form-group {
+    margin-bottom: var(--space-4);
+    display: flex;
+    flex-direction: column;
+}
+
+.form-label {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: var(--space-1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.form-control,
+.form-input,
+.form-select,
+.form-textarea {
+    width: 100%;
+    padding: 10px 14px;
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    color: var(--text-primary);
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-input);
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    outline: none;
+    box-sizing: border-box;
+}
+
+.form-control:hover,
+.form-input:hover,
+.form-select:hover,
+.form-textarea:hover {
+    border-color: var(--border-strong);
+}
+
+.form-control:focus,
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+    border-color: var(--primary-green);
+    box-shadow: var(--focus-ring);
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 76px;
+}
+
+.form-hint {
+    font-size: var(--font-size-xs);
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+.form-error-msg {
+    font-size: var(--font-size-xs);
+    color: var(--color-error);
+    margin-top: 4px;
+    font-weight: 500;
+}
+
+/* Segmented Options Switch */
+.segmented-switch {
+    display: flex;
+    background-color: var(--surface-sunken);
+    padding: 4px;
+    border-radius: 12px;
+    gap: 4px;
+    border: 1px solid var(--border-subtle);
+}
+
+.switch-btn {
+    flex: 1;
+    padding: 9px 16px;
+    border: none;
+    background: transparent;
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.switch-btn.active {
+    background-color: #ffffff;
+    color: var(--primary-green);
+    box-shadow: var(--shadow-sm);
+}
+
+/* ============================================================
+   6. CARDS & CONTAINERS
+   ============================================================ */
+.hb-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-card);
+    padding: var(--space-6);
+    box-shadow: var(--shadow-xs);
+    transition: box-shadow var(--transition-normal);
+}
+
+.hb-card:hover {
+    box-shadow: var(--shadow-sm);
+}
+
+/* ============================================================
+   7. MODAL BASE SYSTEM
+   ============================================================ */
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(17, 24, 39, 0.6);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 1050;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transition-normal), visibility var(--transition-normal);
+    padding: var(--space-4);
+}
+
+.modal-backdrop.active,
+.modal-backdrop.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-close-icon-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: var(--surface-sunken);
+    border: none;
+    color: var(--text-main);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+}
+
+.modal-close-icon-btn:hover {
+    background-color: #E2E8F0;
+    color: #000;
+}
+
+/* ============================================================
+   8. TOAST NOTIFICATIONS
+   ============================================================ */
+.toast-container {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    pointer-events: none;
+    max-width: 400px;
+}
+
+.toast-item {
+    pointer-events: auto;
+    background: #1F2937;
+    color: #ffffff;
+    padding: 12px 18px;
+    border-radius: 12px;
+    font-size: 13.5px;
+    font-weight: 600;
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: toastSlideIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: opacity 0.25s, transform 0.25s;
+    border-left: 4px solid var(--primary-green);
+}
+
+.toast-item.error {
+    border-left-color: var(--color-error);
+}
+
+.toast-item.info {
+    border-left-color: var(--color-info);
+}
+
+@keyframes toastSlideIn {
+    from {
+        transform: translateY(16px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* ============================================================
+   9. EMPTY STATES & SKELETON LOADERS
+   ============================================================ */
+.empty-state-card {
+    text-align: center;
+    padding: var(--space-10) var(--space-6);
+    background: var(--card-bg);
+    border: 1px dashed var(--border-color);
+    border-radius: var(--radius-card);
+}
+
+.empty-state-icon {
+    font-size: 40px;
+    color: var(--text-subtle);
+    margin-bottom: var(--space-3);
+    display: inline-block;
+}
+
+.empty-state-title {
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: var(--space-1);
+}
+
+.empty-state-desc {
+    color: var(--text-muted);
+    font-size: var(--font-size-sm);
+    max-width: 360px;
+    margin: 0 auto var(--space-4);
+    line-height: 1.5;
+}
+
+/* Skeleton Loading Pulse */
+.skeleton {
+    background: linear-gradient(90deg, #F1F5F9 25%, #E2E8F0 50%, #F1F5F9 75%);
+    background-size: 200% 100%;
+    animation: skeletonLoading 1.5s infinite;
+    border-radius: var(--radius-xs);
+}
+
+@keyframes skeletonLoading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+@keyframes hb-spin {
+    to { transform: rotate(360deg); }
+}
+
+.spin {
+    animation: hb-spin 0.75s linear infinite;
+    display: inline-block;
+}

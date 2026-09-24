@@ -1,72 +1,135 @@
 <?php
-
 declare(strict_types=1);
 
 namespace App\Controllers;
 
-use App\Core\Auth;
-use App\Core\Csrf;
-use App\Core\Flash;
-use App\Repositories\MvpRepository;
+use App\Core\Controller;
+use App\Core\Request;
+use App\Services\OrderService;
 
-final class OrderController extends Controller
+class OrderController extends Controller
 {
-    private MvpRepository $mvpRepository;
+    private OrderService $orderService;
 
     public function __construct()
     {
-        $this->mvpRepository = new MvpRepository();
+        $this->orderService = new OrderService();
     }
 
-    public function index(): void
+    public function createOrder(): void
     {
-        $user = Auth::user();
-        $restaurantId = (int) ($user['restaurant_id'] ?? 0);
+        $payload = Request::getBody();
 
-        if ($restaurantId === 0) {
-            $this->redirect('/login');
+        try {
+            $order = $this->orderService->placeOrder($payload);
+            $this->json([
+                'status'  => 'success',
+                'message' => 'Order placed successfully.',
+                'data'    => $order,
+            ], 201);
+        } catch (\InvalidArgumentException $e) {
+            $this->json([
+                'status'  => 'error',
+                'message' => $e->getMessage(),
+            ], 422);
+        }
+    }
+
+    public function getOrder(string $orderNumber): void
+    {
+        $order = $this->orderService->trackOrder($orderNumber);
+        if (!$order) {
+            $this->json(['error' => 'Order not found'], 404);
+            return;
         }
 
-        $orders = $this->mvpRepository->orders($restaurantId);
+        $this->json(['data' => $order]);
+    }
 
-        $this->view('dashboard/orders', [
-            'title' => 'Live Kitchen Queue',
-            'user' => $user,
-            'orders' => $orders,
-            'success' => Flash::get('success'),
-            'error' => Flash::get('error'),
+    public function confirmation(string $orderNumber): void
+    {
+        $order = $this->orderService->trackOrder($orderNumber);
+        if (!$order) {
+            echo $this->render('customer/errors/404', ['path' => "/menu/confirmation/{$orderNumber}"], 'minimal');
+            return;
+        }
+
+        echo $this->render('customer/confirmation', [
+            'order' => $order,
+            'title' => "Order Confirmation #{$orderNumber} — Healthy Bite"
         ]);
     }
 
-    public function updateStatus(): void
+    public function tracking(string $orderNumber): void
     {
-        if (!Csrf::validate($_POST['_token'] ?? null)) {
-            Flash::set('error', 'Your form expired. Please try again.');
-            $this->redirect('/dashboard/orders');
+        $order = $this->orderService->trackOrder($orderNumber);
+        if (!$order) {
+            echo $this->render('customer/errors/404', ['path' => "/menu/tracking/{$orderNumber}"], 'minimal');
+            return;
         }
 
-        $user = Auth::user();
-        $restaurantId = (int) ($user['restaurant_id'] ?? 0);
-        $userId = (int) ($user['id'] ?? 0);
+        echo $this->render('customer/tracking', [
+            'order' => $order,
+            'title' => "Live Order Tracking #{$orderNumber} — Healthy Bite"
+        ]);
+    }
 
-        if ($restaurantId === 0 || $userId === 0) {
-            $this->redirect('/login');
+    public function getLatestTableOrder(): void
+    {
+        $tableId = (int)($_GET['table_id'] ?? 0);
+        $restaurantId = (int)($_GET['restaurant_id'] ?? 1);
+
+        if ($tableId <= 0) {
+            $this->json(['status' => 'error', 'message' => 'table_id required'], 400);
+            return;
         }
 
-        $orderId = (int) ($_POST['order_id'] ?? 0);
-        $status = trim((string) ($_POST['status'] ?? ''));
+        $orderRepo = new \App\Repositories\OrderRepository();
+        $order = $orderRepo->findLatestActiveByTable($tableId, $restaurantId);
 
-        if ($orderId > 0 && $status !== '') {
-            $success = $this->mvpRepository->updateOrderStatus($restaurantId, $orderId, $status, $userId);
-            if ($success) {
-                Flash::set('success', 'Order status updated to ' . ucfirst($status));
-            } else {
-                Flash::set('error', 'Failed to update order status. Please verify the order state.');
-            }
+        $this->json([
+            'status' => 'success',
+            'data'   => $order
+        ]);
+    }
+
+    public function submitReview(): void
+    {
+        $payload = Request::getBody();
+        $orderNumber = trim((string)($payload['order_number'] ?? ''));
+        $rating = (int)($payload['rating'] ?? 5);
+        $comment = trim((string)($payload['comment'] ?? ''));
+
+        if ($orderNumber === '') {
+            $this->json(['status' => 'error', 'message' => 'Order number is required'], 400);
+            return;
+        }
+
+        $order = $this->orderService->trackOrder($orderNumber);
+        if (!$order) {
+            $this->json(['status' => 'error', 'message' => 'Order not found'], 404);
+            return;
+        }
+
+        $reviewRepo = new \App\Repositories\ReviewRepository();
+        $success = $reviewRepo->createReview(
+            (int)$order['restaurant_id'],
+            (int)$order['customer_id'],
+            (int)$order['id'],
+            $rating,
+            $comment !== '' ? $comment : 'Verified dining experience.'
+        );
+
+        if ($success) {
+            $this->json([
+                'status'  => 'success',
+                'message' => 'Thank you for your review!'
+            ]);
         } else {
-            Flash::set('error', 'Invalid order details provided.');
+            $this->json([
+                'status'  => 'error',
+                'message' => 'Could not save review. Please try again.'
+            ], 500);
         }
-
-        $this->redirect('/dashboard/orders');
     }
 }

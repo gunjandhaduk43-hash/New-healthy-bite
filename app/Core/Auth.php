@@ -1,51 +1,47 @@
 <?php
-
 declare(strict_types=1);
 
 namespace App\Core;
 
-use App\Repositories\UserRepository;
-
-final class Auth
+class Auth
 {
-    /** @var array<string, mixed>|null */
-    private static ?array $user = null;
+    private const USER_SESSION_KEY = '_auth_user';
 
     public static function check(): bool
     {
-        return isset($_SESSION['auth_user_id']) && self::user() !== null;
+        Session::start();
+        return Session::has(self::USER_SESSION_KEY);
     }
 
-    /** @return array<string, mixed>|null */
     public static function user(): ?array
     {
-        if (self::$user !== null) {
-            return self::$user;
-        }
-
-        $userId = $_SESSION['auth_user_id'] ?? null;
-
-        if (!is_int($userId) && !ctype_digit((string) $userId)) {
-            return null;
-        }
-
-        self::$user = (new UserRepository())->findActiveById((int) $userId);
-
-        return self::$user;
+        Session::start();
+        return Session::get(self::USER_SESSION_KEY);
     }
 
-    /** @param array<string, mixed> $user */
+    public static function id(): ?int
+    {
+        $user = self::user();
+        return isset($user['id']) ? (int)$user['id'] : null;
+    }
+
     public static function login(array $user): void
     {
-        session_regenerate_id(true);
-        $_SESSION['auth_user_id'] = (int) $user['id'];
-        self::$user = $user;
+        Session::start();
+        Session::regenerate();
+        Session::set(self::USER_SESSION_KEY, [
+            'id'            => $user['id'],
+            'role_id'       => $user['role_id'],
+            'restaurant_id' => $user['restaurant_id'] ?? null,
+            'name'          => $user['name'],
+            'email'         => $user['email'],
+        ]);
     }
 
     public static function logout(): void
     {
-        unset($_SESSION['auth_user_id']);
-        self::$user = null;
-        session_regenerate_id(true);
+        Session::start();
+        Session::remove(self::USER_SESSION_KEY);
+        Session::regenerate();
     }
 }

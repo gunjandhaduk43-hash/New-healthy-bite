@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace App\Core;
@@ -8,35 +7,56 @@ use PDO;
 use PDOException;
 use RuntimeException;
 
-final class Database
+class Database
 {
-    private static ?PDO $connection = null;
+    private static ?PDO $instance = null;
 
-    public static function connection(): PDO
+    private function __construct() {}
+
+    public static function getConnection(): PDO
     {
-        if (self::$connection instanceof PDO) {
-            return self::$connection;
+        if (self::$instance !== null) {
+            return self::$instance;
         }
 
-        $config = require BASE_PATH . '/config/database.php';
+        $configPath = dirname(__DIR__, 2) . '/config/database.php';
+        if (!file_exists($configPath)) {
+            throw new RuntimeException("Database configuration file not found at {$configPath}");
+        }
+
+        $config = require $configPath;
+
         $dsn = sprintf(
-            'mysql:host=%s;port=%s;dbname=%s;charset=%s',
-            $config['host'],
-            $config['port'],
-            $config['database'],
-            $config['charset']
+            '%s:host=%s;port=%d;dbname=%s;charset=%s',
+            $config['driver'] ?? 'mysql',
+            $config['host'] ?? '127.0.0.1',
+            $config['port'] ?? 3306,
+            $config['database'] ?? 'healthy_bite',
+            $config['charset'] ?? 'utf8mb4'
         );
 
         try {
-            self::$connection = new PDO($dsn, $config['username'], $config['password'], [
-                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                PDO::ATTR_EMULATE_PREPARES => false,
-            ]);
-        } catch (PDOException $exception) {
-            throw new RuntimeException('Database connection failed. Check config/database.php and MySQL.', 0, $exception);
+            self::$instance = new PDO(
+                $dsn,
+                $config['username'] ?? 'root',
+                $config['password'] ?? '',
+                $config['options'] ?? []
+            );
+        } catch (PDOException $e) {
+            error_log('[HealthyBite] DB Connection Error: ' . $e->getMessage());
+            throw new RuntimeException(
+                'Could not connect to database. Please verify your connection settings.',
+                (int)$e->getCode()
+            );
         }
 
-        return self::$connection;
+        return self::$instance;
+    }
+
+    private function __clone() {}
+
+    public function __wakeup()
+    {
+        throw new RuntimeException("Cannot unserialize singleton instance.");
     }
 }

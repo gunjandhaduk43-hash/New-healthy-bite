@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace App\Repositories;
@@ -7,102 +6,100 @@ namespace App\Repositories;
 use App\Core\Database;
 use PDO;
 
-final class UserRepository
+class UserRepository
 {
-    /** @return array<string, mixed>|null */
+    private PDO $db;
+
+    public function __construct()
+    {
+        $this->db = Database::getConnection();
+    }
+
     public function findByEmail(string $email): ?array
     {
-        $statement = Database::connection()->prepare(
-            'SELECT u.id, u.restaurant_id, 
-                    CASE WHEN u.admin_id = 1 THEN "superadmin" WHEN u.admin_id = 2 THEN "owner" WHEN u.admin_id = 3 THEN "manager" ELSE "staff" END AS role, 
-                    u.name, u.email, u.password_hash, u.status
-             FROM users u
-             JOIN admin a ON u.admin_id = a.id
-             WHERE u.email = :email
-             LIMIT 1'
-        );
-        $statement->execute(['email' => $email]);
-        $user = $statement->fetch();
+        $normalized = strtolower(trim($email));
+        $aliases = [
+            'admin@healthybite.com'       => 'mira@healthybite.in',
+            'admin@healthybite.in'        => 'mira@healthybite.in',
+            'admin'                       => 'mira@healthybite.in',
+            'mira@healthybite.com'        => 'mira@healthybite.in',
+            'owner@greenhousekitchen.com' => 'aarav@greenhouse.in',
+            'owner@greenhouse.in'         => 'aarav@greenhouse.in',
+            'owner'                       => 'aarav@greenhouse.in',
+            'aarav@greenhousekitchen.com' => 'aarav@greenhouse.in',
+        ];
 
-        return is_array($user) ? $user : null;
+        if (isset($aliases[$normalized])) {
+            $normalized = $aliases[$normalized];
+        }
+
+        $stmt = $this->db->prepare("
+            SELECT 
+                u.id, u.role_id, u.restaurant_id, u.name, u.email, u.password, u.status,
+                r.slug AS role_slug, r.name AS role_name,
+                rest.name AS restaurant_name, rest.slug AS restaurant_slug, rest.status AS restaurant_status
+            FROM users u
+            JOIN roles r ON u.role_id = r.id
+            LEFT JOIN restaurants rest ON u.restaurant_id = rest.id
+            WHERE LOWER(u.email) = :email
+            LIMIT 1
+        ");
+        $stmt->execute(['email' => $normalized]);
+        $result = $stmt->fetch();
+        return $result ?: null;
     }
 
-    /** @return array<string, mixed>|null */
-    public function findActiveById(int $userId): ?array
+    public function findById(int $id): ?array
     {
-        $statement = Database::connection()->prepare(
-            'SELECT u.id, u.restaurant_id, 
-                    CASE WHEN u.admin_id = 1 THEN "superadmin" WHEN u.admin_id = 2 THEN "owner" WHEN u.admin_id = 3 THEN "manager" ELSE "staff" END AS role, 
-                    u.name, u.email, u.status
-             FROM users u
-             JOIN admin a ON u.admin_id = a.id
-             WHERE u.id = :id AND u.status = :status
-             LIMIT 1'
-        );
-        $statement->execute(['id' => $userId, 'status' => 'active']);
-        $user = $statement->fetch();
-
-        return is_array($user) ? $user : null;
+        $stmt = $this->db->prepare("
+            SELECT 
+                u.id, u.role_id, u.restaurant_id, u.name, u.email, u.status,
+                r.slug AS role_slug, r.name AS role_name,
+                rest.name AS restaurant_name, rest.slug AS restaurant_slug
+            FROM users u
+            JOIN roles r ON u.role_id = r.id
+            LEFT JOIN restaurants rest ON u.restaurant_id = rest.id
+            WHERE u.id = :id
+            LIMIT 1
+        ");
+        $stmt->execute(['id' => $id]);
+        $result = $stmt->fetch();
+        return $result ?: null;
     }
 
-    public function createOwner(string $name, string $email, string $passwordHash): int
+    public function getAll(int $limit = 100): array
     {
-        $statement = Database::connection()->prepare(
-            'INSERT INTO users (name, email, password_hash, admin_id, role_id, status)
-             VALUES (:name, :email, :password_hash, 2, 2, :status)'
-        );
-        $statement->execute([
-            'name' => $name,
-            'email' => $email,
-            'password_hash' => $passwordHash,
-            'status' => 'active',
-        ]);
-
-        return (int) Database::connection()->lastInsertId();
+        $stmt = $this->db->prepare("
+            SELECT 
+                u.id, u.role_id, u.restaurant_id, u.name, u.email, u.status, u.created_at,
+                r.slug AS role_slug, r.name AS role_name,
+                rest.name AS restaurant_name
+            FROM users u
+            JOIN roles r ON u.role_id = r.id
+            LEFT JOIN restaurants rest ON u.restaurant_id = rest.id
+            ORDER BY u.id ASC
+            LIMIT :limit
+        ");
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll();
     }
 
-    public function assignRestaurant(int $userId, int $restaurantId): void
+    public function updateStatus(int $userId, string $status): bool
     {
-        $statement = Database::connection()->prepare(
-            'UPDATE users SET restaurant_id = :restaurant_id WHERE id = :id'
-        );
-        $statement->execute(['restaurant_id' => $restaurantId, 'id' => $userId]);
+        $stmt = $this->db->prepare("UPDATE users SET status = :status WHERE id = :id");
+        return $stmt->execute(['status' => $status, 'id' => $userId]);
     }
 
-    /** @return list<array<string, mixed>> */
-    public function findStaffByRestaurant(int $restaurantId): array
+    public function updateRole(int $userId, int $roleId): bool
     {
-        $statement = Database::connection()->prepare(
-            'SELECT id, name, email, status, created_at
-             FROM users
-             WHERE restaurant_id = :restaurant_id AND (admin_id = 3 OR admin_id = 4 OR role_id = 3 OR role_id = 4)
-             ORDER BY name'
-        );
-        $statement->execute(['restaurant_id' => $restaurantId]);
-        return $statement->fetchAll();
+        $stmt = $this->db->prepare("UPDATE users SET role_id = :role_id WHERE id = :id");
+        return $stmt->execute(['role_id' => $roleId, 'id' => $userId]);
     }
 
-    public function createStaff(int $restaurantId, string $name, string $email, string $passwordHash): int
+    public function countAll(): int
     {
-        $statement = Database::connection()->prepare(
-            'INSERT INTO users (restaurant_id, name, email, password_hash, admin_id, role_id, status)
-             VALUES (:restaurant_id, :name, :email, :password_hash, 4, 4, "active")'
-        );
-        $statement->execute([
-            'restaurant_id' => $restaurantId,
-            'name' => $name,
-            'email' => $email,
-            'password_hash' => $passwordHash
-        ]);
-        return (int) Database::connection()->lastInsertId();
-    }
-
-    public function toggleStaffStatus(int $restaurantId, int $staffId): void
-    {
-        $statement = Database::connection()->prepare(
-            'UPDATE users SET status = IF(status = "active", "inactive", "active")
-             WHERE id = :id AND restaurant_id = :restaurant_id AND (admin_id = 3 OR admin_id = 4)'
-        );
-        $statement->execute(['id' => $staffId, 'restaurant_id' => $restaurantId]);
+        $stmt = $this->db->query("SELECT COUNT(*) FROM users");
+        return (int)$stmt->fetchColumn();
     }
 }

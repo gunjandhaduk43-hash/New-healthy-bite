@@ -1,0 +1,62 @@
+/* ============================================================
+   HEALTHY BITE — Responsive Media Queries (Mobile First & Breakpoints)
+   ============================================================ */
+
+/* Mobile (max-width: 768px) */
+@media (max-width: 768px) {
+    .food-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .checkout-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .restaurant-hero {
+        padding: var(--space-5);
+    }
+
+    .hero-title {
+        font-size: 22px;
+    }
+
+    .modal-backdrop {
+        padding: 0;
+        align-items: flex-end;
+    }
+
+    .modal-container {
+        max-width: 100%;
+        max-height: 85vh;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .cart-drawer {
+        max-width: 100%;
+    }
+
+    .tracking-stepper {
+        overflow-x: auto;
+        padding-bottom: 10px;
+    }
+}
+
+/* Small Mobile (max-width: 420px) */
+@media (max-width: 420px) {
+    .hero-meta-top {
+        gap: 4px;
+    }
+
+    .food-card-media {
+        height: 160px;
+    }
+
+    .payment-methods-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .nutrition-metrics-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

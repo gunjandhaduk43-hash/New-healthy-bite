@@ -1,0 +1,95 @@
+/**
+ * Healthy Bite — Responsive Breakpoints & Fine-Tuning
+ * 320px, 360px, 375px, 390px, 414px, 768px, 1024px, 1280px, 1440px, 1600px
+ */
+
+/* Ultra small mobile devices (320px - 360px) */
+@media (max-width: 360px) {
+  :root {
+    --font-size-base: 0.9375rem;
+    --font-size-2xl: 1.3rem;
+  }
+  
+  .hero-title {
+    font-size: 1.4rem;
+  }
+
+  .food-card-media {
+    width: 95px !important;
+  }
+
+  .food-card-name {
+    font-size: 13px !important;
+  }
+
+  .food-card-body {
+    padding: 8px 10px !important;
+  }
+
+  .macro-chip {
+    font-size: 9px !important;
+    padding: 1px 4px !important;
+  }
+
+  .mobile-floating-cart {
+    padding: 10px 14px;
+  }
+}
+
+/* Standard Mobile Range (360px - 480px) e.g. 390px iPhone */
+@media (min-width: 361px) and (max-width: 480px) {
+  .hero-title {
+    font-size: 1.6rem;
+  }
+  
+  .food-card-media {
+    width: 110px;
+  }
+}
+
+/* Tablet portrait & landscape (640px - 1023px) */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .food-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .food-card {
+    flex-direction: column !important;
+  }
+
+  .food-card-media {
+    width: 100% !important;
+    aspect-ratio: 16 / 10;
+  }
+
+  .food-card-body {
+    padding: var(--space-4) !important;
+  }
+
+  .card-top-badges {
+    display: flex !important;
+  }
+}
+
+/* Large Desktop (1440px - 1600px+) */
+@media (min-width: 1440px) {
+  .app-container {
+    max-width: 1380px;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .site-header,
+  .mobile-bottom-nav,
+  .mobile-floating-cart,
+  .btn,
+  .modal-backdrop {
+    display: none !important;
+  }
+
+  body {
+    background: #ffffff;
+    color: #000000;
+  }
+}

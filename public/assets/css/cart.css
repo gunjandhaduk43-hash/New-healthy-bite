@@ -1,0 +1,461 @@
+/**
+ * HEALTHY BITE — Cart Drawer, Complete-the-Meal & Floating Bar
+ * Modern, Frictionless Mobile-First Experience
+ */
+
+/* 1. Backdrop */
+.cart-drawer-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(17, 24, 39, 0.6);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 1100;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transition-normal), visibility var(--transition-normal);
+}
+
+.cart-drawer-backdrop.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* 2. Slide-in Drawer Container */
+.cart-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    max-width: 440px;
+    height: 100vh;
+    height: 100dvh;
+    background-color: #ffffff;
+    box-shadow: -8px 0 30px rgba(0, 0, 0, 0.18);
+    z-index: 1110;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cart-drawer-backdrop.active .cart-drawer {
+    transform: translateX(0);
+}
+
+/* Drawer Header */
+.cart-header {
+    padding: var(--space-4) var(--space-5);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ffffff;
+}
+
+.cart-header-title {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin: 0;
+}
+
+.cart-close-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background-color: var(--surface-sunken);
+    border: none;
+    color: var(--text-main);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 15px;
+    transition: background-color var(--transition-fast);
+}
+
+.cart-close-btn:hover {
+    background-color: #E2E8F0;
+}
+
+/* Drawer Scrollable Body */
+.cart-body {
+    padding: var(--space-4) var(--space-5);
+    overflow-y: auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    scrollbar-width: thin;
+}
+
+/* Empty State */
+.cart-empty-state {
+    text-align: center;
+    padding: var(--space-12) var(--space-4);
+    margin: auto 0;
+}
+
+.cart-empty-icon {
+    font-size: 44px;
+    color: var(--text-subtle);
+    margin-bottom: var(--space-2);
+}
+
+.cart-empty-state h4 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 var(--space-1);
+}
+
+.cart-empty-state p {
+    font-size: 13.5px;
+    color: var(--text-muted);
+    margin: 0 0 var(--space-5);
+}
+
+/* Cart Item Card */
+.cart-item {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    box-shadow: var(--shadow-xs);
+    transition: border-color var(--transition-fast);
+}
+
+.cart-item:hover {
+    border-color: var(--border-strong);
+}
+
+.cart-item-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.cart-item-name {
+    font-size: 14.5px;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.3;
+}
+
+.cart-item-price {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--text-primary);
+    white-space: nowrap;
+}
+
+.cart-item-meta {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    background: var(--surface-sunken);
+    padding: 4px 8px;
+    border-radius: 6px;
+}
+
+.cart-item-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 4px;
+}
+
+.cart-item-nutrition {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--primary-green);
+}
+
+.cart-item-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.quantity-control {
+    display: inline-flex;
+    align-items: center;
+    background-color: var(--surface-sunken);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+}
+
+.quantity-control .qty-btn {
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: transparent;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--text-main);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color var(--transition-fast);
+}
+
+.quantity-control .qty-btn:hover {
+    background-color: #E2E8F0;
+}
+
+.quantity-control .qty-display {
+    min-width: 24px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.btn-remove-item {
+    width: 30px;
+    height: 30px;
+    border-radius: var(--radius-sm);
+    background-color: #FEF2F2;
+    border: 1px solid #FECACA;
+    color: var(--color-error);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all var(--transition-fast);
+}
+
+.btn-remove-item:hover {
+    background-color: var(--color-error);
+    color: #ffffff;
+}
+
+/* ============================================================
+   3. COMPLETE-THE-MEAL SUGGESTIONS (Prompt Requirement #25)
+   ============================================================ */
+.cart-suggestions-box {
+    background: linear-gradient(135deg, var(--primary-50) 0%, #FFFFFF 100%);
+    border: 1px solid var(--primary-200);
+    border-radius: var(--radius-card);
+    padding: 12px 14px;
+    margin-top: var(--space-2);
+}
+
+.suggestions-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.suggestions-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--dark-green);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.suggestions-sub {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.suggestions-scroll-row {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+}
+
+.suggestions-scroll-row::-webkit-scrollbar {
+    display: none;
+}
+
+.suggestion-chip-card {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 8px 10px;
+    min-width: 140px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    box-shadow: var(--shadow-xs);
+    flex-shrink: 0;
+}
+
+.suggestion-chip-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.suggestion-chip-img {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    object-fit: cover;
+    background-color: var(--surface-sunken);
+}
+
+.suggestion-chip-name {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.suggestion-chip-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 4px;
+}
+
+.suggestion-chip-price {
+    font-size: 12.5px;
+    font-weight: 800;
+    color: var(--text-main);
+}
+
+.btn-add-suggestion {
+    background: var(--primary-50);
+    border: 1px solid var(--primary-200);
+    color: var(--primary-green);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.btn-add-suggestion:hover {
+    background: var(--primary-green);
+    color: #ffffff;
+}
+
+/* ============================================================
+   4. DRAWER FOOTER & TOTALS
+   ============================================================ */
+.cart-footer {
+    padding: var(--space-4) var(--space-5);
+    background-color: #FAFAFA;
+    border-top: 1px solid var(--border-color);
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.cart-summary-breakdown {
+    margin-bottom: var(--space-3);
+}
+
+.cart-summary-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 5px;
+}
+
+.cart-summary-line.total-line {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--text-primary);
+    border-top: 1px dashed var(--border-strong);
+    padding-top: 8px;
+    margin-top: 8px;
+}
+
+.total-price {
+    color: var(--primary-green);
+    font-size: 18px;
+}
+
+.btn-checkout {
+    width: 100%;
+    padding: 13px;
+    font-size: 15px;
+    font-weight: 700;
+    gap: 8px;
+}
+
+/* ============================================================
+   5. FLOATING CART BAR (Mobile Sticky Pill)
+   ============================================================ */
+.floating-cart-bar {
+    position: fixed;
+    bottom: 16px;
+    left: 16px;
+    right: 16px;
+    background: linear-gradient(135deg, #1B5E20 0%, #2E7D32 100%);
+    color: #ffffff;
+    border-radius: var(--radius-card);
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 10px 25px -3px rgba(27, 94, 32, 0.4);
+    z-index: 1000;
+    cursor: pointer;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.floating-cart-bar:active {
+    transform: scale(0.98);
+}
+
+.floating-cart-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.floating-cart-badge {
+    background-color: #ffffff;
+    color: var(--dark-green);
+    font-weight: 800;
+    font-size: 12px;
+    min-width: 22px;
+    height: 22px;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 5px;
+}
+
+.floating-cart-label {
+    font-weight: 700;
+    font-size: 14.5px;
+    letter-spacing: -0.1px;
+}
+
+.floating-cart-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: 800;
+}

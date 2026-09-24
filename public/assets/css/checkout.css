@@ -1,0 +1,800 @@
+/* ============================================================
+   HEALTHY BITE — Checkout, Confirmation & Order Tracking Styles
+   Modern, Premium, Accessible Customer Dining Experience
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   1. CHECKOUT LAYOUT & HEADER
+   ------------------------------------------------------------ */
+.checkout-container {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: var(--space-6) var(--space-4) var(--space-12);
+}
+
+.checkout-back-bar {
+    margin-bottom: var(--space-4);
+}
+
+.btn-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    text-decoration: none;
+    padding: 7px 16px;
+    border-radius: var(--radius-pill);
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-xs);
+    transition: all var(--transition-fast);
+}
+
+.btn-back-link:hover {
+    color: var(--primary-green);
+    border-color: var(--primary-green);
+    background: var(--light-green);
+    transform: translateX(-2px);
+}
+
+.checkout-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-bottom: var(--space-6);
+}
+
+.checkout-page-title {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin: 0;
+    letter-spacing: -0.02em;
+}
+
+.checkout-step-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--light-green);
+    color: var(--primary-green);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: var(--radius-pill);
+    border: 1px solid rgba(46, 125, 50, 0.2);
+}
+
+/* ------------------------------------------------------------
+   2. CHECKOUT TWO-COLUMN GRID
+   ------------------------------------------------------------ */
+.checkout-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: var(--space-6);
+    align-items: flex-start;
+}
+
+.checkout-form-column {
+    min-width: 0;
+}
+
+.checkout-summary-column {
+    min-width: 0;
+}
+
+/* ------------------------------------------------------------
+   3. CHECKOUT CARDS
+   ------------------------------------------------------------ */
+.checkout-card {
+    background-color: var(--card-bg, #ffffff);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-card);
+    padding: var(--space-6);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: var(--space-5);
+    transition: box-shadow var(--transition-fast);
+}
+
+.checkout-card:hover {
+    box-shadow: var(--shadow-md);
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0 0 var(--space-4) 0;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    color: var(--text-primary);
+}
+
+.card-title i {
+    font-size: 20px;
+}
+
+/* ------------------------------------------------------------
+   4. DINING OPTION SWITCH (Dine-In vs Takeaway)
+   ------------------------------------------------------------ */
+.order-type-switch {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background-color: #f1f5f9;
+    padding: 4px;
+    border-radius: var(--radius-btn);
+    margin-bottom: var(--space-4);
+    gap: 4px;
+}
+
+.switch-btn {
+    background: none;
+    border: none;
+    padding: 10px 14px;
+    border-radius: calc(var(--radius-btn) - 2px);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    outline: none;
+}
+
+.switch-btn:hover {
+    color: var(--text-primary);
+}
+
+.switch-btn.active {
+    background-color: #ffffff;
+    color: var(--primary-green);
+    box-shadow: var(--shadow-sm);
+    font-weight: 700;
+}
+
+.table-info-group {
+    margin-top: var(--space-3);
+}
+
+.table-session-locked-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--light-green);
+    color: var(--primary-700);
+    border: 1px solid rgba(46, 125, 50, 0.25);
+    padding: 12px 16px;
+    border-radius: var(--radius-btn);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.table-session-locked-badge i {
+    font-size: 18px;
+    color: var(--primary-green);
+}
+
+.takeaway-notice {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: var(--light-green);
+    border: 1px solid rgba(46, 125, 50, 0.2);
+    padding: 12px 16px;
+    border-radius: var(--radius-btn);
+    font-size: 13px;
+    color: var(--primary-800);
+    line-height: 1.45;
+    margin-top: var(--space-3);
+}
+
+/* ------------------------------------------------------------
+   5. FORM CONTROLS
+   ------------------------------------------------------------ */
+.form-group {
+    margin-bottom: var(--space-4);
+}
+
+.form-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--text-main);
+}
+
+.form-input, 
+.form-select, 
+.form-textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-btn);
+    font-size: 14px;
+    font-family: var(--font-family);
+    background-color: #ffffff;
+    color: var(--text-main);
+    box-sizing: border-box;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.form-input:focus, 
+.form-select:focus, 
+.form-textarea:focus {
+    outline: none;
+    border-color: var(--primary-green);
+    box-shadow: var(--focus-ring);
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 64px;
+}
+
+.form-hint {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 5px;
+    display: block;
+    line-height: 1.35;
+}
+
+/* ------------------------------------------------------------
+   6. PAYMENT METHOD CARDS
+   ------------------------------------------------------------ */
+.payment-methods-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+}
+
+.payment-method-card {
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-btn);
+    padding: 16px 10px;
+    text-align: center;
+    cursor: pointer;
+    background: #ffffff;
+    transition: all var(--transition-fast);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    user-select: none;
+    outline: none;
+}
+
+.payment-method-card:hover {
+    border-color: var(--primary-300);
+    background-color: var(--primary-50);
+}
+
+.payment-method-card.selected {
+    border-color: var(--primary-green);
+    background-color: var(--light-green);
+    box-shadow: 0 0 0 1px var(--primary-green);
+}
+
+.payment-icon {
+    font-size: 24px;
+    color: var(--text-main);
+    margin-bottom: 2px;
+    line-height: 1;
+}
+
+.payment-method-card.selected .payment-icon {
+    color: var(--primary-green);
+}
+
+.payment-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.payment-sub {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.25;
+}
+
+.payment-method-card.selected .payment-sub {
+    color: var(--primary-700);
+    font-weight: 500;
+}
+
+.payment-security-note {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    background: var(--bg-subtle);
+    padding: 10px 14px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-subtle);
+    margin-top: var(--space-3);
+}
+
+.payment-security-note i {
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+/* Submit Order Button */
+.btn-submit-order {
+    width: 100%;
+    padding: 14px 20px;
+    font-size: 16px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border-radius: var(--radius-btn);
+    background: var(--primary-green);
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-fast);
+    margin-top: var(--space-4);
+}
+
+.btn-submit-order:hover {
+    background: var(--dark-green);
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-1px);
+}
+
+.btn-submit-order:active {
+    transform: translateY(0);
+}
+
+/* ------------------------------------------------------------
+   7. STICKY ORDER SUMMARY
+   ------------------------------------------------------------ */
+.summary-card {
+    position: sticky;
+    top: 90px;
+}
+
+.summary-items-list {
+    margin-bottom: var(--space-4);
+    max-height: 280px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.summary-item-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    font-size: 13px;
+    padding: var(--space-2) 0;
+    border-bottom: 1px solid var(--border-subtle);
+    gap: var(--space-2);
+}
+
+.summary-item-row:last-child {
+    border-bottom: none;
+}
+
+.checkout-totals-breakdown {
+    border-top: 1px dashed var(--border-color);
+    padding-top: var(--space-4);
+    margin-top: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.cart-summary-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.cart-summary-line.total-line {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary);
+    border-top: 1px solid var(--border-color);
+    padding-top: var(--space-3);
+    margin-top: var(--space-2);
+}
+
+.summary-val {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.total-highlight {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--primary-green);
+}
+
+.summary-security-banner {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: var(--space-5);
+    padding: 10px 12px;
+    background: var(--bg-subtle);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-subtle);
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+.summary-security-banner i {
+    flex-shrink: 0;
+}
+
+/* ------------------------------------------------------------
+   8. ORDER CONFIRMATION SCREEN
+   ------------------------------------------------------------ */
+.confirmation-container {
+    max-width: 660px;
+    margin: var(--space-6) auto var(--space-12);
+    padding: 0 var(--space-4);
+}
+
+.confirmation-card {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-card);
+    padding: var(--space-8) var(--space-6);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+}
+
+.success-icon-wrapper {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: var(--light-green);
+    color: var(--primary-green);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    margin-bottom: var(--space-4);
+    border: 2px solid rgba(46, 125, 50, 0.25);
+    animation: pulse-success 1.6s ease infinite alternate;
+}
+
+@keyframes pulse-success {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(46, 125, 50, 0.25); }
+    100% { transform: scale(1.06); box-shadow: 0 0 0 10px rgba(46, 125, 50, 0); }
+}
+
+.confirmation-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--light-green);
+    color: var(--primary-700);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 5px 14px;
+    border-radius: var(--radius-pill);
+    margin-bottom: var(--space-3);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.confirmation-title {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin: 0 0 var(--space-2);
+    letter-spacing: -0.02em;
+}
+
+.confirmation-subtitle {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin: 0 auto var(--space-6);
+    max-width: 480px;
+    line-height: 1.5;
+}
+
+/* Order Metadata / Receipt Card */
+.order-receipt-card {
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-btn);
+    padding: var(--space-4) var(--space-5);
+    margin-bottom: var(--space-6);
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.receipt-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+}
+
+.receipt-label {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.receipt-val {
+    color: var(--text-primary);
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.order-num-badge {
+    font-family: monospace;
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.table-val {
+    color: var(--primary-green);
+    font-weight: 700;
+}
+
+.payment-val {
+    color: var(--color-success);
+    font-weight: 700;
+}
+
+.receipt-row.total-row {
+    border-top: 1px dashed var(--border-color);
+    padding-top: var(--space-3);
+    margin-top: var(--space-1);
+    font-size: 15px;
+}
+
+.receipt-row.total-row .receipt-label {
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.total-amount-val {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--primary-green);
+}
+
+/* Dishes Breakdown */
+.receipt-items-section {
+    text-align: left;
+    margin-bottom: var(--space-6);
+}
+
+.receipt-section-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: var(--space-3);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.receipt-items-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-btn);
+    padding: var(--space-3) var(--space-4);
+    background: #ffffff;
+}
+
+.receipt-item-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-subtle);
+    gap: var(--space-3);
+}
+
+.receipt-item-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.item-left {
+    flex: 1;
+}
+
+.item-title {
+    font-size: 13px;
+    color: var(--text-primary);
+}
+
+.item-qty {
+    font-weight: 700;
+    color: var(--primary-green);
+    margin-right: 4px;
+}
+
+.item-variant {
+    color: var(--text-secondary);
+    font-size: 12px;
+    font-weight: normal;
+}
+
+.item-addons {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+
+.item-macros {
+    font-size: 11px;
+    color: var(--accent-amber-dark);
+    font-weight: 600;
+    margin-top: 3px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.item-price {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-primary);
+    white-space: nowrap;
+}
+
+/* Action Buttons */
+.confirmation-actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    margin-top: var(--space-6);
+}
+
+.btn-track-live {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 20px;
+    font-size: 15px;
+    font-weight: 700;
+    border-radius: var(--radius-btn);
+    background: var(--primary-green);
+    color: #ffffff;
+    text-decoration: none;
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-fast);
+}
+
+.btn-track-live:hover {
+    background: var(--dark-green);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-lg);
+    color: #ffffff;
+}
+
+.btn-back-menu {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: var(--radius-btn);
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+}
+
+.btn-back-menu:hover {
+    background: var(--bg-subtle);
+    border-color: var(--border-strong);
+    color: var(--text-primary);
+}
+
+/* ------------------------------------------------------------
+   9. ORDER TRACKING TIMELINE STEPPER
+   ------------------------------------------------------------ */
+.tracking-stepper {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    margin: var(--space-8) 0;
+}
+
+.tracking-stepper::before {
+    content: '';
+    position: absolute;
+    top: 18px;
+    left: 20px;
+    right: 20px;
+    height: 3px;
+    background-color: #e2e8f0;
+    z-index: 1;
+}
+
+.step-item {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 80px;
+}
+
+.step-dot {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    border: 3px solid #cbd5e1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: #94a3b8;
+    margin-bottom: 8px;
+    transition: all var(--transition-normal);
+}
+
+.step-item.active .step-dot {
+    border-color: var(--primary-green);
+    background-color: var(--primary-green);
+    color: #ffffff;
+    box-shadow: 0 0 0 4px var(--light-green);
+}
+
+.step-item.completed .step-dot {
+    border-color: var(--color-success);
+    background-color: var(--color-success);
+    color: #ffffff;
+}
+
+.step-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    transition: color var(--transition-fast);
+}
+
+.step-item.active .step-label {
+    color: var(--primary-green);
+    font-weight: 700;
+}
+
+.step-item.completed .step-label {
+    color: var(--text-primary);
+}

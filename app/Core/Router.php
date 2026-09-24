@@ -1,80 +1,77 @@
 <?php
-
 declare(strict_types=1);
 
 namespace App\Core;
 
-use RuntimeException;
-
-final class Router
+class Router
 {
-    /** @var array<string, array<string, array{handler: array{0: class-string, 1: string}, middleware: list<class-string>}>> */
     private array $routes = [];
 
-    /** @param array{0: class-string, 1: string} $handler */
-    public function get(string $path, array $handler, array $middleware = []): void
+    public function get(string $path, array|callable $handler): void
     {
-        $this->add('GET', $path, $handler, $middleware);
+        $this->addRoute('GET', $path, $handler);
     }
 
-    /** @param array{0: class-string, 1: string} $handler */
-    public function post(string $path, array $handler, array $middleware = []): void
+    public function post(string $path, array|callable $handler): void
     {
-        $this->add('POST', $path, $handler, $middleware);
+        $this->addRoute('POST', $path, $handler);
     }
 
-    /** @param array{0: class-string, 1: string} $handler */
-    private function add(string $method, string $path, array $handler, array $middleware): void
+    private function addRoute(string $method, string $path, array|callable $handler): void
     {
-        $this->routes[$method][$path] = [
+        $normalized = '/' . trim($path, '/');
+        $this->routes[] = [
+            'method'  => $method,
+            'path'    => $normalized,
+            'pattern' => $this->convertPathToRegex($normalized),
             'handler' => $handler,
-            'middleware' => $middleware,
         ];
+    }
+
+    private function convertPathToRegex(string $path): string
+    {
+        $pattern = preg_replace('#\{([a-zA-Z0-9_]+)\}#', '(?P<$1>[^/]+)', $path);
+        return '#^' . $pattern . '$#';
     }
 
     public function dispatch(): void
     {
-        $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
-        $path = $this->requestPath();
-        
-        // Debug incoming route matching
-        error_log("Router dispatch: Method = " . $method . ", Path = " . $path);
+        $requestMethod = Request::getMethod();
+        $requestPath   = Request::getPath();
 
-        $route = $this->routes[$method][$path] ?? null;
+        foreach ($this->routes as $route) {
+            if ($route['method'] !== $requestMethod) {
+                continue;
+            }
 
-        if ($route === null) {
-            error_log("Router 404 mismatch: Method = " . $method . ", Path = " . $path);
-            http_response_code(404);
-            View::render('errors/404', ['title' => 'Page not found'], 'auth');
-            return;
-        }
+            if (preg_match($route['pattern'], $requestPath, $matches)) {
+                $params = array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
+                $handler = $route['handler'];
 
-        foreach ($route['middleware'] as $middleware) {
-            (new $middleware())->handle();
-        }
+                if (is_callable($handler)) {
+                    call_user_func_array($handler, $params);
+                    return;
+                }
 
-        [$controllerClass, $controllerMethod] = $route['handler'];
-        $controller = new $controllerClass();
-
-        if (!method_exists($controller, $controllerMethod)) {
-            throw new RuntimeException('Route handler is not available.');
-        }
-
-        $controller->{$controllerMethod}();
-    }
-
-    private function requestPath(): string
-    {
-        $scriptName = $_SERVER['SCRIPT_NAME'] ?? '';
-        $path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
-
-        if (str_ends_with($scriptName, '.php')) {
-            $scriptDirectory = str_replace('\\', '/', dirname($scriptName));
-            if ($scriptDirectory !== '/' && $scriptDirectory !== '.' && str_starts_with($path, $scriptDirectory)) {
-                $path = substr($path, strlen($scriptDirectory));
+                if (is_array($handler) && count($handler) === 2) {
+                    [$class, $method] = $handler;
+                    if (class_exists($class)) {
+                        $controller = new $class();
+                        if (method_exists($controller, $method)) {
+                            call_user_func_array([$controller, $method], $params);
+                            return;
+                        }
+                    }
+                }
             }
         }
 
-        return '/' . trim($path, '/');
+        if (str_starts_with($requestPath, '/api/')) {
+            Response::json(['error' => 'API endpoint not found', 'path' => $requestPath], 404);
+        } else {
+            Response::setStatusCode(404);
+            $controller = new Controller();
+            echo $controller->render('customer/errors/404', ['path' => $requestPath], 'minimal');
+        }
     }
 }

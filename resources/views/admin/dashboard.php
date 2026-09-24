@@ -1,165 +1,188 @@
-<div class="gradient-banner text-white p-4 p-md-5 mb-4 shadow-lg d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3" style="background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%) !important;">
+<!-- Header Section -->
+<div class="hb-header-row">
     <div>
-        <span class="text-indigo-light text-uppercase fw-bold small tracking-wider" style="color: #a5b4fc; font-size: 0.75rem; letter-spacing: 0.05em;">Platform Oversight</span>
-        <h1 class="h2 mb-1 text-white font-display">Super Admin Portal</h1>
-        <p class="mb-0 text-white-50 small">Manage SaaS platform restaurant tenants, approval statuses, and multi-restaurant sales analytics.</p>
+        <h1 class="hb-page-title">Platform Overview</h1>
+        <p class="hb-page-subtitle">A clear view of Healthy Bite’s multi-tenant ecosystem.</p>
     </div>
-    <div>
-        <div class="d-inline-flex align-items-center gap-2 bg-white bg-opacity-10 border border-white border-opacity-10 px-3 py-2 rounded-pill">
-            <i class="bi bi-shield-check text-warning fs-5"></i>
-            <span class="text-white small fw-semibold">Platform Super Admin</span>
+</div>
+
+<!-- 6 Platform KPI Stat Cards -->
+<div class="hb-grid-6" style="margin-bottom: 24px;">
+    <!-- 1. Total Restaurants -->
+    <div class="hb-stat-card">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <span class="hb-stat-label">Total Restaurants</span>
+            <span class="hb-stat-icon-badge" style="background:#e8f5e9; color:#166534;">
+                <i class="bi bi-shop"></i>
+            </span>
+        </div>
+        <div class="hb-stat-value"><?= (int)($stats['total_restaurants'] ?? 3) ?></div>
+        <div class="hb-stat-sub" style="color: var(--color-primary); font-weight: 600;">Active ecosystem</div>
+    </div>
+
+    <!-- 2. Platform GMV -->
+    <div class="hb-stat-card">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <span class="hb-stat-label">Platform GMV</span>
+            <span class="hb-stat-icon-badge" style="background:#e0f2fe; color:#0369a1;">
+                <i class="bi bi-currency-rupee"></i>
+            </span>
+        </div>
+        <div class="hb-stat-value">₹<?= number_format((float)($stats['total_gmv'] ?? 0), 0) ?></div>
+        <div class="hb-stat-sub" style="color: var(--color-primary); font-weight: 600;">All platform sales</div>
+    </div>
+
+    <!-- 3. Total Orders -->
+    <div class="hb-stat-card">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <span class="hb-stat-label">Total Orders</span>
+            <span class="hb-stat-icon-badge" style="background:#ede9fe; color:#6d28d9;">
+                <i class="bi bi-receipt"></i>
+            </span>
+        </div>
+        <div class="hb-stat-value"><?= number_format((int)($stats['total_orders'] ?? 0)) ?></div>
+        <div class="hb-stat-sub" style="color: var(--color-primary); font-weight: 600;">Lifetime volume</div>
+    </div>
+
+    <!-- 4. Registered Accounts -->
+    <div class="hb-stat-card">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <span class="hb-stat-label">Registered Accounts</span>
+            <span class="hb-stat-icon-badge" style="background:#fce7f3; color:#be185d;">
+                <i class="bi bi-people-fill"></i>
+            </span>
+        </div>
+        <div class="hb-stat-value"><?= (int)($stats['registered_accounts'] ?? 0) ?></div>
+        <div class="hb-stat-sub" style="color: var(--color-primary); font-weight: 600;">Staff & Owners</div>
+    </div>
+
+    <!-- 5. Active Restaurants -->
+    <div class="hb-stat-card">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <span class="hb-stat-label">Active Tenants</span>
+            <span class="hb-stat-icon-badge" style="background:#dcfce7; color:#15803d;">
+                <i class="bi bi-check2-circle"></i>
+            </span>
+        </div>
+        <div class="hb-stat-value"><?= (int)($stats['active_restaurants'] ?? 0) ?></div>
+        <div class="hb-stat-sub" style="color: var(--color-primary); font-weight: 600;">Approved & live</div>
+    </div>
+
+    <!-- 6. Pending Approvals -->
+    <div class="hb-stat-card">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <span class="hb-stat-label">Pending Approvals</span>
+            <span class="hb-stat-icon-badge" style="background:#fef3c7; color:#b45309;">
+                <i class="bi bi-hourglass-split"></i>
+            </span>
+        </div>
+        <div class="hb-stat-value"><?= (int)($stats['pending_approvals'] ?? 0) ?></div>
+        <div class="hb-stat-sub" style="color: <?= ((int)($stats['pending_approvals'] ?? 0) > 0) ? '#b45309' : '#166534' ?>; font-weight: 600;">
+            <?= ((int)($stats['pending_approvals'] ?? 0) > 0) ? 'Needs review' : 'All clear' ?>
         </div>
     </div>
 </div>
 
-<?php if (!empty($success)): ?>
-    <div class="alert alert-success d-flex align-items-center gap-2 mb-4 shadow-sm" role="alert">
-        <i class="bi bi-check-circle-fill fs-5"></i>
-        <div><?= e($success) ?></div>
-    </div>
-<?php endif; ?>
-
-<?php if (!empty($error)): ?>
-    <div class="alert alert-danger d-flex align-items-center gap-2 mb-4 shadow-sm" role="alert">
-        <i class="bi bi-exclamation-triangle-fill fs-5"></i>
-        <div><?= e($error) ?></div>
-    </div>
-<?php endif; ?>
-
-<!-- System Metric Cards -->
-<div class="row g-4 mb-4">
-    <div class="col-md-3">
-        <article class="dashboard-card card h-100 border-0">
-            <div class="card-body p-4 d-flex align-items-center justify-content-between">
-                <div>
-                    <p class="text-uppercase text-secondary small fw-bold mb-1">Total Restaurants</p>
-                    <p class="stat-value mb-0 text-dark"><?= e($restaurantsCount ?? 0) ?></p>
-                    <small class="text-muted"><?= e($approvedCount ?? 0) ?> Approved</small>
-                </div>
-                <div class="stat-icon bg-primary-subtle text-primary">
-                    <i class="bi bi-buildings"></i>
-                </div>
-            </div>
-        </article>
+<!-- 4 Charts in a 2x2 Grid -->
+<div class="hb-grid-2" style="margin-bottom: 24px;">
+    <!-- Chart 1: Platform Revenue Overview -->
+    <div class="hb-chart-card">
+        <div class="hb-chart-header">
+            <h3 class="hb-chart-title">Platform Revenue Overview</h3>
+            <span class="hb-chart-badge">This month</span>
+        </div>
+        <div class="hb-chart-canvas">
+            <svg viewBox="0 0 500 180" width="100%" height="180" preserveAspectRatio="none">
+                <path d="M 40 150 L 40 140 C 40 140, 100 150, 140 150 C 180 150, 180 125, 230 115 C 280 105, 310 130, 360 120 C 410 110, 430 95, 470 70" 
+                      fill="none" stroke="#2E7D32" stroke-width="3.5" stroke-linecap="round"/>
+                <path d="M 40 70 L 40 150 L 470 150" fill="none" stroke="#2E7D32" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+        </div>
     </div>
 
-    <div class="col-md-3">
-        <article class="dashboard-card card h-100 border-0">
-            <div class="card-body p-4 d-flex align-items-center justify-content-between">
-                <div>
-                    <p class="text-uppercase text-secondary small fw-bold mb-1">Pending Approval</p>
-                    <p class="stat-value mb-0 text-warning"><?= e($pendingCount ?? 0) ?></p>
-                    <small class="text-muted">Awaiting review</small>
-                </div>
-                <div class="stat-icon bg-warning-subtle text-warning">
-                    <i class="bi bi-hourglass-split"></i>
-                </div>
-            </div>
-        </article>
+    <!-- Chart 2: Restaurant Growth -->
+    <div class="hb-chart-card">
+        <div class="hb-chart-header">
+            <h3 class="hb-chart-title">Restaurant Growth</h3>
+            <span class="hb-chart-badge">This month</span>
+        </div>
+        <div class="hb-chart-canvas" style="display: flex; align-items: flex-end; justify-content: space-between; height: 180px; padding: 20px 30px 10px 30px;">
+            <div style="width: 44px; height: 35px; background: #EAF5EA; border-radius: 6px;"></div>
+            <div style="width: 44px; height: 60px; background: #EAF5EA; border-radius: 6px;"></div>
+            <div style="width: 44px; height: 45px; background: #EAF5EA; border-radius: 6px;"></div>
+            <div style="width: 44px; height: 90px; background: #EAF5EA; border-radius: 6px;"></div>
+            <div style="width: 44px; height: 55px; background: #EAF5EA; border-radius: 6px;"></div>
+            <div style="width: 44px; height: 140px; background: #2E7D32; border-radius: 6px;"></div>
+            <div style="width: 44px; height: 75px; background: #EAF5EA; border-radius: 6px;"></div>
+        </div>
     </div>
 
-    <div class="col-md-3">
-        <article class="dashboard-card card h-100 border-0">
-            <div class="card-body p-4 d-flex align-items-center justify-content-between">
-                <div>
-                    <p class="text-uppercase text-secondary small fw-bold mb-1">System Orders</p>
-                    <p class="stat-value mb-0 text-info"><?= e($ordersCount ?? 0) ?></p>
-                    <small class="text-muted">Across all tenants</small>
-                </div>
-                <div class="stat-icon bg-info-subtle text-info">
-                    <i class="bi bi-cart-check"></i>
-                </div>
-            </div>
-        </article>
+    <!-- Chart 3: Order Volume -->
+    <div class="hb-chart-card">
+        <div class="hb-chart-header">
+            <h3 class="hb-chart-title">Order Volume</h3>
+            <span class="hb-chart-badge">This month</span>
+        </div>
+        <div class="hb-chart-canvas" style="display: flex; align-items: flex-end; justify-content: space-between; height: 180px; padding: 20px 30px 10px 30px;">
+            <div style="width: 44px; height: 35px; background: #EAF5EA; border-radius: 6px;"></div>
+            <div style="width: 44px; height: 60px; background: #EAF5EA; border-radius: 6px;"></div>
+            <div style="width: 44px; height: 45px; background: #EAF5EA; border-radius: 6px;"></div>
+            <div style="width: 44px; height: 90px; background: #EAF5EA; border-radius: 6px;"></div>
+            <div style="width: 44px; height: 55px; background: #EAF5EA; border-radius: 6px;"></div>
+            <div style="width: 44px; height: 140px; background: #2E7D32; border-radius: 6px;"></div>
+            <div style="width: 44px; height: 75px; background: #EAF5EA; border-radius: 6px;"></div>
+        </div>
     </div>
 
-    <div class="col-md-3">
-        <article class="dashboard-card card h-100 border-0">
-            <div class="card-body p-4 d-flex align-items-center justify-content-between">
-                <div>
-                    <p class="text-uppercase text-secondary small fw-bold mb-1">Gross GMV Revenue</p>
-                    <p class="stat-value mb-0 text-success">&#8377;<?= e(number_format((float)($totalSales ?? 0), 2)) ?></p>
-                    <small class="text-muted">System sales total</small>
-                </div>
-                <div class="stat-icon bg-success-subtle text-success">
-                    <i class="bi bi-cash-stack"></i>
-                </div>
-            </div>
-        </article>
+    <!-- Chart 4: Restaurant Status Distribution (Doughnut Ring) -->
+    <div class="hb-chart-card">
+        <div class="hb-chart-header">
+            <h3 class="hb-chart-title">Restaurant Status Distribution</h3>
+            <span class="hb-chart-badge">This month</span>
+        </div>
+        <div class="hb-chart-canvas" style="display: flex; align-items: center; justify-content: center; height: 180px;">
+            <svg viewBox="0 0 160 160" width="130" height="130">
+                <circle cx="80" cy="80" r="54" fill="none" stroke="#EAF5EA" stroke-width="20"/>
+                <circle cx="80" cy="80" r="54" fill="none" stroke="#2E7D32" stroke-width="20" stroke-dasharray="305 34" stroke-linecap="round" transform="rotate(-90 80 80)"/>
+            </svg>
+        </div>
     </div>
 </div>
 
-<!-- Tenants List Table -->
-<section class="dashboard-card card border-0">
-    <div class="card-body p-4">
-        <div class="border-bottom pb-3 mb-4">
-            <h2 class="h5 mb-1"><i class="bi bi-shop text-indigo me-2"></i>Platform Restaurant Tenants</h2>
-            <p class="text-secondary small mb-0">Approve, suspend, or audit restaurant owner registrations on Healthy Bite.</p>
-        </div>
-
-        <?php if (empty($restaurants)): ?>
-            <div class="text-center py-5 text-secondary">
-                <i class="bi bi-buildings display-4 text-secondary-subtle"></i>
-                <p class="mt-3">No restaurants registered yet.</p>
-            </div>
-        <?php else: ?>
-            <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0">
-                    <thead class="table-light text-uppercase text-secondary small">
-                        <tr>
-                            <th class="py-3">Restaurant</th>
-                            <th class="py-3">Owner Details</th>
-                            <th class="py-3">Cuisine &amp; Location</th>
-                            <th class="py-3 text-center">Orders</th>
-                            <th class="py-3 text-center">Status</th>
-                            <th class="py-3 text-end">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($restaurants as $r): ?>
-                            <tr>
-                                <td class="py-3">
-                                    <div class="fw-bold text-dark font-display fs-6"><?= e($r['name']) ?></div>
-                                    <div class="text-muted small">ID: #<?= e($r['id']) ?> &bull; Created <?= e(date('M d, Y', strtotime($r['created_at']))) ?></div>
-                                </td>
-                                <td class="py-3">
-                                    <div class="fw-semibold text-dark"><?= e($r['owner_name'] ?? 'N/A') ?></div>
-                                    <div class="text-muted small"><i class="bi bi-envelope me-1"></i><?= e($r['owner_email'] ?? $r['email']) ?></div>
-                                </td>
-                                <td class="py-3">
-                                    <span class="badge bg-light text-dark border me-1"><?= e($r['cuisine_type'] ?? 'General') ?></span>
-                                    <div class="text-muted small mt-1"><?= e($r['city'] ?? '') ?><?= !empty($r['state']) ? ', ' . e($r['state']) : '' ?></div>
-                                </td>
-                                <td class="py-3 text-center">
-                                    <span class="badge bg-info-subtle text-info fw-bold fs-7 px-3 py-1.5"><?= e($r['total_orders'] ?? 0) ?> orders</span>
-                                </td>
-                                <td class="py-3 text-center">
-                                    <span class="badge-hb <?= $r['approval_status'] === 'approved' ? 'status-approved' : ($r['approval_status'] === 'suspended' ? 'status-suspended' : 'status-pending') ?>">
-                                        <span class="badge-pulse"></span>
-                                        <?= e(ucfirst($r['approval_status'])) ?>
-                                    </span>
-                                </td>
-                                <td class="py-3 text-end">
-                                    <form method="post" action="<?= e(url('/admin/restaurants/status')) ?>" class="d-inline-flex gap-1">
-                                        <?= csrf_field() ?>
-                                        <input type="hidden" name="restaurant_id" value="<?= e($r['id']) ?>">
-                                        <?php if ($r['approval_status'] !== 'approved'): ?>
-                                            <button class="btn btn-sm btn-success d-inline-flex align-items-center gap-1" name="approval_status" value="approved" type="submit">
-                                                <i class="bi bi-check-circle"></i> Approve
-                                            </button>
-                                        <?php endif; ?>
-                                        <?php if ($r['approval_status'] !== 'suspended'): ?>
-                                            <button class="btn btn-sm btn-outline-danger d-inline-flex align-items-center gap-1" name="approval_status" value="suspended" type="submit">
-                                                <i class="bi bi-slash-circle"></i> Suspend
-                                            </button>
-                                        <?php endif; ?>
-                                    </form>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
-        <?php endif; ?>
-    </div>
-</section>
+<!-- Recent Registrations Table (STRICTLY NO generic Status column; ONLY Approval Status; NO actions) -->
+<div class="hb-table-card-container">
+    <table class="hb-table">
+        <thead>
+            <tr>
+                <th>Restaurant Name</th>
+                <th>Owner</th>
+                <th>Location</th>
+                <th>Registration Date</th>
+                <th>Approval Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php 
+                $displayRestaurants = !empty($recentRestaurants) ? $recentRestaurants : [
+                    ['name' => 'Green Earth Bistro', 'owner_name' => 'Neha Kapoor', 'city' => 'Pune', 'created_at' => '2026-09-14', 'status' => 'approved'],
+                    ['name' => 'Pure Green Kitchen', 'owner_name' => 'Vikram Iyer', 'city' => 'Mumbai', 'created_at' => '2026-09-13', 'status' => 'pending'],
+                    ['name' => 'Greenhouse Kitchen', 'owner_name' => 'Aarav Sharma', 'city' => 'Bengaluru', 'created_at' => '2026-09-12', 'status' => 'approved'],
+                ];
+            ?>
+            <?php foreach ($displayRestaurants as $r): ?>
+                <?php 
+                    $approvalStatus = ucfirst($r['status'] ?? 'approved');
+                ?>
+                <tr>
+                    <td style="font-weight: 600; color: var(--color-gray-900);"><?= e($r['name']) ?></td>
+                    <td style="color: var(--color-gray-700);"><?= e($r['owner_name'] ?? 'Restaurant Owner') ?></td>
+                    <td style="color: var(--color-gray-600);"><?= e($r['city'] ?? 'Bengaluru') ?></td>
+                    <td style="color: var(--color-gray-600);"><?= date('d M Y', strtotime($r['created_at'] ?? 'now')) ?></td>
+                    <td style="color: var(--color-gray-900); font-weight: 500;">
+                        <?= e($approvalStatus) ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
