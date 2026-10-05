@@ -22,6 +22,12 @@ class OrderController extends Controller
 
         try {
             $order = $this->orderService->placeOrder($payload);
+            if (session_status() === PHP_SESSION_NONE) {
+                @session_start();
+            }
+            if (!empty($order['order_number'])) {
+                $_SESSION['last_order_number'] = $order['order_number'];
+            }
             $this->json([
                 'status'  => 'success',
                 'message' => 'Order placed successfully.',
@@ -33,6 +39,30 @@ class OrderController extends Controller
                 'message' => $e->getMessage(),
             ], 422);
         }
+    }
+
+    public function liveKitchen(): void
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            @session_start();
+        }
+        $lastOrder = $_SESSION['last_order_number'] ?? null;
+        if (!empty($lastOrder)) {
+            \App\Core\Response::redirect("/menu/tracking/{$lastOrder}");
+            return;
+        }
+
+        $tableId = (int)($_GET['table_id'] ?? 4);
+        $restaurantId = (int)($_GET['restaurant_id'] ?? 1);
+        $orderRepo = new \App\Repositories\OrderRepository();
+        $order = $orderRepo->findLatestActiveByTable($tableId, $restaurantId);
+
+        if ($order && !empty($order['order_number'])) {
+            \App\Core\Response::redirect("/menu/tracking/{$order['order_number']}");
+            return;
+        }
+
+        \App\Core\Response::redirect('/menu');
     }
 
     public function getOrder(string $orderNumber): void

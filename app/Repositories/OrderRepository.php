@@ -530,4 +530,179 @@ class OrderRepository
         }
         return $rows;
     }
+
+    public function getFilteredAnalytics(int $restaurantId, string $period = 'month', ?string $startDate = null, ?string $endDate = null): array
+    {
+        $now = new \DateTimeImmutable();
+        if ($period === 'today') {
+            $start = $now->format('Y-m-d 00:00:00');
+            $end   = $now->format('Y-m-d 23:59:59');
+        } elseif ($period === 'week') {
+            $start = $now->modify('-6 days')->format('Y-m-d 00:00:00');
+            $end   = $now->format('Y-m-d 23:59:59');
+        } elseif ($period === 'custom' && !empty($startDate) && !empty($endDate)) {
+            $s = \DateTimeImmutable::createFromFormat('Y-m-d', substr(trim($startDate), 0, 10));
+            $e = \DateTimeImmutable::createFromFormat('Y-m-d', substr(trim($endDate), 0, 10));
+            $start = $s ? $s->format('Y-m-d 00:00:00') : $now->modify('-29 days')->format('Y-m-d 00:00:00');
+            $end   = $e ? $e->format('Y-m-d 23:59:59') : $now->format('Y-m-d 23:59:59');
+            if ($start > $end) {
+                $tmp = $start; $start = $end; $end = $tmp;
+            }
+        } else {
+            $period = 'month';
+            $start  = $now->modify('-29 days')->format('Y-m-d 00:00:00');
+            $end    = $now->format('Y-m-d 23:59:59');
+        }
+
+        // Summary KPI
+        $stmt = $this->db->prepare("
+            SELECT 
+                COUNT(*) AS total_orders,
+                COALESCE(SUM(total_amount), 0) AS total_revenue,
+                COALESCE(SUM(subtotal), 0) AS net_sales,
+                SUM(CASE WHEN order_status IN ('placed', 'accepted', 'preparing', 'ready') THEN 1 ELSE 0 END) AS active_orders,
+                SUM(CASE WHEN order_status = 'completed' THEN 1 ELSE 0 END) AS completed_orders
+            FROM orders
+            WHERE restaurant_id = :restaurant_id
+              AND created_at BETWEEN :start_date AND :end_date
+        ");
+        $stmt->execute([
+            'restaurant_id' => $restaurantId,
+            'start_date'    => $start,
+            'end_date'      => $end
+        ]);
+        $summary = $stmt->fetch() ?: [];
+        $totalOrders = (int)($summary['total_orders'] ?? 0);
+        $totalRevenue = (float)($summary['total_revenue'] ?? 0);
+        $summary['aov'] = $totalOrders > 0 ? round($totalRevenue / $totalOrders, 2) : 0.00;
+
+        // Macro & Nutrition Query
+        $stmtMacro = $this->db->prepare("
+            SELECT 
+                COALESCE(SUM(oi.calories * oi.quantity), 0) AS total_calories,
+                COALESCE(SUM(oi.protein * oi.quantity), 0) AS total_protein,
+                COALESCE(SUM(oi.carbs * oi.quantity), 0) AS total_carbs,
+                COALESCE(SUM(oi.fat * oi.quantity), 0) AS total_fat,
+                COALESCE(SUM(oi.sugar * oi.quantity), 0) AS total_sugar,
+                COALESCE(SUM(oi.caffeine * oi.quantity), 0) AS total_caffeine,
+                COALESCE(AVG(oi.calories), 0) AS avg_calories,
+                COALESCE(AVG(oi.protein), 0) AS avg_protein,
+                COALESCE(AVG(oi.sugar), 0) AS avg_sugar,
+                COALESCE(AVG(oi.caffeine), 0) AS avg_caffeine
+            FROM order_items oi
+            JOIN orders o ON oi.order_id = o.id
+            WHERE o.restaurant_id = :restaurant_id
+              AND o.created_at BETWEEN :start_date AND :end_date
+        ");
+        $stmtMacro->execute([
+            'restaurant_id' => $restaurantId,
+            'start_date'    => $start,
+            'end_date'      => $end
+        ]);
+        $macroStats = $stmtMacro->fetch() ?: [
+            'total_calories' => 0, 'total_protein' => 0, 'total_carbs' => 0,
+            'total_fat' => 0, 'total_sugar' => 0, 'total_caffeine' => 0,
+            'avg_calories' => 0, 'avg_protein' => 0, 'avg_sugar' => 0, 'avg_caffeine' => 0
+        ];
+
+        // Payment stats
+        $stmtPayment = $this->db->prepare("
+            SELECT 
+                COALESCE(p.payment_method, 'UPI') AS payment_method,
+                COUNT(DISTINCT o.id) AS count,
+                COALESCE(SUM(o.total_amount), 0) AS total
+            FROM orders o
+            LEFT JOIN payments p ON p.order_id = o.id
+            WHERE o.restaurant_id = :restaurant_id
+              AND o.created_at BETWEEN :start_date AND :end_date
+            GROUP BY payment_method
+        ");
+        $stmtPayment->execute([
+            'restaurant_id' => $restaurantId,
+            'start_date'    => $start,
+            'end_date'      => $end
+        ]);
+        $paymentRows = $stmtPayment->fetchAll();
+        $grandPaymentTotal = array_sum(array_column($paymentRows, 'total'));
+        foreach ($paymentRows as &$pr) {
+            $pr['percentage'] = $grandPaymentTotal > 0 ? round(($pr['total'] / $grandPaymentTotal) * 100, 1) : 0;
+        }
+
+        // Daily trends
+        $stmtTrend = $this->db->prepare("
+            SELECT 
+                DATE(created_at) AS order_date,
+                COUNT(*) AS order_count,
+                COALESCE(SUM(total_amount), 0) AS daily_revenue
+            FROM orders
+            WHERE restaurant_id = :restaurant_id
+              AND created_at BETWEEN :start_date AND :end_date
+            GROUP BY DATE(created_at)
+            ORDER BY order_date ASC
+        ");
+        $stmtTrend->execute([
+            'restaurant_id' => $restaurantId,
+            'start_date'    => $start,
+            'end_date'      => $end
+        ]);
+        $trends = $stmtTrend->fetchAll();
+
+        // Top-selling items
+        $stmtTop = $this->db->prepare("
+            SELECT 
+                oi.food_item_id,
+                oi.food_name_snapshot AS name,
+                fi.image,
+                SUM(oi.quantity) AS total_sold,
+                SUM(oi.total_price) AS total_revenue
+            FROM order_items oi
+            JOIN orders o ON oi.order_id = o.id
+            LEFT JOIN food_items fi ON oi.food_item_id = fi.id
+            WHERE o.restaurant_id = :restaurant_id
+              AND o.created_at BETWEEN :start_date AND :end_date
+            GROUP BY oi.food_item_id, oi.food_name_snapshot, fi.image
+            ORDER BY total_sold DESC
+            LIMIT 5
+        ");
+        $stmtTop->execute([
+            'restaurant_id' => $restaurantId,
+            'start_date'    => $start,
+            'end_date'      => $end
+        ]);
+        $topItems = $stmtTop->fetchAll();
+
+        // Orders list for export and detail inspection
+        $stmtOrders = $this->db->prepare("
+            SELECT 
+                o.id, o.order_number, o.created_at, o.order_type, o.order_status, o.payment_status,
+                o.subtotal, o.tax, o.service_charge, o.total_amount,
+                t.table_number, c.name AS customer_name, c.mobile AS customer_mobile,
+                (SELECT GROUP_CONCAT(CONCAT(oi.quantity, 'x ', oi.food_name_snapshot) SEPARATOR ', ')
+                 FROM order_items oi WHERE oi.order_id = o.id) AS items_summary
+            FROM orders o
+            LEFT JOIN restaurant_tables t ON o.table_id = t.id
+            JOIN customers c ON o.customer_id = c.id
+            WHERE o.restaurant_id = :restaurant_id
+              AND o.created_at BETWEEN :start_date AND :end_date
+            ORDER BY o.created_at DESC
+        ");
+        $stmtOrders->execute([
+            'restaurant_id' => $restaurantId,
+            'start_date'    => $start,
+            'end_date'      => $end
+        ]);
+        $ordersList = $stmtOrders->fetchAll();
+
+        return [
+            'period'        => $period,
+            'start_date'    => substr($start, 0, 10),
+            'end_date'      => substr($end, 0, 10),
+            'summary'       => $summary,
+            'macro_stats'   => $macroStats,
+            'payment_stats' => $paymentRows,
+            'trends'        => $trends,
+            'top_items'     => $topItems,
+            'orders'        => $ordersList
+        ];
+    }
 }

@@ -15,3 +15,9 @@ function csrf_field(): string
 {
     return \App\Core\Csrf::field();
 }
+
+function sanitize(?string $value): string
+{
+    return trim(strip_tags((string)($value ?? '')));
+}
+

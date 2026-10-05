@@ -307,7 +307,7 @@
         "create_sql": "CREATE TABLE `branches` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `restaurant_id` bigint(20) unsigned NOT NULL,\n  `name` varchar(150) NOT NULL,\n  `address` text DEFAULT NULL,\n  `city` varchar(100) DEFAULT NULL,\n  `state` varchar(100) DEFAULT NULL,\n  `phone` varchar(30) DEFAULT NULL,\n  `status` enum('active','inactive') NOT NULL DEFAULT 'active',\n  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),\n  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),\n  PRIMARY KEY (`id`),\n  KEY `idx_branches_restaurant_id` (`restaurant_id`),\n  KEY `idx_branches_status` (`status`),\n  CONSTRAINT `fk_branches_restaurant` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`id`) ON UPDATE CASCADE\n) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
     },
     "categories": {
-        "row_count": 8,
+        "row_count": 16,
         "columns": [
             {
                 "COLUMN_NAME": "id",
@@ -477,7 +477,7 @@
                 "Seq_in_index": 1,
                 "Column_name": "id",
                 "Collation": "A",
-                "Cardinality": 8,
+                "Cardinality": 16,
                 "Sub_part": null,
                 "Packed": null,
                 "Null": "",
@@ -507,7 +507,7 @@
                 "Seq_in_index": 1,
                 "Column_name": "slug",
                 "Collation": "A",
-                "Cardinality": 8,
+                "Cardinality": 16,
                 "Sub_part": null,
                 "Packed": null,
                 "Null": "",
@@ -537,7 +537,7 @@
                 "Seq_in_index": 2,
                 "Column_name": "status",
                 "Collation": "A",
-                "Cardinality": 2,
+                "Cardinality": 4,
                 "Sub_part": null,
                 "Packed": null,
                 "Null": "",
@@ -552,7 +552,7 @@
                 "Seq_in_index": 3,
                 "Column_name": "sort_order",
                 "Collation": "A",
-                "Cardinality": 8,
+                "Cardinality": 16,
                 "Sub_part": null,
                 "Packed": null,
                 "Null": "",
@@ -561,10 +561,10 @@
                 "Index_comment": ""
             }
         ],
-        "create_sql": "CREATE TABLE `categories` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `restaurant_id` bigint(20) unsigned NOT NULL,\n  `name` varchar(100) NOT NULL,\n  `slug` varchar(100) NOT NULL,\n  `description` text DEFAULT NULL,\n  `image` varchar(255) DEFAULT NULL,\n  `sort_order` int(11) NOT NULL DEFAULT 0,\n  `status` enum('active','inactive') NOT NULL DEFAULT 'active',\n  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),\n  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),\n  PRIMARY KEY (`id`),\n  KEY `idx_categories_restaurant_id` (`restaurant_id`),\n  KEY `idx_categories_slug` (`slug`),\n  KEY `idx_categories_restaurant_sort` (`restaurant_id`,`status`,`sort_order`),\n  CONSTRAINT `fk_categories_restaurant` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`id`) ON UPDATE CASCADE\n) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+        "create_sql": "CREATE TABLE `categories` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `restaurant_id` bigint(20) unsigned NOT NULL,\n  `name` varchar(100) NOT NULL,\n  `slug` varchar(100) NOT NULL,\n  `description` text DEFAULT NULL,\n  `image` varchar(255) DEFAULT NULL,\n  `sort_order` int(11) NOT NULL DEFAULT 0,\n  `status` enum('active','inactive') NOT NULL DEFAULT 'active',\n  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),\n  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),\n  PRIMARY KEY (`id`),\n  KEY `idx_categories_restaurant_id` (`restaurant_id`),\n  KEY `idx_categories_slug` (`slug`),\n  KEY `idx_categories_restaurant_sort` (`restaurant_id`,`status`,`sort_order`),\n  CONSTRAINT `fk_categories_restaurant` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`id`) ON UPDATE CASCADE\n) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
     },
     "customers": {
-        "row_count": 15,
+        "row_count": 37,
         "columns": [
             {
                 "COLUMN_NAME": "id",
@@ -676,7 +676,7 @@
                 "Seq_in_index": 1,
                 "Column_name": "id",
                 "Collation": "A",
-                "Cardinality": 15,
+                "Cardinality": 29,
                 "Sub_part": null,
                 "Packed": null,
                 "Null": "",
@@ -691,7 +691,7 @@
                 "Seq_in_index": 1,
                 "Column_name": "mobile",
                 "Collation": "A",
-                "Cardinality": 15,
+                "Cardinality": 14,
                 "Sub_part": null,
                 "Packed": null,
                 "Null": "YES",
@@ -706,7 +706,7 @@
                 "Seq_in_index": 1,
                 "Column_name": "email",
                 "Collation": "A",
-                "Cardinality": 7,
+                "Cardinality": 9,
                 "Sub_part": null,
                 "Packed": null,
                 "Null": "YES",
@@ -715,10 +715,10 @@
                 "Index_comment": ""
             }
         ],
-        "create_sql": "CREATE TABLE `customers` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `name` varchar(120) NOT NULL,\n  `mobile` varchar(30) DEFAULT NULL,\n  `email` varchar(191) DEFAULT NULL,\n  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),\n  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),\n  PRIMARY KEY (`id`),\n  KEY `idx_customers_mobile` (`mobile`),\n  KEY `idx_customers_email` (`email`)\n) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+        "create_sql": "CREATE TABLE `customers` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `name` varchar(120) NOT NULL,\n  `mobile` varchar(30) DEFAULT NULL,\n  `email` varchar(191) DEFAULT NULL,\n  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),\n  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),\n  PRIMARY KEY (`id`),\n  KEY `idx_customers_mobile` (`mobile`),\n  KEY `idx_customers_email` (`email`)\n) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
     },
     "food_customizations": {
-        "row_count": 129,
+        "row_count": 564,
         "columns": [
             {
                 "COLUMN_NAME": "id",
@@ -1042,7 +1042,7 @@
                 "Seq_in_index": 1,
                 "Column_name": "id",
                 "Collation": "A",
-                "Cardinality": 123,
+                "Cardinality": 564,
                 "Sub_part": null,
                 "Packed": null,
                 "Null": "",
@@ -1057,7 +1057,7 @@
                 "Seq_in_index": 1,
                 "Column_name": "food_item_id",
                 "Collation": "A",
-                "Cardinality": 123,
+                "Cardinality": 94,
                 "Sub_part": null,
                 "Packed": null,
                 "Null": "",
@@ -1072,7 +1072,7 @@
                 "Seq_in_index": 1,
                 "Column_name": "food_item_id",
                 "Collation": "A",
-                "Cardinality": 123,
+                "Cardinality": 94,
                 "Sub_part": null,
                 "Packed": null,
                 "Null": "",
@@ -1087,7 +1087,7 @@
                 "Seq_in_index": 2,
                 "Column_name": "group_name",
                 "Collation": "A",
-                "Cardinality": 123,
+                "Cardinality": 564,
                 "Sub_part": null,
                 "Packed": null,
                 "Null": "",
@@ -1111,10 +1111,10 @@
                 "Index_comment": ""
             }
         ],
-        "create_sql": "CREATE TABLE `food_customizations` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `food_item_id` bigint(20) unsigned NOT NULL,\n  `name` varchar(100) NOT NULL,\n  `description` varchar(255) DEFAULT NULL,\n  `group_name` varchar(100) NOT NULL,\n  `price_adjustment` decimal(10,2) NOT NULL DEFAULT 0.00,\n  `calories_adjustment` int(11) DEFAULT NULL,\n  `protein_adjustment` decimal(6,2) DEFAULT NULL,\n  `carbs_adjustment` decimal(6,2) DEFAULT NULL,\n  `fat_adjustment` decimal(6,2) DEFAULT NULL,\n  `fiber_adjustment` decimal(6,2) DEFAULT NULL,\n  `sugar_adjustment` decimal(6,2) DEFAULT NULL,\n  `sodium_adjustment` decimal(7,2) DEFAULT NULL,\n  `caffeine_adjustment` decimal(6,2) DEFAULT NULL,\n  `is_required` tinyint(1) NOT NULL DEFAULT 0,\n  `min_quantity` int(10) unsigned NOT NULL DEFAULT 0,\n  `max_quantity` int(10) unsigned NOT NULL DEFAULT 1,\n  `is_available` tinyint(1) NOT NULL DEFAULT 1,\n  `sort_order` int(11) NOT NULL DEFAULT 0,\n  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),\n  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),\n  PRIMARY KEY (`id`),\n  KEY `idx_food_customizations_food_item_id` (`food_item_id`),\n  KEY `idx_food_customizations_group` (`food_item_id`,`group_name`),\n  KEY `idx_food_customizations_available` (`is_available`),\n  CONSTRAINT `fk_food_customizations_food_item` FOREIGN KEY (`food_item_id`) REFERENCES `food_items` (`id`) ON DELETE CASCADE ON UPDATE CASCADE\n) ENGINE=InnoDB AUTO_INCREMENT=142 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+        "create_sql": "CREATE TABLE `food_customizations` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `food_item_id` bigint(20) unsigned NOT NULL,\n  `name` varchar(100) NOT NULL,\n  `description` varchar(255) DEFAULT NULL,\n  `group_name` varchar(100) NOT NULL,\n  `price_adjustment` decimal(10,2) NOT NULL DEFAULT 0.00,\n  `calories_adjustment` int(11) DEFAULT NULL,\n  `protein_adjustment` decimal(6,2) DEFAULT NULL,\n  `carbs_adjustment` decimal(6,2) DEFAULT NULL,\n  `fat_adjustment` decimal(6,2) DEFAULT NULL,\n  `fiber_adjustment` decimal(6,2) DEFAULT NULL,\n  `sugar_adjustment` decimal(6,2) DEFAULT NULL,\n  `sodium_adjustment` decimal(7,2) DEFAULT NULL,\n  `caffeine_adjustment` decimal(6,2) DEFAULT NULL,\n  `is_required` tinyint(1) NOT NULL DEFAULT 0,\n  `min_quantity` int(10) unsigned NOT NULL DEFAULT 0,\n  `max_quantity` int(10) unsigned NOT NULL DEFAULT 1,\n  `is_available` tinyint(1) NOT NULL DEFAULT 1,\n  `sort_order` int(11) NOT NULL DEFAULT 0,\n  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),\n  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),\n  PRIMARY KEY (`id`),\n  KEY `idx_food_customizations_food_item_id` (`food_item_id`),\n  KEY `idx_food_customizations_group` (`food_item_id`,`group_name`),\n  KEY `idx_food_customizations_available` (`is_available`),\n  CONSTRAINT `fk_food_customizations_food_item` FOREIGN KEY (`food_item_id`) REFERENCES `food_items` (`id`) ON DELETE CASCADE ON UPDATE CASCADE\n) ENGINE=InnoDB AUTO_INCREMENT=685 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
     },
     "food_items": {
-        "row_count": 49,
+        "row_count": 47,
         "columns": [
             {
                 "COLUMN_NAME": "id",
@@ -1516,7 +1516,7 @@
                 "Seq_in_index": 1,
                 "Column_name": "id",
                 "Collation": "A",
-                "Cardinality": 48,
+                "Cardinality": 47,
                 "Sub_part": null,
                 "Packed": null,
                 "Null": "",
@@ -1546,7 +1546,7 @@
                 "Seq_in_index": 1,
                 "Column_name": "category_id",
                 "Collation": "A",
-                "Cardinality": 16,
+                "Cardinality": 23,
                 "Sub_part": null,
                 "Packed": null,
                 "Null": "",
@@ -1561,7 +1561,7 @@
                 "Seq_in_index": 1,
                 "Column_name": "slug",
                 "Collation": "A",
-                "Cardinality": 48,
+                "Cardinality": 47,
                 "Sub_part": null,
                 "Packed": null,
                 "Null": "",
@@ -1576,7 +1576,7 @@
                 "Seq_in_index": 1,
                 "Column_name": "is_available",
                 "Collation": "A",
-                "Cardinality": 2,
+                "Cardinality": 4,
                 "Sub_part": null,
                 "Packed": null,
                 "Null": "",
@@ -1636,7 +1636,7 @@
                 "Seq_in_index": 2,
                 "Column_name": "category_id",
                 "Collation": "A",
-                "Cardinality": 16,
+                "Cardinality": 23,
                 "Sub_part": null,
                 "Packed": null,
                 "Null": "",
@@ -1651,7 +1651,7 @@
                 "Seq_in_index": 3,
                 "Column_name": "is_available",
                 "Collation": "A",
-                "Cardinality": 16,
+                "Cardinality": 23,
                 "Sub_part": null,
                 "Packed": null,
                 "Null": "",
@@ -1660,10 +1660,10 @@
                 "Index_comment": ""
             }
         ],
-        "create_sql": "CREATE TABLE `food_items` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `restaurant_id` bigint(20) unsigned NOT NULL,\n  `category_id` bigint(20) unsigned NOT NULL,\n  `name` varchar(150) NOT NULL,\n  `slug` varchar(150) NOT NULL,\n  `description` text DEFAULT NULL,\n  `image` varchar(255) DEFAULT NULL,\n  `ingredients` text DEFAULT NULL,\n  `allergens` varchar(255) DEFAULT NULL,\n  `food_type` enum('vegetarian','non_vegetarian','vegan','jain','other') NOT NULL DEFAULT 'vegetarian',\n  `base_price` decimal(10,2) NOT NULL,\n  `calories` int(10) unsigned DEFAULT NULL,\n  `protein` decimal(6,2) DEFAULT NULL,\n  `carbs` decimal(6,2) DEFAULT NULL,\n  `fat` decimal(6,2) DEFAULT NULL,\n  `fiber` decimal(6,2) DEFAULT NULL,\n  `sugar` decimal(6,2) DEFAULT NULL,\n  `sodium` decimal(7,2) DEFAULT NULL,\n  `caffeine` decimal(6,2) DEFAULT NULL,\n  `serving_size` varchar(100) DEFAULT NULL,\n  `is_featured` tinyint(1) NOT NULL DEFAULT 0,\n  `is_popular` tinyint(1) NOT NULL DEFAULT 0,\n  `is_available` tinyint(1) NOT NULL DEFAULT 1,\n  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),\n  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),\n  PRIMARY KEY (`id`),\n  KEY `idx_food_items_restaurant_id` (`restaurant_id`),\n  KEY `idx_food_items_category_id` (`category_id`),\n  KEY `idx_food_items_slug` (`slug`),\n  KEY `idx_food_items_available` (`is_available`),\n  KEY `idx_food_items_featured` (`is_featured`),\n  KEY `idx_food_items_popular` (`is_popular`),\n  KEY `idx_food_items_scoping` (`restaurant_id`,`category_id`,`is_available`),\n  CONSTRAINT `fk_food_items_category` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON UPDATE CASCADE,\n  CONSTRAINT `fk_food_items_restaurant` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`id`) ON UPDATE CASCADE\n) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+        "create_sql": "CREATE TABLE `food_items` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `restaurant_id` bigint(20) unsigned NOT NULL,\n  `category_id` bigint(20) unsigned NOT NULL,\n  `name` varchar(150) NOT NULL,\n  `slug` varchar(150) NOT NULL,\n  `description` text DEFAULT NULL,\n  `image` varchar(255) DEFAULT NULL,\n  `ingredients` text DEFAULT NULL,\n  `allergens` varchar(255) DEFAULT NULL,\n  `food_type` enum('vegetarian','non_vegetarian','vegan','jain','other') NOT NULL DEFAULT 'vegetarian',\n  `base_price` decimal(10,2) NOT NULL,\n  `calories` int(10) unsigned DEFAULT NULL,\n  `protein` decimal(6,2) DEFAULT NULL,\n  `carbs` decimal(6,2) DEFAULT NULL,\n  `fat` decimal(6,2) DEFAULT NULL,\n  `fiber` decimal(6,2) DEFAULT NULL,\n  `sugar` decimal(6,2) DEFAULT NULL,\n  `sodium` decimal(7,2) DEFAULT NULL,\n  `caffeine` decimal(6,2) DEFAULT NULL,\n  `serving_size` varchar(100) DEFAULT NULL,\n  `is_featured` tinyint(1) NOT NULL DEFAULT 0,\n  `is_popular` tinyint(1) NOT NULL DEFAULT 0,\n  `is_available` tinyint(1) NOT NULL DEFAULT 1,\n  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),\n  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),\n  PRIMARY KEY (`id`),\n  KEY `idx_food_items_restaurant_id` (`restaurant_id`),\n  KEY `idx_food_items_category_id` (`category_id`),\n  KEY `idx_food_items_slug` (`slug`),\n  KEY `idx_food_items_available` (`is_available`),\n  KEY `idx_food_items_featured` (`is_featured`),\n  KEY `idx_food_items_popular` (`is_popular`),\n  KEY `idx_food_items_scoping` (`restaurant_id`,`category_id`,`is_available`),\n  CONSTRAINT `fk_food_items_category` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON UPDATE CASCADE,\n  CONSTRAINT `fk_food_items_restaurant` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`id`) ON UPDATE CASCADE\n) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
     },
     "food_variants": {
-        "row_count": 76,
+        "row_count": 94,
         "columns": [
             {
                 "COLUMN_NAME": "id",
@@ -1937,7 +1937,7 @@
                 "Seq_in_index": 1,
                 "Column_name": "id",
                 "Collation": "A",
-                "Cardinality": 76,
+                "Cardinality": 94,
                 "Sub_part": null,
                 "Packed": null,
                 "Null": "",
@@ -1952,7 +1952,7 @@
                 "Seq_in_index": 1,
                 "Column_name": "food_item_id",
                 "Collation": "A",
-                "Cardinality": 76,
+                "Cardinality": 94,
                 "Sub_part": null,
                 "Packed": null,
                 "Null": "",
@@ -1967,7 +1967,7 @@
                 "Seq_in_index": 1,
                 "Column_name": "food_item_id",
                 "Collation": "A",
-                "Cardinality": 76,
+                "Cardinality": 94,
                 "Sub_part": null,
                 "Packed": null,
                 "Null": "",
@@ -1982,7 +1982,7 @@
                 "Seq_in_index": 2,
                 "Column_name": "is_available",
                 "Collation": "A",
-                "Cardinality": 76,
+                "Cardinality": 94,
                 "Sub_part": null,
                 "Packed": null,
                 "Null": "",
@@ -1991,10 +1991,10 @@
                 "Index_comment": ""
             }
         ],
-        "create_sql": "CREATE TABLE `food_variants` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `food_item_id` bigint(20) unsigned NOT NULL,\n  `name` varchar(100) NOT NULL,\n  `description` varchar(255) DEFAULT NULL,\n  `price_adjustment` decimal(10,2) NOT NULL DEFAULT 0.00,\n  `calories_adjustment` int(11) DEFAULT NULL,\n  `protein_adjustment` decimal(6,2) DEFAULT NULL,\n  `carbs_adjustment` decimal(6,2) DEFAULT NULL,\n  `fat_adjustment` decimal(6,2) DEFAULT NULL,\n  `fiber_adjustment` decimal(6,2) DEFAULT NULL,\n  `sugar_adjustment` decimal(6,2) DEFAULT NULL,\n  `sodium_adjustment` decimal(7,2) DEFAULT NULL,\n  `caffeine_adjustment` decimal(6,2) DEFAULT NULL,\n  `is_required` tinyint(1) NOT NULL DEFAULT 0,\n  `is_available` tinyint(1) NOT NULL DEFAULT 1,\n  `sort_order` int(11) NOT NULL DEFAULT 0,\n  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),\n  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),\n  PRIMARY KEY (`id`),\n  KEY `idx_food_variants_food_item_id` (`food_item_id`),\n  KEY `idx_food_variants_available` (`food_item_id`,`is_available`),\n  CONSTRAINT `fk_food_variants_food_item` FOREIGN KEY (`food_item_id`) REFERENCES `food_items` (`id`) ON DELETE CASCADE ON UPDATE CASCADE\n) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+        "create_sql": "CREATE TABLE `food_variants` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `food_item_id` bigint(20) unsigned NOT NULL,\n  `name` varchar(100) NOT NULL,\n  `description` varchar(255) DEFAULT NULL,\n  `price_adjustment` decimal(10,2) NOT NULL DEFAULT 0.00,\n  `calories_adjustment` int(11) DEFAULT NULL,\n  `protein_adjustment` decimal(6,2) DEFAULT NULL,\n  `carbs_adjustment` decimal(6,2) DEFAULT NULL,\n  `fat_adjustment` decimal(6,2) DEFAULT NULL,\n  `fiber_adjustment` decimal(6,2) DEFAULT NULL,\n  `sugar_adjustment` decimal(6,2) DEFAULT NULL,\n  `sodium_adjustment` decimal(7,2) DEFAULT NULL,\n  `caffeine_adjustment` decimal(6,2) DEFAULT NULL,\n  `is_required` tinyint(1) NOT NULL DEFAULT 0,\n  `is_available` tinyint(1) NOT NULL DEFAULT 1,\n  `sort_order` int(11) NOT NULL DEFAULT 0,\n  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),\n  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),\n  PRIMARY KEY (`id`),\n  KEY `idx_food_variants_food_item_id` (`food_item_id`),\n  KEY `idx_food_variants_available` (`food_item_id`,`is_available`),\n  CONSTRAINT `fk_food_variants_food_item` FOREIGN KEY (`food_item_id`) REFERENCES `food_items` (`id`) ON DELETE CASCADE ON UPDATE CASCADE\n) ENGINE=InnoDB AUTO_INCREMENT=177 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
     },
     "order_item_customizations": {
-        "row_count": 29,
+        "row_count": 66,
         "columns": [
             {
                 "COLUMN_NAME": "id",
@@ -2234,7 +2234,7 @@
                 "Seq_in_index": 1,
                 "Column_name": "id",
                 "Collation": "A",
-                "Cardinality": 29,
+                "Cardinality": 64,
                 "Sub_part": null,
                 "Packed": null,
                 "Null": "",
@@ -2249,7 +2249,7 @@
                 "Seq_in_index": 1,
                 "Column_name": "order_item_id",
                 "Collation": "A",
-                "Cardinality": 29,
+                "Cardinality": 64,
                 "Sub_part": null,
                 "Packed": null,
                 "Null": "",
@@ -2264,7 +2264,7 @@
                 "Seq_in_index": 1,
                 "Column_name": "customization_id",
                 "Collation": "A",
-                "Cardinality": 29,
+                "Cardinality": 64,
                 "Sub_part": null,
                 "Packed": null,
                 "Null": "",
@@ -2273,10 +2273,10 @@
                 "Index_comment": ""
             }
         ],
-        "create_sql": "CREATE TABLE `order_item_customizations` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `order_item_id` bigint(20) unsigned NOT NULL,\n  `customization_id` bigint(20) unsigned NOT NULL,\n  `customization_name_snapshot` varchar(100) NOT NULL,\n  `quantity` int(10) unsigned NOT NULL DEFAULT 1,\n  `price_adjustment` decimal(10,2) NOT NULL DEFAULT 0.00,\n  `calories_adjustment` int(11) DEFAULT NULL,\n  `protein_adjustment` decimal(6,2) DEFAULT NULL,\n  `carbs_adjustment` decimal(6,2) DEFAULT NULL,\n  `fat_adjustment` decimal(6,2) DEFAULT NULL,\n  `fiber_adjustment` decimal(6,2) DEFAULT NULL,\n  `sugar_adjustment` decimal(6,2) DEFAULT NULL,\n  `sodium_adjustment` decimal(7,2) DEFAULT NULL,\n  `caffeine_adjustment` decimal(6,2) DEFAULT NULL,\n  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),\n  PRIMARY KEY (`id`),\n  KEY `idx_order_custom_item_id` (`order_item_id`),\n  KEY `idx_order_custom_def_id` (`customization_id`),\n  CONSTRAINT `fk_order_custom_def` FOREIGN KEY (`customization_id`) REFERENCES `food_customizations` (`id`) ON UPDATE CASCADE,\n  CONSTRAINT `fk_order_custom_item` FOREIGN KEY (`order_item_id`) REFERENCES `order_items` (`id`) ON DELETE CASCADE ON UPDATE CASCADE\n) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+        "create_sql": "CREATE TABLE `order_item_customizations` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `order_item_id` bigint(20) unsigned NOT NULL,\n  `customization_id` bigint(20) unsigned NOT NULL,\n  `customization_name_snapshot` varchar(100) NOT NULL,\n  `quantity` int(10) unsigned NOT NULL DEFAULT 1,\n  `price_adjustment` decimal(10,2) NOT NULL DEFAULT 0.00,\n  `calories_adjustment` int(11) DEFAULT NULL,\n  `protein_adjustment` decimal(6,2) DEFAULT NULL,\n  `carbs_adjustment` decimal(6,2) DEFAULT NULL,\n  `fat_adjustment` decimal(6,2) DEFAULT NULL,\n  `fiber_adjustment` decimal(6,2) DEFAULT NULL,\n  `sugar_adjustment` decimal(6,2) DEFAULT NULL,\n  `sodium_adjustment` decimal(7,2) DEFAULT NULL,\n  `caffeine_adjustment` decimal(6,2) DEFAULT NULL,\n  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),\n  PRIMARY KEY (`id`),\n  KEY `idx_order_custom_item_id` (`order_item_id`),\n  KEY `idx_order_custom_def_id` (`customization_id`),\n  CONSTRAINT `fk_order_custom_def` FOREIGN KEY (`customization_id`) REFERENCES `food_customizations` (`id`) ON UPDATE CASCADE,\n  CONSTRAINT `fk_order_custom_item` FOREIGN KEY (`order_item_id`) REFERENCES `order_items` (`id`) ON DELETE CASCADE ON UPDATE CASCADE\n) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
     },
     "order_items": {
-        "row_count": 26,
+        "row_count": 43,
         "columns": [
             {
                 "COLUMN_NAME": "id",
@@ -2580,7 +2580,7 @@
                 "Seq_in_index": 1,
                 "Column_name": "id",
                 "Collation": "A",
-                "Cardinality": 25,
+                "Cardinality": 40,
                 "Sub_part": null,
                 "Packed": null,
                 "Null": "",
@@ -2595,7 +2595,7 @@
                 "Seq_in_index": 1,
                 "Column_name": "order_id",
                 "Collation": "A",
-                "Cardinality": 25,
+                "Cardinality": 40,
                 "Sub_part": null,
                 "Packed": null,
                 "Null": "",
@@ -2610,7 +2610,7 @@
                 "Seq_in_index": 1,
                 "Column_name": "food_item_id",
                 "Collation": "A",
-                "Cardinality": 12,
+                "Cardinality": 20,
                 "Sub_part": null,
                 "Packed": null,
                 "Null": "",
@@ -2619,10 +2619,10 @@
                 "Index_comment": ""
             }
         ],
-        "create_sql": "CREATE TABLE `order_items` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `order_id` bigint(20) unsigned NOT NULL,\n  `food_item_id` bigint(20) unsigned NOT NULL,\n  `food_name_snapshot` varchar(150) NOT NULL,\n  `base_price_snapshot` decimal(10,2) NOT NULL,\n  `variant_name_snapshot` varchar(100) DEFAULT NULL,\n  `variant_price_snapshot` decimal(10,2) NOT NULL DEFAULT 0.00,\n  `quantity` int(10) unsigned NOT NULL DEFAULT 1,\n  `unit_price` decimal(10,2) NOT NULL,\n  `total_price` decimal(10,2) NOT NULL,\n  `calories` int(11) DEFAULT NULL,\n  `protein` decimal(6,2) DEFAULT NULL,\n  `carbs` decimal(6,2) DEFAULT NULL,\n  `fat` decimal(6,2) DEFAULT NULL,\n  `fiber` decimal(6,2) DEFAULT NULL,\n  `sugar` decimal(6,2) DEFAULT NULL,\n  `sodium` decimal(7,2) DEFAULT NULL,\n  `caffeine` decimal(6,2) DEFAULT NULL,\n  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),\n  PRIMARY KEY (`id`),\n  KEY `idx_order_items_order_id` (`order_id`),\n  KEY `idx_order_items_food_item_id` (`food_item_id`),\n  CONSTRAINT `fk_order_items_food` FOREIGN KEY (`food_item_id`) REFERENCES `food_items` (`id`) ON UPDATE CASCADE,\n  CONSTRAINT `fk_order_items_order` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON UPDATE CASCADE\n) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+        "create_sql": "CREATE TABLE `order_items` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `order_id` bigint(20) unsigned NOT NULL,\n  `food_item_id` bigint(20) unsigned NOT NULL,\n  `food_name_snapshot` varchar(150) NOT NULL,\n  `base_price_snapshot` decimal(10,2) NOT NULL,\n  `variant_name_snapshot` varchar(100) DEFAULT NULL,\n  `variant_price_snapshot` decimal(10,2) NOT NULL DEFAULT 0.00,\n  `quantity` int(10) unsigned NOT NULL DEFAULT 1,\n  `unit_price` decimal(10,2) NOT NULL,\n  `total_price` decimal(10,2) NOT NULL,\n  `calories` int(11) DEFAULT NULL,\n  `protein` decimal(6,2) DEFAULT NULL,\n  `carbs` decimal(6,2) DEFAULT NULL,\n  `fat` decimal(6,2) DEFAULT NULL,\n  `fiber` decimal(6,2) DEFAULT NULL,\n  `sugar` decimal(6,2) DEFAULT NULL,\n  `sodium` decimal(7,2) DEFAULT NULL,\n  `caffeine` decimal(6,2) DEFAULT NULL,\n  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),\n  PRIMARY KEY (`id`),\n  KEY `idx_order_items_order_id` (`order_id`),\n  KEY `idx_order_items_food_item_id` (`food_item_id`),\n  CONSTRAINT `fk_order_items_food` FOREIGN KEY (`food_item_id`) REFERENCES `food_items` (`id`) ON UPDATE CASCADE,\n  CONSTRAINT `fk_order_items_order` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON UPDATE CASCADE\n) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
     },
     "orders": {
-        "row_count": 18,
+        "row_count": 34,
         "columns": [
             {
                 "COLUMN_NAME": "id",
@@ -2914,7 +2914,7 @@
                 "Seq_in_index": 1,
                 "Column_name": "id",
                 "Collation": "A",
-                "Cardinality": 18,
+                "Cardinality": 34,
                 "Sub_part": null,
                 "Packed": null,
                 "Null": "",
@@ -2929,7 +2929,7 @@
                 "Seq_in_index": 1,
                 "Column_name": "order_number",
                 "Collation": "A",
-                "Cardinality": 18,
+                "Cardinality": 34,
                 "Sub_part": null,
                 "Packed": null,
                 "Null": "",
@@ -2944,7 +2944,7 @@
                 "Seq_in_index": 1,
                 "Column_name": "table_id",
                 "Collation": "A",
-                "Cardinality": 18,
+                "Cardinality": 11,
                 "Sub_part": null,
                 "Packed": null,
                 "Null": "YES",
@@ -2959,7 +2959,7 @@
                 "Seq_in_index": 1,
                 "Column_name": "order_number",
                 "Collation": "A",
-                "Cardinality": 18,
+                "Cardinality": 34,
                 "Sub_part": null,
                 "Packed": null,
                 "Null": "",
@@ -3004,7 +3004,7 @@
                 "Seq_in_index": 1,
                 "Column_name": "customer_id",
                 "Collation": "A",
-                "Cardinality": 18,
+                "Cardinality": 34,
                 "Sub_part": null,
                 "Packed": null,
                 "Null": "",
@@ -3019,7 +3019,7 @@
                 "Seq_in_index": 1,
                 "Column_name": "order_status",
                 "Collation": "A",
-                "Cardinality": 9,
+                "Cardinality": 11,
                 "Sub_part": null,
                 "Packed": null,
                 "Null": "",
@@ -3049,7 +3049,7 @@
                 "Seq_in_index": 1,
                 "Column_name": "created_at",
                 "Collation": "A",
-                "Cardinality": 18,
+                "Cardinality": 34,
                 "Sub_part": null,
                 "Packed": null,
                 "Null": "",
@@ -3058,10 +3058,10 @@
                 "Index_comment": ""
             }
         ],
-        "create_sql": "CREATE TABLE `orders` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `order_number` varchar(64) NOT NULL,\n  `restaurant_id` bigint(20) unsigned NOT NULL,\n  `branch_id` bigint(20) unsigned NOT NULL,\n  `table_id` bigint(20) unsigned DEFAULT NULL,\n  `customer_id` bigint(20) unsigned NOT NULL,\n  `order_type` enum('dine_in','takeaway') NOT NULL DEFAULT 'dine_in',\n  `subtotal` decimal(10,2) NOT NULL DEFAULT 0.00,\n  `tax` decimal(10,2) NOT NULL DEFAULT 0.00,\n  `service_charge` decimal(10,2) NOT NULL DEFAULT 0.00,\n  `total_amount` decimal(10,2) NOT NULL DEFAULT 0.00,\n  `payment_status` enum('pending','completed','failed') NOT NULL DEFAULT 'pending',\n  `order_status` enum('placed','accepted','preparing','ready','completed','cancelled') NOT NULL DEFAULT 'placed',\n  `notes` text DEFAULT NULL,\n  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),\n  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `order_number` (`order_number`),\n  KEY `fk_orders_table` (`table_id`),\n  KEY `idx_orders_order_number` (`order_number`),\n  KEY `idx_orders_restaurant_id` (`restaurant_id`),\n  KEY `idx_orders_branch_id` (`branch_id`),\n  KEY `idx_orders_customer_id` (`customer_id`),\n  KEY `idx_orders_order_status` (`order_status`),\n  KEY `idx_orders_payment_status` (`payment_status`),\n  KEY `idx_orders_created_at` (`created_at`),\n  CONSTRAINT `fk_orders_branch` FOREIGN KEY (`branch_id`) REFERENCES `branches` (`id`) ON UPDATE CASCADE,\n  CONSTRAINT `fk_orders_customer` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`) ON UPDATE CASCADE,\n  CONSTRAINT `fk_orders_restaurant` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`id`) ON UPDATE CASCADE,\n  CONSTRAINT `fk_orders_table` FOREIGN KEY (`table_id`) REFERENCES `restaurant_tables` (`id`) ON DELETE SET NULL ON UPDATE CASCADE\n) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+        "create_sql": "CREATE TABLE `orders` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `order_number` varchar(64) NOT NULL,\n  `restaurant_id` bigint(20) unsigned NOT NULL,\n  `branch_id` bigint(20) unsigned NOT NULL,\n  `table_id` bigint(20) unsigned DEFAULT NULL,\n  `customer_id` bigint(20) unsigned NOT NULL,\n  `order_type` enum('dine_in','takeaway') NOT NULL DEFAULT 'dine_in',\n  `subtotal` decimal(10,2) NOT NULL DEFAULT 0.00,\n  `tax` decimal(10,2) NOT NULL DEFAULT 0.00,\n  `service_charge` decimal(10,2) NOT NULL DEFAULT 0.00,\n  `total_amount` decimal(10,2) NOT NULL DEFAULT 0.00,\n  `payment_status` enum('pending','completed','failed') NOT NULL DEFAULT 'pending',\n  `order_status` enum('placed','accepted','preparing','ready','completed','cancelled') NOT NULL DEFAULT 'placed',\n  `notes` text DEFAULT NULL,\n  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),\n  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `order_number` (`order_number`),\n  KEY `fk_orders_table` (`table_id`),\n  KEY `idx_orders_order_number` (`order_number`),\n  KEY `idx_orders_restaurant_id` (`restaurant_id`),\n  KEY `idx_orders_branch_id` (`branch_id`),\n  KEY `idx_orders_customer_id` (`customer_id`),\n  KEY `idx_orders_order_status` (`order_status`),\n  KEY `idx_orders_payment_status` (`payment_status`),\n  KEY `idx_orders_created_at` (`created_at`),\n  CONSTRAINT `fk_orders_branch` FOREIGN KEY (`branch_id`) REFERENCES `branches` (`id`) ON UPDATE CASCADE,\n  CONSTRAINT `fk_orders_customer` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`) ON UPDATE CASCADE,\n  CONSTRAINT `fk_orders_restaurant` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`id`) ON UPDATE CASCADE,\n  CONSTRAINT `fk_orders_table` FOREIGN KEY (`table_id`) REFERENCES `restaurant_tables` (`id`) ON DELETE SET NULL ON UPDATE CASCADE\n) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
     },
     "payments": {
-        "row_count": 14,
+        "row_count": 21,
         "columns": [
             {
                 "COLUMN_NAME": "id",
@@ -3195,7 +3195,7 @@
                 "Seq_in_index": 1,
                 "Column_name": "id",
                 "Collation": "A",
-                "Cardinality": 13,
+                "Cardinality": 12,
                 "Sub_part": null,
                 "Packed": null,
                 "Null": "",
@@ -3210,7 +3210,7 @@
                 "Seq_in_index": 1,
                 "Column_name": "order_id",
                 "Collation": "A",
-                "Cardinality": 13,
+                "Cardinality": 12,
                 "Sub_part": null,
                 "Packed": null,
                 "Null": "",
@@ -3225,7 +3225,7 @@
                 "Seq_in_index": 1,
                 "Column_name": "order_id",
                 "Collation": "A",
-                "Cardinality": 13,
+                "Cardinality": 12,
                 "Sub_part": null,
                 "Packed": null,
                 "Null": "",
@@ -3249,7 +3249,7 @@
                 "Index_comment": ""
             }
         ],
-        "create_sql": "CREATE TABLE `payments` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `order_id` bigint(20) unsigned NOT NULL,\n  `payment_method` enum('cash','upi','card') NOT NULL,\n  `transaction_reference` varchar(128) DEFAULT NULL,\n  `amount` decimal(10,2) NOT NULL,\n  `status` enum('pending','completed','failed') NOT NULL DEFAULT 'pending',\n  `paid_at` timestamp NULL DEFAULT NULL,\n  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `order_id` (`order_id`),\n  KEY `idx_payments_order_id` (`order_id`),\n  KEY `idx_payments_status` (`status`),\n  CONSTRAINT `fk_payments_order` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON UPDATE CASCADE\n) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+        "create_sql": "CREATE TABLE `payments` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `order_id` bigint(20) unsigned NOT NULL,\n  `payment_method` enum('cash','upi','card') NOT NULL,\n  `transaction_reference` varchar(128) DEFAULT NULL,\n  `amount` decimal(10,2) NOT NULL,\n  `status` enum('pending','completed','failed') NOT NULL DEFAULT 'pending',\n  `paid_at` timestamp NULL DEFAULT NULL,\n  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `order_id` (`order_id`),\n  KEY `idx_payments_order_id` (`order_id`),\n  KEY `idx_payments_status` (`status`),\n  CONSTRAINT `fk_payments_order` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON UPDATE CASCADE\n) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
     },
     "qr_tokens": {
         "row_count": 12,
@@ -4095,7 +4095,7 @@
         "create_sql": "CREATE TABLE `restaurants` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `owner_user_id` bigint(20) unsigned DEFAULT NULL,\n  `name` varchar(150) NOT NULL,\n  `slug` varchar(150) NOT NULL,\n  `logo` varchar(255) DEFAULT NULL,\n  `cover_image` varchar(255) DEFAULT NULL,\n  `description` text DEFAULT NULL,\n  `phone` varchar(30) DEFAULT NULL,\n  `email` varchar(191) DEFAULT NULL,\n  `address` text DEFAULT NULL,\n  `city` varchar(100) DEFAULT NULL,\n  `state` varchar(100) DEFAULT NULL,\n  `status` enum('pending','approved','suspended') NOT NULL DEFAULT 'approved',\n  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),\n  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `slug` (`slug`),\n  KEY `idx_restaurants_slug` (`slug`),\n  KEY `idx_restaurants_status` (`status`),\n  KEY `fk_restaurants_owner_user` (`owner_user_id`),\n  CONSTRAINT `fk_restaurants_owner_user` FOREIGN KEY (`owner_user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE\n) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
     },
     "reviews": {
-        "row_count": 5,
+        "row_count": 7,
         "columns": [
             {
                 "COLUMN_NAME": "id",
@@ -4287,7 +4287,7 @@
                 "Seq_in_index": 1,
                 "Column_name": "id",
                 "Collation": "A",
-                "Cardinality": 5,
+                "Cardinality": 6,
                 "Sub_part": null,
                 "Packed": null,
                 "Null": "",
@@ -4302,7 +4302,7 @@
                 "Seq_in_index": 1,
                 "Column_name": "order_id",
                 "Collation": "A",
-                "Cardinality": 2,
+                "Cardinality": 6,
                 "Sub_part": null,
                 "Packed": null,
                 "Null": "YES",
@@ -4332,7 +4332,7 @@
                 "Seq_in_index": 1,
                 "Column_name": "customer_id",
                 "Collation": "A",
-                "Cardinality": 5,
+                "Cardinality": 6,
                 "Sub_part": null,
                 "Packed": null,
                 "Null": "",
@@ -4356,7 +4356,7 @@
                 "Index_comment": ""
             }
         ],
-        "create_sql": "CREATE TABLE `reviews` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `restaurant_id` bigint(20) unsigned NOT NULL,\n  `customer_id` bigint(20) unsigned NOT NULL,\n  `order_id` bigint(20) unsigned DEFAULT NULL,\n  `rating` tinyint(3) unsigned NOT NULL CHECK (`rating` between 1 and 5),\n  `comment` text DEFAULT NULL,\n  `restaurant_reply` text DEFAULT NULL,\n  `replied_at` timestamp NULL DEFAULT NULL,\n  `status` enum('pending','approved','hidden') NOT NULL DEFAULT 'pending',\n  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),\n  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),\n  PRIMARY KEY (`id`),\n  KEY `fk_reviews_order` (`order_id`),\n  KEY `idx_reviews_restaurant_id` (`restaurant_id`),\n  KEY `idx_reviews_customer_id` (`customer_id`),\n  KEY `idx_reviews_status` (`status`),\n  CONSTRAINT `fk_reviews_customer` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`) ON UPDATE CASCADE,\n  CONSTRAINT `fk_reviews_order` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,\n  CONSTRAINT `fk_reviews_restaurant` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`id`) ON UPDATE CASCADE\n) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+        "create_sql": "CREATE TABLE `reviews` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `restaurant_id` bigint(20) unsigned NOT NULL,\n  `customer_id` bigint(20) unsigned NOT NULL,\n  `order_id` bigint(20) unsigned DEFAULT NULL,\n  `rating` tinyint(3) unsigned NOT NULL CHECK (`rating` between 1 and 5),\n  `comment` text DEFAULT NULL,\n  `restaurant_reply` text DEFAULT NULL,\n  `replied_at` timestamp NULL DEFAULT NULL,\n  `status` enum('pending','approved','hidden') NOT NULL DEFAULT 'pending',\n  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),\n  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),\n  PRIMARY KEY (`id`),\n  KEY `fk_reviews_order` (`order_id`),\n  KEY `idx_reviews_restaurant_id` (`restaurant_id`),\n  KEY `idx_reviews_customer_id` (`customer_id`),\n  KEY `idx_reviews_status` (`status`),\n  CONSTRAINT `fk_reviews_customer` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`) ON UPDATE CASCADE,\n  CONSTRAINT `fk_reviews_order` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,\n  CONSTRAINT `fk_reviews_restaurant` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`id`) ON UPDATE CASCADE\n) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
     },
     "roles": {
         "row_count": 4,
@@ -4724,6 +4724,6 @@
                 "Index_comment": ""
             }
         ],
-        "create_sql": "CREATE TABLE `users` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `role_id` bigint(20) unsigned NOT NULL,\n  `restaurant_id` bigint(20) unsigned DEFAULT NULL,\n  `name` varchar(120) NOT NULL,\n  `email` varchar(191) NOT NULL,\n  `password` varchar(255) NOT NULL,\n  `status` enum('active','inactive','suspended') NOT NULL DEFAULT 'active',\n  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),\n  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `email` (`email`),\n  KEY `idx_users_role_id` (`role_id`),\n  KEY `idx_users_restaurant_id` (`restaurant_id`),\n  KEY `idx_users_status` (`status`),\n  CONSTRAINT `fk_users_restaurant` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,\n  CONSTRAINT `fk_users_role` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON UPDATE CASCADE\n) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+        "create_sql": "CREATE TABLE `users` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `role_id` bigint(20) unsigned NOT NULL,\n  `restaurant_id` bigint(20) unsigned DEFAULT NULL,\n  `name` varchar(120) NOT NULL,\n  `email` varchar(191) NOT NULL,\n  `password` varchar(255) NOT NULL,\n  `status` enum('active','inactive','suspended') NOT NULL DEFAULT 'active',\n  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),\n  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `email` (`email`),\n  KEY `idx_users_role_id` (`role_id`),\n  KEY `idx_users_restaurant_id` (`restaurant_id`),\n  KEY `idx_users_status` (`status`),\n  CONSTRAINT `fk_users_restaurant` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,\n  CONSTRAINT `fk_users_role` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON UPDATE CASCADE\n) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
     }
 }

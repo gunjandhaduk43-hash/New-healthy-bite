@@ -6,6 +6,7 @@
 const FoodDetails = {
     modalEl: null,
     isLoading: false,
+    editingCartIndex: null,
 
     init() {
         this.modalEl = document.getElementById('foodDetailModal');
@@ -62,9 +63,10 @@ const FoodDetails = {
         }
     },
 
-    async open(foodId) {
+    async open(foodId, editingCartIndex = null) {
         if (this.isLoading) return;
         this.isLoading = true;
+        this.editingCartIndex = (editingCartIndex !== null && editingCartIndex !== undefined) ? editingCartIndex : null;
 
         try {
             const restaurantId = (State.restaurant && State.restaurant.id) ? State.restaurant.id : 1;
@@ -76,22 +78,109 @@ const FoodDetails = {
             }
 
             State.selectedFood = food;
-            State.selectedVariant = (food.variants && food.variants.length > 0) ? food.variants[0] : null;
-            State.selectedCustomizations = [];
-            State.modalQuantity = 1;
-            State.specialInstructions = '';
 
-            // Reset textarea
-            const instrEl = document.getElementById('modalSpecialInstructions');
-            if (instrEl) instrEl.value = '';
+            if (this.editingCartIndex !== null && State.cart && State.cart[this.editingCartIndex]) {
+                const cartItem = State.cart[this.editingCartIndex];
 
-            // Auto-select default options for single-choice / required groups
-            this.initializeDefaultCustomizations(food);
+                // 1. Pre-select variant
+                if (cartItem.variant_id && food.variants && food.variants.length > 0) {
+                    State.selectedVariant = food.variants.find(v => Number(v.id) === Number(cartItem.variant_id)) || food.variants[0];
+                } else if (food.variants && food.variants.length > 0) {
+                    State.selectedVariant = food.variants[0];
+                } else {
+                    State.selectedVariant = null;
+                }
+
+                // 2. Pre-select customizations from cart item
+                State.selectedCustomizations = [];
+                const groups = food.customization_groups || {};
+                const allAvailableOptions = [];
+                Object.keys(groups).forEach(gName => {
+                    (groups[gName] || []).forEach(opt => {
+                        allAvailableOptions.push({ ...opt, group_name: gName });
+                    });
+                });
+
+                const savedCusts = cartItem.customizations || [];
+                savedCusts.forEach(sc => {
+                    const matched = allAvailableOptions.find(o => Number(o.id) === Number(sc.id));
+                    if (matched) {
+                        State.selectedCustomizations.push({
+                            id: matched.id,
+                            name: matched.name,
+                            group_name: matched.group_name,
+                            price_adjustment: parseFloat(matched.price_adjustment) || 0,
+                            calories_adjustment: matched.calories_adjustment !== null ? parseInt(matched.calories_adjustment) : null,
+                            protein_adjustment: matched.protein_adjustment !== null ? parseFloat(matched.protein_adjustment) : null,
+                            carbs_adjustment: matched.carbs_adjustment !== null ? parseFloat(matched.carbs_adjustment) : null,
+                            fat_adjustment: matched.fat_adjustment !== null ? parseFloat(matched.fat_adjustment) : null,
+                            sugar_adjustment: (matched.sugar_adjustment !== null && matched.sugar_adjustment !== undefined) ? parseFloat(matched.sugar_adjustment) : null,
+                            caffeine_adjustment: (matched.caffeine_adjustment !== null && matched.caffeine_adjustment !== undefined) ? parseFloat(matched.caffeine_adjustment) : null,
+                            quantity: sc.quantity || 1
+                        });
+                    } else {
+                        State.selectedCustomizations.push({ ...sc });
+                    }
+                });
+
+                // Auto-fill any missing required single-select groups
+                Object.keys(groups).forEach(gName => {
+                    const options = groups[gName] || [];
+                    const isReq = options.some(o => parseInt(o.is_required) === 1 || parseInt(o.min_quantity) >= 1);
+                    const maxQty = Math.max(...options.map(o => parseInt(o.max_quantity) || 1));
+                    const alreadySelected = State.selectedCustomizations.some(c => c.group_name === gName);
+                    if (isReq && !alreadySelected && options.length > 0 && maxQty === 1) {
+                        const defaultOpt = options[0];
+                        State.selectedCustomizations.push({
+                            id: defaultOpt.id,
+                            name: defaultOpt.name,
+                            group_name: gName,
+                            price_adjustment: parseFloat(defaultOpt.price_adjustment) || 0,
+                            calories_adjustment: defaultOpt.calories_adjustment !== null ? parseInt(defaultOpt.calories_adjustment) : null,
+                            protein_adjustment: defaultOpt.protein_adjustment !== null ? parseFloat(defaultOpt.protein_adjustment) : null,
+                            carbs_adjustment: defaultOpt.carbs_adjustment !== null ? parseFloat(defaultOpt.carbs_adjustment) : null,
+                            fat_adjustment: defaultOpt.fat_adjustment !== null ? parseFloat(defaultOpt.fat_adjustment) : null,
+                            sugar_adjustment: (defaultOpt.sugar_adjustment !== null && defaultOpt.sugar_adjustment !== undefined) ? parseFloat(defaultOpt.sugar_adjustment) : null,
+                            caffeine_adjustment: (defaultOpt.caffeine_adjustment !== null && defaultOpt.caffeine_adjustment !== undefined) ? parseFloat(defaultOpt.caffeine_adjustment) : null,
+                            quantity: 1
+                        });
+                    }
+                });
+
+                // 3. Pre-select quantity
+                State.modalQuantity = Math.max(1, parseInt(cartItem.quantity) || 1);
+
+                // 4. Pre-fill special instructions
+                State.specialInstructions = cartItem.special_instructions || '';
+                const instrEl = document.getElementById('modalSpecialInstructions');
+                if (instrEl) instrEl.value = State.specialInstructions;
+
+            } else {
+                State.selectedVariant = (food.variants && food.variants.length > 0) ? food.variants[0] : null;
+                State.selectedCustomizations = [];
+                State.modalQuantity = 1;
+                State.specialInstructions = '';
+
+                // Reset textarea
+                const instrEl = document.getElementById('modalSpecialInstructions');
+                if (instrEl) instrEl.value = '';
+
+                // Auto-select default options for single-choice / required groups
+                this.initializeDefaultCustomizations(food);
+            }
 
             // Render modal structure
             this.renderLeftPanel(food);
             this.renderRightPanel(food);
             this.updateCalculations();
+
+            // When editing, customize title
+            if (this.editingCartIndex !== null) {
+                const titleEl = document.getElementById('modalCustomTitle');
+                if (titleEl) {
+                    titleEl.innerHTML = `<i class="bi bi-pencil-square" style="color:var(--primary-green); margin-right:6px;"></i> Edit ${window.Utils ? Utils.escapeHtml(food.name) : food.name}`;
+                }
+            }
 
             // Display modal
             this.modalEl.classList.add('active');
@@ -115,6 +204,11 @@ const FoodDetails = {
         this.modalEl.classList.remove('active');
         document.body.style.overflow = '';
         State.selectedFood = null;
+        const wasEditing = this.editingCartIndex !== null;
+        this.editingCartIndex = null;
+        if (wasEditing && window.Cart) {
+            Cart.open();
+        }
     },
 
     /**
@@ -142,6 +236,7 @@ const FoodDetails = {
                     carbs_adjustment: defaultOpt.carbs_adjustment !== null ? parseFloat(defaultOpt.carbs_adjustment) : null,
                     fat_adjustment: defaultOpt.fat_adjustment !== null ? parseFloat(defaultOpt.fat_adjustment) : null,
                     sugar_adjustment: defaultOpt.sugar_adjustment !== null && defaultOpt.sugar_adjustment !== undefined ? parseFloat(defaultOpt.sugar_adjustment) : null,
+                    caffeine_adjustment: defaultOpt.caffeine_adjustment !== null && defaultOpt.caffeine_adjustment !== undefined ? parseFloat(defaultOpt.caffeine_adjustment) : null,
                     quantity: 1
                 });
             }
@@ -223,18 +318,37 @@ const FoodDetails = {
             if (ingSec) ingSec.style.display = 'none';
         }
 
-        // 5. Base Nutrition Breakdown (5 Metrics)
+        // 5. Base Nutrition Breakdown (6 Metrics)
         const calEl = document.getElementById('metricBaseCalories');
         const protEl = document.getElementById('metricBaseProtein');
         const carbsEl = document.getElementById('metricBaseCarbs');
         const fatEl = document.getElementById('metricBaseFat');
         const sugarEl = document.getElementById('metricBaseSugar');
+        const caffCard = document.getElementById('cardBaseCaffeine');
+        const caffEl = document.getElementById('metricBaseCaffeine');
 
         if (calEl) calEl.textContent = food.calories !== null ? `${Math.round(food.calories)} kcal` : '—';
         if (protEl) protEl.textContent = food.protein !== null ? `${parseFloat(food.protein)} g` : '—';
         if (carbsEl) carbsEl.textContent = food.carbs !== null ? `${parseFloat(food.carbs)} g` : '—';
         if (fatEl) fatEl.textContent = food.fat !== null ? `${parseFloat(food.fat)} g` : '—';
-        if (sugarEl) sugarEl.textContent = food.sugar !== null && food.sugar !== undefined ? `${parseFloat(food.sugar)} g` : 'Not available';
+        if (sugarEl) sugarEl.textContent = food.sugar !== null && food.sugar !== undefined ? `${parseFloat(food.sugar)} g` : '—';
+
+        // Check if item has caffeine or is in beverages category
+        const catNameLower = (food.category_name || '').toLowerCase();
+        const isBeverage = catNameLower.includes('beverage') || catNameLower.includes('drink');
+        const hasCaffeine = food.caffeine !== null && food.caffeine !== undefined;
+
+        if (caffCard && caffEl) {
+            if (hasCaffeine && parseFloat(food.caffeine) > 0) {
+                caffCard.style.display = 'block';
+                caffEl.textContent = `${Math.round(parseFloat(food.caffeine))} mg`;
+            } else if (isBeverage) {
+                caffCard.style.display = 'block';
+                caffEl.textContent = `0 mg`;
+            } else {
+                caffCard.style.display = 'none';
+            }
+        }
 
         const noteEl = document.getElementById('modalServingSizeNote');
         if (noteEl) {
@@ -274,11 +388,25 @@ const FoodDetails = {
         variantsContainer.innerHTML = '';
 
         if (food.variants && food.variants.length > 0) {
+            let variantTitle = 'Portion Size';
+            const catNameLower = (food.category_name || '').toLowerCase();
+            if (catNameLower.includes('beverage') || catNameLower.includes('drink')) {
+                variantTitle = 'Cup / Bottle Size';
+            } else if (catNameLower.includes('salad')) {
+                variantTitle = 'Salad Portion';
+            } else if (catNameLower.includes('soup')) {
+                variantTitle = 'Bowl Size';
+            } else if (catNameLower.includes('dessert')) {
+                variantTitle = 'Serving Size';
+            } else if (food.name.toLowerCase().includes('pizza')) {
+                variantTitle = 'Pizza Size';
+            }
+
             const sectionDiv = document.createElement('div');
             sectionDiv.className = 'custom-group-section';
             sectionDiv.innerHTML = `
                 <div class="group-header-row">
-                    <span class="group-header-title">Portion Size</span>
+                    <span class="group-header-title">${Utils.escapeHtml(variantTitle)}</span>
                     <span class="group-badge required">Required</span>
                 </div>
                 <div class="options-list" id="variantOptionsList"></div>
@@ -287,7 +415,7 @@ const FoodDetails = {
 
             const listEl = sectionDiv.querySelector('#variantOptionsList');
             food.variants.forEach((v, index) => {
-                const isSelected = State.selectedVariant ? State.selectedVariant.id === v.id : index === 0;
+                const isSelected = State.selectedVariant ? Number(State.selectedVariant.id) === Number(v.id) : index === 0;
                 const card = document.createElement('div');
                 card.className = `option-card ${isSelected ? 'selected' : ''}`;
                 
@@ -297,10 +425,16 @@ const FoodDetails = {
                     : `<span class="option-price-tag included">Included</span>`;
 
                 let macroTagHtml = '';
-                if (parseFloat(v.protein_adjustment) > 0) {
-                    macroTagHtml = `<span class="option-macro-tag">+${Math.round(parseFloat(v.protein_adjustment))}g protein</span>`;
-                } else if (parseInt(v.calories_adjustment) > 0 && adjPrice > 0) {
-                    macroTagHtml = `<span class="option-macro-tag">+${parseInt(v.calories_adjustment)} kcal</span>`;
+                const vCaff = parseFloat(v.caffeine_adjustment) || 0;
+                const vProt = parseFloat(v.protein_adjustment) || 0;
+                const vCal = parseInt(v.calories_adjustment) || 0;
+
+                if (vCaff > 0) {
+                    macroTagHtml = `<span class="option-macro-tag" style="background:#f3e8ff; color:#6b21a8; border:1px solid #e9d5ff;">+${Math.round(vCaff)}mg caffeine</span>`;
+                } else if (vProt > 0) {
+                    macroTagHtml = `<span class="option-macro-tag">+${Math.round(vProt)}g protein</span>`;
+                } else if (vCal > 0 && adjPrice > 0) {
+                    macroTagHtml = `<span class="option-macro-tag">+${vCal} kcal</span>`;
                 }
 
                 card.innerHTML = `
@@ -361,7 +495,7 @@ const FoodDetails = {
             const listEl = groupDiv.querySelector('.options-list');
 
             options.forEach(c => {
-                const isSelected = State.selectedCustomizations.some(x => x.id === c.id);
+                const isSelected = State.selectedCustomizations.some(x => Number(x.id) === Number(c.id));
                 const card = document.createElement('div');
                 card.className = `option-card ${isSelected ? 'selected' : ''}`;
                 card.setAttribute('data-option-id', c.id);
@@ -372,10 +506,18 @@ const FoodDetails = {
                     : `<span class="option-price-tag included">Included</span>`;
 
                 let macroTagHtml = '';
-                if (parseFloat(c.protein_adjustment) > 0) {
-                    macroTagHtml = `<span class="option-macro-tag">+${Math.round(parseFloat(c.protein_adjustment))}g protein</span>`;
-                } else if (parseInt(c.calories_adjustment) > 0 && adjPrice > 0) {
-                    macroTagHtml = `<span class="option-macro-tag">+${parseInt(c.calories_adjustment)} kcal</span>`;
+                const cCaff = parseFloat(c.caffeine_adjustment) || 0;
+                const cProt = parseFloat(c.protein_adjustment) || 0;
+                const cCal = parseInt(c.calories_adjustment) || 0;
+
+                if (cCaff > 0) {
+                    macroTagHtml = `<span class="option-macro-tag" style="background:#f3e8ff; color:#6b21a8; border:1px solid #e9d5ff;">+${Math.round(cCaff)}mg caffeine</span>`;
+                } else if (cCaff < 0) {
+                    macroTagHtml = `<span class="option-macro-tag" style="background:#e0f2fe; color:#0369a1; border:1px solid #bae6fd;">${Math.round(cCaff)}mg caffeine</span>`;
+                } else if (cProt > 0) {
+                    macroTagHtml = `<span class="option-macro-tag">+${Math.round(cProt)}g protein</span>`;
+                } else if (cCal > 0 && adjPrice > 0) {
+                    macroTagHtml = `<span class="option-macro-tag">+${cCal} kcal</span>`;
                 }
 
                 if (isSingleSelect) {
@@ -405,6 +547,7 @@ const FoodDetails = {
                             carbs_adjustment: c.carbs_adjustment !== null ? parseFloat(c.carbs_adjustment) : null,
                             fat_adjustment: c.fat_adjustment !== null ? parseFloat(c.fat_adjustment) : null,
                             sugar_adjustment: c.sugar_adjustment !== null && c.sugar_adjustment !== undefined ? parseFloat(c.sugar_adjustment) : null,
+                            caffeine_adjustment: c.caffeine_adjustment !== null && c.caffeine_adjustment !== undefined ? parseFloat(c.caffeine_adjustment) : null,
                             quantity: 1
                         });
 
@@ -427,7 +570,7 @@ const FoodDetails = {
                     `;
 
                     card.addEventListener('click', () => {
-                        const existingIdx = State.selectedCustomizations.findIndex(x => x.id === c.id);
+                        const existingIdx = State.selectedCustomizations.findIndex(x => Number(x.id) === Number(c.id));
 
                         if (existingIdx > -1) {
                             // Uncheck
@@ -456,6 +599,7 @@ const FoodDetails = {
                                 carbs_adjustment: c.carbs_adjustment !== null ? parseFloat(c.carbs_adjustment) : null,
                                 fat_adjustment: c.fat_adjustment !== null ? parseFloat(c.fat_adjustment) : null,
                                 sugar_adjustment: c.sugar_adjustment !== null && c.sugar_adjustment !== undefined ? parseFloat(c.sugar_adjustment) : null,
+                                caffeine_adjustment: c.caffeine_adjustment !== null && c.caffeine_adjustment !== undefined ? parseFloat(c.caffeine_adjustment) : null,
                                 quantity: 1
                             });
                             card.classList.add('selected');
@@ -514,9 +658,11 @@ const FoodDetails = {
         if (priceEl) priceEl.textContent = `₹${Math.round(lineTotal)}`;
 
         const summaryHeaderEl = document.getElementById('summaryHeaderLabel');
+        const catNameLower = (food.category_name || '').toLowerCase();
+        const isBeverage = catNameLower.includes('beverage') || catNameLower.includes('drink');
+        
         if (summaryHeaderEl) {
-            const catName = (food.category_name || '').toLowerCase();
-            const itemType = catName.includes('bowl') ? 'bowl' : 'item';
+            const itemType = isBeverage ? 'drink' : (catNameLower.includes('bowl') ? 'bowl' : (catNameLower.includes('salad') ? 'salad' : 'item'));
             summaryHeaderEl.textContent = `Updated nutrition (for ${quantity} ${quantity > 1 ? itemType + 's' : itemType})`;
         }
 
@@ -530,13 +676,32 @@ const FoodDetails = {
         const baseCarbs = food.carbs !== null ? parseFloat(food.carbs) * quantity : null;
         const baseFat = food.fat !== null ? parseFloat(food.fat) * quantity : null;
         const baseSugar = food.sugar !== null && food.sugar !== undefined ? parseFloat(food.sugar) * quantity : null;
+        const baseCaffeine = (food.caffeine !== null && food.caffeine !== undefined) ? parseFloat(food.caffeine) * quantity : null;
 
-        // Render Live Values & Delta Badges (5 Metrics)
+        // Render Live Values & Delta Badges (6 Metrics)
         this.renderMetricBox('Calories', scaledNutrition.calories, baseCalories, 'kcal');
         this.renderMetricBox('Protein', scaledNutrition.protein, baseProtein, 'g');
         this.renderMetricBox('Carbs', scaledNutrition.carbs, baseCarbs, 'g');
         this.renderMetricBox('Fat', scaledNutrition.fat, baseFat, 'g');
         this.renderMetricBox('Sugar', scaledNutrition.sugar, baseSugar, 'g');
+
+        const boxCaff = document.getElementById('boxLiveCaffeine');
+        const hasCaffeine = food.caffeine !== null && food.caffeine !== undefined;
+
+        if (boxCaff) {
+            if ((hasCaffeine && parseFloat(food.caffeine) > 0) || (scaledNutrition.caffeine !== null && scaledNutrition.caffeine > 0) || isBeverage) {
+                boxCaff.style.display = 'flex';
+                this.renderMetricBox('Caffeine', scaledNutrition.caffeine !== null ? Math.round(scaledNutrition.caffeine) : 0, baseCaffeine, 'mg');
+            } else {
+                boxCaff.style.display = 'none';
+            }
+        }
+
+        const liveQtyLabel = document.getElementById('modalLiveQtyLabel');
+        if (liveQtyLabel) {
+            const itemWord = isBeverage ? (quantity > 1 ? 'drinks' : 'drink') : (quantity > 1 ? 'items' : 'item');
+            liveQtyLabel.textContent = `${quantity} ${itemWord} · Live Per Order Totals`;
+        }
 
         // 3. Validation & Add to Cart Button state
         const isValid = this.validateRequiredSelections();
@@ -546,7 +711,11 @@ const FoodDetails = {
         if (addBtn && addBtnText) {
             if (isValid) {
                 addBtn.disabled = false;
-                addBtnText.textContent = `Add to cart · ₹${Math.round(lineTotal)}`;
+                if (this.editingCartIndex !== null) {
+                    addBtnText.textContent = `Update in Cart · ₹${Math.round(lineTotal)}`;
+                } else {
+                    addBtnText.textContent = `Add to cart · ₹${Math.round(lineTotal)}`;
+                }
             } else {
                 addBtn.disabled = true;
                 addBtnText.textContent = 'Please make required selections';
@@ -584,7 +753,7 @@ const FoodDetails = {
     },
 
     /**
-     * Add customized item to Cart using existing Cart service
+     * Add or Update customized item in Cart using existing Cart service
      */
     addToCart() {
         if (!State.selectedFood) return;
@@ -610,8 +779,7 @@ const FoodDetails = {
         const lineTotal = Pricing.calculateLineTotal(unitPrice, quantity);
         const itemNutrition = Nutrition.calculateItemNutrition(food, variant, customizations);
 
-        // Add item through existing Cart architecture
-        Cart.addItem({
+        const itemData = {
             restaurant_id: (State.restaurant && State.restaurant.id) ? State.restaurant.id : 1,
             branch_id: (State.branch && State.branch.id) ? State.branch.id : 1,
             food_id: food.id,
@@ -627,6 +795,7 @@ const FoodDetails = {
                 name: c.name,
                 price_adjustment: c.price_adjustment,
                 sugar_adjustment: c.sugar_adjustment,
+                caffeine_adjustment: c.caffeine_adjustment,
                 quantity: c.quantity || 1
             })),
             special_instructions: specialInstructions,
@@ -634,15 +803,30 @@ const FoodDetails = {
             unit_price: unitPrice,
             line_total: lineTotal,
             nutrition: itemNutrition
-        });
+        };
 
-        this.close();
-
-        const toastMsg = `${food.name} added to cart!`;
-        if (window.showToast) {
-            window.showToast(toastMsg, 'success', 'bi-check-circle-fill');
-        } else if (window.Utils) {
-            Utils.showToast(toastMsg);
+        if (this.editingCartIndex !== null && State.cart && State.cart[this.editingCartIndex]) {
+            Cart.updateItem(this.editingCartIndex, itemData);
+            this.editingCartIndex = null;
+            this.close();
+            if (window.Cart) {
+                Cart.open();
+            }
+            const toastMsg = `Updated ${food.name} in cart!`;
+            if (window.showToast) {
+                window.showToast(toastMsg, 'success', 'bi-check-circle-fill');
+            } else if (window.Utils) {
+                Utils.showToast(toastMsg);
+            }
+        } else {
+            Cart.addItem(itemData);
+            this.close();
+            const toastMsg = `${food.name} added to cart!`;
+            if (window.showToast) {
+                window.showToast(toastMsg, 'success', 'bi-check-circle-fill');
+            } else if (window.Utils) {
+                Utils.showToast(toastMsg);
+            }
         }
     }
 };

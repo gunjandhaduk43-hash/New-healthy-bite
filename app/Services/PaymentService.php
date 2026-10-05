@@ -26,12 +26,20 @@ class PaymentService
         }
 
         $db = Database::getConnection();
-        $stmt = $db->prepare("SELECT id, total_amount, payment_status, order_number FROM orders WHERE id = :id");
+        $stmt = $db->prepare("SELECT id, total_amount, payment_status, order_status, order_number FROM orders WHERE id = :id");
         $stmt->execute(['id' => $orderId]);
         $order = $stmt->fetch();
 
         if (!$order) {
             throw new \InvalidArgumentException("Order #{$orderId} not found.");
+        }
+
+        if ($order['order_status'] === 'cancelled') {
+            throw new \InvalidArgumentException("Cannot process payment for a cancelled order.");
+        }
+
+        if ($order['payment_status'] === 'completed') {
+            throw new \InvalidArgumentException("Order #{$order['order_number']} has already been paid.");
         }
 
         $reference = 'TXN-' . strtoupper($method) . '-' . strtoupper(bin2hex(random_bytes(6)));

@@ -37,10 +37,11 @@ class Router
     public function dispatch(): void
     {
         $requestMethod = Request::getMethod();
+        $effectiveMethod = ($requestMethod === 'HEAD') ? 'GET' : $requestMethod;
         $requestPath   = Request::getPath();
 
         foreach ($this->routes as $route) {
-            if ($route['method'] !== $requestMethod) {
+            if ($route['method'] !== $effectiveMethod) {
                 continue;
             }
 

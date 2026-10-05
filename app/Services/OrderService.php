@@ -53,9 +53,10 @@ class OrderService
             throw new \InvalidArgumentException('Restaurant branch not found.');
         }
 
-        $orderType = in_array($payload['order_type'] ?? '', ['dine_in', 'takeaway'], true)
-            ? $payload['order_type']
-            : 'dine_in';
+        $orderType = $payload['order_type'] ?? null;
+        if (!in_array($orderType, ['dine_in', 'takeaway'], true)) {
+            throw new \InvalidArgumentException('Order type must be dine_in or takeaway.');
+        }
 
         if ($orderType === 'dine_in' && $tableId === null) {
             throw new \InvalidArgumentException('A dining table must be selected for Dine-In orders.');
@@ -69,14 +70,15 @@ class OrderService
         $customerMobile = !empty($payload['customer_mobile']) ? trim((string)$payload['customer_mobile']) : null;
         $customerEmail = !empty($payload['customer_email']) ? trim((string)$payload['customer_email']) : null;
 
-        $customerId = $this->orderRepo->createCustomer($customerName, $customerMobile, $customerEmail);
-
         // 3. Re-validate and recalculate entire cart strictly on backend
         $rawItems = is_array($payload['items'] ?? null) ? $payload['items'] : [];
         $validatedCart = $this->cartService->validateCartItems($rawItems, $restaurantId);
 
         $pricing = $validatedCart['pricing'];
         $items = $validatedCart['items'];
+
+        // Persist the customer only after request and cart validation succeed.
+        $customerId = $this->orderRepo->createCustomer($customerName, $customerMobile, $customerEmail);
 
         // 4. Generate Unique Order Number
         $orderNumber = 'HB-' . strtoupper(dechex((int)(microtime(true) * 1000))) . '-' . rand(100, 999);

@@ -224,6 +224,53 @@
     color: var(--text-primary);
 }
 
+.btn-edit-cart-item {
+    height: 30px;
+    padding: 0 10px;
+    border-radius: var(--radius-sm);
+    background-color: var(--primary-50);
+    border: 1px solid var(--primary-200);
+    color: var(--primary-green);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 700;
+    transition: all var(--transition-fast);
+}
+
+.btn-edit-cart-item:hover {
+    background-color: var(--primary-green);
+    color: #ffffff;
+    border-color: var(--primary-green);
+}
+
+.btn-edit-cart-item i {
+    font-size: 12px;
+}
+
+.order-item-edit-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: var(--radius-sm);
+    background-color: var(--primary-50);
+    border: 1px solid var(--primary-200);
+    color: var(--primary-green);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all var(--transition-fast);
+}
+
+.order-item-edit-btn:hover {
+    background-color: var(--primary-green);
+    color: #ffffff;
+    border-color: var(--primary-green);
+}
+
 .btn-remove-item {
     width: 30px;
     height: 30px;
@@ -242,6 +289,83 @@
 .btn-remove-item:hover {
     background-color: var(--color-error);
     color: #ffffff;
+}
+
+/* ============================================================
+   NUTRITION TOTALS SUMMARY WIDGET (Calories, Protein, Sugar)
+   ============================================================ */
+.cart-nutrition-summary {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 8px 10px;
+    margin-bottom: 10px;
+}
+
+.cart-nutrition-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #475569;
+    margin-bottom: 6px;
+}
+
+.cart-nutrition-chips {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+}
+
+.cart-nutrition-chip {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 6px;
+    border-radius: 6px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    text-align: center;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+}
+
+.cart-nutrition-chip .chip-label {
+    font-size: 10.5px;
+    font-weight: 600;
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.cart-nutrition-chip .chip-value {
+    font-size: 12.5px;
+    font-weight: 800;
+    margin-top: 2px;
+    color: #1e293b;
+}
+
+.cart-nutrition-chip.chip-calories .chip-value {
+    color: #d97706;
+}
+.cart-nutrition-chip.chip-calories .chip-label i {
+    color: #f59e0b;
+}
+
+.cart-nutrition-chip.chip-protein .chip-value {
+    color: #059669;
+}
+.cart-nutrition-chip.chip-protein .chip-label i {
+    color: #10b981;
+}
+
+.cart-nutrition-chip.chip-sugar .chip-value {
+    color: #b45309;
+}
+.cart-nutrition-chip.chip-sugar .chip-label i {
+    color: #d97706;
 }
 
 /* ============================================================

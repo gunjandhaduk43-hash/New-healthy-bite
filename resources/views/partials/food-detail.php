@@ -77,6 +77,10 @@
                             <span class="base-metric-val" id="metricBaseSugar">—</span>
                             <span class="base-metric-lbl">Sugar</span>
                         </div>
+                        <div class="base-metric-card" id="cardBaseCaffeine" style="display:none;">
+                            <span class="base-metric-val" id="metricBaseCaffeine">—</span>
+                            <span class="base-metric-lbl">Caffeine</span>
+                        </div>
                     </div>
                     <div class="nutrition-footnote" id="modalServingSizeNote">
                         Nutritional values are approximate · Serving size 420 g
@@ -181,6 +185,18 @@
                             </div>
                             <span class="live-lbl">Sugar</span>
                         </div>
+
+                        <div class="live-metric-box" id="boxLiveCaffeine" style="display:none;">
+                            <div class="live-metric-header">
+                                <span class="live-val" id="metricLiveCaffeine">0 mg</span>
+                                <span class="delta-badge" id="deltaCaffeine" style="display:none;">+0</span>
+                            </div>
+                            <span class="live-lbl">Caffeine</span>
+                        </div>
+                    </div>
+
+                    <div class="summary-footnote" id="modalLiveScaleNote" style="font-size: 11px; color: rgba(255,255,255,0.75); margin-bottom: 10px; text-align: center;">
+                        <i class="bi bi-info-circle"></i> Nutrition &amp; caffeine scaled for <span id="modalLiveQtyLabel" style="font-weight:700; color:#fff;">1 item</span>
                     </div>
 
                     <!-- Full-Width Add to Cart Button -->

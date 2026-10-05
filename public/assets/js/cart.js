@@ -172,6 +172,28 @@ const Cart = {
         }
     },
 
+    editItem(index) {
+        if (!State.cart || !State.cart[index]) return;
+        const item = State.cart[index];
+        if (window.FoodDetails) {
+            FoodDetails.open(item.food_id, index);
+        }
+    },
+
+    updateItem(index, updatedItem) {
+        if (!State.cart || !State.cart[index]) return;
+
+        updatedItem.quantity = Math.max(1, parseInt(updatedItem.quantity) || 1);
+        updatedItem.unit_price = parseFloat(updatedItem.unit_price) || 0;
+        updatedItem.line_total = window.Pricing 
+            ? Pricing.calculateLineTotal(updatedItem.unit_price, updatedItem.quantity)
+            : (updatedItem.unit_price * updatedItem.quantity);
+
+        State.cart[index] = updatedItem;
+        State.saveCartToStorage();
+        this.render();
+    },
+
     clear() {
         State.cart = [];
         State.saveCartToStorage();
@@ -290,6 +312,9 @@ const Cart = {
                         if (item.nutrition.sugar !== null && item.nutrition.sugar !== undefined) {
                             macroText += `<span class="macro-chip" style="font-size:10px;padding:1px 5px;background:#fef3c7;color:#92400e;border-color:#fde68a;">${item.nutrition.sugar}g Sugar</span>`;
                         }
+                        if (item.nutrition.caffeine !== null && item.nutrition.caffeine !== undefined && parseFloat(item.nutrition.caffeine) > 0) {
+                            macroText += `<span class="macro-chip" style="font-size:10px;padding:1px 5px;background:#f3e8ff;color:#6b21a8;border-color:#e9d5ff;"><i class="bi bi-cup-hot"></i> ${item.nutrition.caffeine}mg Caff</span>`;
+                        }
                     }
 
                     const rawImg = item.image || item.food_image || 'placeholder-dish.svg';
@@ -301,7 +326,7 @@ const Cart = {
                     const foodNameEscaped = window.Utils ? Utils.escapeHtml(item.food_name) : item.food_name;
 
                     itemCard.innerHTML = `
-                        <img src="${imgSrc}" class="order-item-img" alt="${foodNameEscaped}" onerror="this.src='/assets/images/foods/placeholder-dish.svg'">
+                        <img src="${imgSrc}" class="order-item-img" style="width:42px;height:42px;min-width:42px;max-width:42px;object-fit:cover;border-radius:8px;flex-shrink:0;display:block;" alt="${foodNameEscaped}" onerror="this.src='/assets/images/foods/placeholder-dish.svg'">
                         <div class="order-item-info">
                             <div class="order-item-title-row">
                                 <span class="order-item-title">${foodNameEscaped}</span>
@@ -311,6 +336,7 @@ const Cart = {
                             ${macroText ? `<div class="order-item-macros">${macroText}</div>` : ''}
                         </div>
                         <div class="order-item-stepper">
+                            <button type="button" class="order-item-edit-btn" onclick="Cart.editItem(${index})" title="Edit customizations" aria-label="Edit item"><i class="bi bi-pencil-square"></i></button>
                             <button type="button" class="order-stepper-btn" onclick="Cart.updateQuantity(${index}, -1)" aria-label="Decrease quantity">-</button>
                             <span class="order-stepper-val">${item.quantity}</span>
                             <button type="button" class="order-stepper-btn" onclick="Cart.updateQuantity(${index}, 1)" aria-label="Increase quantity">+</button>
@@ -322,24 +348,55 @@ const Cart = {
             }
         }
 
-        // Calculate Cart Total Sugar (Multiplied by quantity for each item)
+        // Calculate Cart Totals: Calories, Protein, and Sugar (Multiplied by quantity for each item)
+        let totalCartCalories = 0;
+        let totalCartProtein = 0;
         let totalCartSugar = 0;
+        let hasAnyCalData = false;
+        let hasAnyProtData = false;
         let hasAnySugarData = false;
+
         cartItems.forEach(item => {
-            if (item.nutrition && item.nutrition.sugar !== null && item.nutrition.sugar !== undefined) {
-                const qty = Math.max(1, parseInt(item.quantity) || 1);
-                totalCartSugar += (parseFloat(item.nutrition.sugar) * qty);
-                hasAnySugarData = true;
+            const qty = Math.max(1, parseInt(item.quantity) || 1);
+            if (item.nutrition) {
+                if (item.nutrition.calories !== null && item.nutrition.calories !== undefined) {
+                    totalCartCalories += (parseFloat(item.nutrition.calories) * qty);
+                    hasAnyCalData = true;
+                }
+                if (item.nutrition.protein !== null && item.nutrition.protein !== undefined) {
+                    totalCartProtein += (parseFloat(item.nutrition.protein) * qty);
+                    hasAnyProtData = true;
+                }
+                if (item.nutrition.sugar !== null && item.nutrition.sugar !== undefined) {
+                    totalCartSugar += (parseFloat(item.nutrition.sugar) * qty);
+                    hasAnySugarData = true;
+                }
             }
         });
 
-        const sugarDisplayStr = hasAnySugarData ? `${Math.round(totalCartSugar * 10) / 10} g` : 'Not available';
+        const calDisplayStr = hasAnyCalData ? `${Math.round(totalCartCalories)} kcal` : '—';
+        const protDisplayStr = hasAnyProtData ? `${Math.round(totalCartProtein * 10) / 10} g` : '—';
+        const sugarDisplayStr = hasAnySugarData ? `${Math.round(totalCartSugar * 10) / 10} g` : '0 g';
 
-        const sidebarSugarEl = document.getElementById('sidebarTotalSugar');
-        if (sidebarSugarEl) sidebarSugarEl.textContent = sugarDisplayStr;
+        // Update Drawer elements
+        const drawerCalEl = document.getElementById('cartTotalCalories');
+        if (drawerCalEl) drawerCalEl.textContent = calDisplayStr;
+
+        const drawerProtEl = document.getElementById('cartTotalProtein');
+        if (drawerProtEl) drawerProtEl.textContent = protDisplayStr;
 
         const drawerSugarEl = document.getElementById('cartTotalSugar');
         if (drawerSugarEl) drawerSugarEl.textContent = sugarDisplayStr;
+
+        // Update Desktop Sidebar elements
+        const sidebarCalEl = document.getElementById('sidebarTotalCalories');
+        if (sidebarCalEl) sidebarCalEl.textContent = calDisplayStr;
+
+        const sidebarProtEl = document.getElementById('sidebarTotalProtein');
+        if (sidebarProtEl) sidebarProtEl.textContent = protDisplayStr;
+
+        const sidebarSugarEl = document.getElementById('sidebarTotalSugar');
+        if (sidebarSugarEl) sidebarSugarEl.textContent = sugarDisplayStr;
 
         // 4. Render Drawer Elements (if present)
         const cartItemsList = document.getElementById('cartItemsList');
@@ -378,6 +435,9 @@ const Cart = {
                         if (item.nutrition.sugar !== null && item.nutrition.sugar !== undefined) {
                             nutText += ` · ${item.nutrition.sugar}g sugar`;
                         }
+                        if (item.nutrition.caffeine !== null && item.nutrition.caffeine !== undefined && parseFloat(item.nutrition.caffeine) > 0) {
+                            nutText += ` · ${item.nutrition.caffeine}mg caffeine`;
+                        }
                     }
 
                     const foodNameEscaped = window.Utils ? Utils.escapeHtml(item.food_name) : item.food_name;
@@ -392,12 +452,16 @@ const Cart = {
                         <div class="cart-item-bottom">
                             <span class="cart-item-nutrition">${nutText}</span>
                             <div class="cart-item-actions">
+                                <button type="button" class="btn-edit-cart-item" onclick="Cart.editItem(${index})" title="Edit customizations & portion" aria-label="Edit item">
+                                    <i class="bi bi-pencil-square"></i>
+                                    <span>Edit</span>
+                                </button>
                                 <div class="quantity-control">
-                                    <button class="qty-btn" onclick="Cart.updateQuantity(${index}, -1)">-</button>
+                                    <button class="qty-btn" onclick="Cart.updateQuantity(${index}, -1)" aria-label="Decrease quantity">-</button>
                                     <span class="qty-display">${item.quantity}</span>
-                                    <button class="qty-btn" onclick="Cart.updateQuantity(${index}, 1)">+</button>
+                                    <button class="qty-btn" onclick="Cart.updateQuantity(${index}, 1)" aria-label="Increase quantity">+</button>
                                 </div>
-                                <button class="btn-remove-item" onclick="Cart.removeItem(${index})" title="Remove">
+                                <button class="btn-remove-item" onclick="Cart.removeItem(${index})" title="Remove item" aria-label="Remove item">
                                     <i class="bi bi-trash3"></i>
                                 </button>
                             </div>
@@ -502,6 +566,11 @@ const Cart = {
     },
 
     addQuickPairing(id, name, price, image, calories, protein, sugar) {
+        if (window.FoodDetails) {
+            FoodDetails.open(id);
+            return;
+        }
+
         const item = {
             food_id: id,
             food_name: name,

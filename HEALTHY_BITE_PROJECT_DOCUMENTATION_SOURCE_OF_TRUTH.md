@@ -321,25 +321,33 @@ User authentication is managed via `App\Repositories\UserRepository::findByEmail
 
 # 7. Complete Table Inventory
 
-| # | Exact Table Name | Row Count | Column Count | Foreign Keys | Primary Key | Purpose / Description | Status Classification |
+| # | Exact Table Name | Live Row Count | Column Count | Foreign Keys | Primary Key | Purpose / Description | Status Classification |
 | :---: | :--- | :---: | :---: | :---: | :--- | :--- | :--- |
 | **1** | `admin` | 4 | 4 | 0 | `id` | Legacy table containing administrator names and timestamps. Not referenced by any code. | **LEGACY / DUPLICATE** |
 | **2** | `roles` | 4 | 6 | 0 | `id` | System user authorization roles (`super_admin`, `restaurant_owner`, `manager`, `staff`). | **VERIFIED IMPLEMENTED** |
 | **3** | `restaurants` | 3 | 15 | 1 | `id` | Multi-tenant restaurant entity directory with branding, contact, and approval status. | **VERIFIED IMPLEMENTED** |
 | **4** | `users` | 8 | 9 | 2 | `id` | Authenticated accounts across all portals with role and restaurant scoping. | **VERIFIED IMPLEMENTED** |
 | **5** | `branches` | 6 | 10 | 1 | `id` | Physical dining branches/locations associated with a restaurant tenant. | **VERIFIED IMPLEMENTED** |
-| **6** | `categories` | 8 | 10 | 1 | `id` | Menu food categories (Main Meals, Bowls, Wraps, Salads, Soups, etc.). | **VERIFIED IMPLEMENTED** |
-| **7** | `food_items` | 49 | 25 | 2 | `id` | Core food catalog dishes with base price, full 8-macro nutrition, and diet type. | **VERIFIED IMPLEMENTED** |
-| **8** | `food_variants` | 76 | 18 | 1 | `id` | Dish portion/preparation variations (e.g. Regular, Large) with price/macro adjustments. | **VERIFIED IMPLEMENTED** |
-| **9** | `food_customizations` | 129 | 21 | 1 | `id` | Add-on ingredients, bases, dressings, and toppings with min/max quantity limits. | **VERIFIED IMPLEMENTED** |
+| **6** | `categories` | 16 | 10 | 1 | `id` | Menu food categories across tenants (8 for Greenhouse Kitchen + 8 tenant categories). | **VERIFIED IMPLEMENTED** |
+| **7** | `food_items` | 47 | 25 | 2 | `id` | Core food catalog dishes with base price, 8-macro nutrition, caffeine, and diet type. | **VERIFIED IMPLEMENTED** |
+| **8** | `food_variants` | 94 | 18 | 1 | `id` | Dish portion/preparation variations (e.g. Standard, Large) with price/macro/caffeine adjustments. | **VERIFIED IMPLEMENTED** |
+| **9** | `food_customizations` | 543 | 21 | 1 | `id` | Item-specific add-ons, bases, dressings, and toppings with min/max quantity limits. | **VERIFIED IMPLEMENTED** |
 | **10** | `restaurant_tables` | 12 | 7 | 2 | `id` | Dining tables belonging to branches with occupancy status (`available`, `occupied`, etc.). | **VERIFIED IMPLEMENTED** |
 | **11** | `qr_tokens` | 12 | 8 | 3 | `id` | Cryptographic alphanumeric tokens linking physical QR scans to specific tables. | **VERIFIED IMPLEMENTED** |
-| **12** | `customers` | 15 | 6 | 0 | `id` | Dining guest customer records created upon order placement (name, mobile, email). | **VERIFIED IMPLEMENTED** |
-| **13** | `orders` | 18 | 16 | 4 | `id` | Master orders table tracking order numbers, dining type, totals, and lifecycle statuses. | **VERIFIED IMPLEMENTED** |
-| **14** | `order_items` | 26 | 19 | 2 | `id` | Itemized order dishes with frozen price and nutrition snapshots at purchase time. | **VERIFIED IMPLEMENTED** |
-| **15** | `order_item_customizations` | 29 | 15 | 2 | `id` | Frozen customization choices and macro/price adjustments selected per order item. | **VERIFIED IMPLEMENTED** |
-| **16** | `payments` | 14 | 8 | 1 | `id` | Payment settlement records linked 1-to-1 with orders (`cash`, `upi`, `card`). | **VERIFIED IMPLEMENTED** |
-| **17** | `reviews` | 5 | 11 | 3 | `id` | Customer dining feedback, star ratings, and restaurant owner response replies. | **VERIFIED IMPLEMENTED** |
+| **12** | `customers` | 37 | 6 | 0 | `id` | Dining guest customer records created upon order placement (name, mobile, email). | **VERIFIED IMPLEMENTED** |
+| **13** | `orders` | 34 | 16 | 4 | `id` | Master orders table tracking order numbers, dining type, totals, and lifecycle statuses. | **VERIFIED IMPLEMENTED** |
+| **14** | `order_items` | 43 | 19 | 2 | `id` | Itemized order dishes with frozen price and nutrition snapshots at purchase time. | **VERIFIED IMPLEMENTED** |
+| **15** | `order_item_customizations` | 66 | 15 | 2 | `id` | Frozen customization choices and macro/price/caffeine adjustments per order item. | **VERIFIED IMPLEMENTED** |
+| **16** | `payments` | 21 | 8 | 1 | `id` | Payment settlement records linked 1-to-1 with orders (`cash`, `upi`, `card`). | **VERIFIED IMPLEMENTED** |
+| **17** | `reviews` | 7 | 11 | 3 | `id` | Customer dining feedback, star ratings, and restaurant owner response replies. | **VERIFIED IMPLEMENTED** |
+
+> **Critical Data Dictionary Architecture Advisory & Unit Reference:**  
+> - **Calories:** Kilocalories (`kcal`), stored as `int(10) unsigned` / `int(11)`.
+> - **Macronutrients (Protein, Carbs, Fat, Fiber, Sugar):** Strictly measured in **grams (`g`)**, stored as `decimal(6,2)`.
+> - **Sodium:** Strictly measured in **milligrams (`mg`)**, stored as `decimal(7,2)`.
+> - **Caffeine:** Strictly measured in **milligrams (`mg`)**, stored as `decimal(6,2)` (`food_items.caffeine`, `food_variants.caffeine_adjustment`, `food_customizations.caffeine_adjustment`, `order_items.caffeine`, `order_item_customizations.caffeine_adjustment`).  
+> *(Note: Any specification or external sheet stating caffeine is measured in grams `g` is incorrect; caffeine is strictly tracked in milligrams `mg`).*
+> - **Table Number Indexing:** `restaurant_tables.table_number` is indexed via composite unique constraint `uq_branch_table (branch_id, table_number)` to ensure uniqueness per physical restaurant branch.
 
 ---
 

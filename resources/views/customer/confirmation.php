@@ -73,6 +73,8 @@
                             <?php if ($item['calories'] !== null): ?>
                                 <div class="item-macros">
                                     <i class="bi bi-fire"></i> <?= (int)$item['calories'] ?> kcal · <?= (float)$item['protein'] ?>g protein
+                                    <?php if ($item['sugar'] !== null): ?> · <?= (float)$item['sugar'] ?>g sugar<?php endif; ?>
+                                    <?php if (!empty($item['caffeine']) && (float)$item['caffeine'] > 0): ?> · <i class="bi bi-cup-hot"></i> <?= (int)$item['caffeine'] ?>mg caffeine<?php endif; ?>
                                 </div>
                             <?php endif; ?>
                         </div>
@@ -94,3 +96,10 @@
         </div>
     </div>
 </div>
+
+<script>
+    try {
+        localStorage.setItem('active_order_number', <?= json_encode($order['order_number']) ?>);
+        localStorage.setItem('active_order_id', <?= json_encode($order['id'] ?? 0) ?>);
+    } catch(e) {}
+</script>

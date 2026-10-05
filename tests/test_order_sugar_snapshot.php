@@ -49,24 +49,29 @@ $selectedVariant = $varStmt->fetch(PDO::FETCH_ASSOC);
 echo "Selected Variant: {$selectedVariant['name']} (ID: {$selectedVariant['id']})\n";
 echo "Variant Sugar Adjustment: +{$selectedVariant['sugar_adjustment']} g\n";
 
-// 3. Fetch customizations for food #13
-$custStmt = $pdo->prepare("SELECT * FROM food_customizations WHERE food_item_id = 13 AND sugar_adjustment > 0");
+// 3. Fetch active customizations for food #13 grouped by required groups
+$custStmt = $pdo->prepare("SELECT * FROM food_customizations WHERE food_item_id = 13 AND is_available = 1 ORDER BY group_name, sort_order");
 $custStmt->execute();
 $customizations = $custStmt->fetchAll(PDO::FETCH_ASSOC);
 
 $selectedCustomizations = [];
 $expectedCustomSugarSum = 0.0;
-
+$grouped = [];
 foreach ($customizations as $c) {
-    echo "Customization Available: {$c['name']} (ID: {$c['id']}) -> Sugar Adj: +{$c['sugar_adjustment']} g\n";
-    if (count($selectedCustomizations) < 2) {
+    $grouped[$c['group_name']][] = $c;
+}
+
+foreach ($grouped as $gName => $cList) {
+    if (!empty($cList[0]['is_required']) || (int)$cList[0]['min_quantity'] > 0) {
+        $c = $cList[0];
         $selectedCustomizations[] = [
             'id' => (int)$c['id'],
             'quantity' => 1,
             'name' => $c['name'],
-            'sugar_adj' => (float)$c['sugar_adjustment']
+            'sugar_adj' => (float)($c['sugar_adjustment'] ?? 0.0)
         ];
-        $expectedCustomSugarSum += (float)$c['sugar_adjustment'];
+        $expectedCustomSugarSum += (float)($c['sugar_adjustment'] ?? 0.0);
+        echo "Selected Required Customization: {$c['name']} (ID: {$c['id']}) -> Sugar Adj: +{$c['sugar_adjustment']} g\n";
     }
 }
 

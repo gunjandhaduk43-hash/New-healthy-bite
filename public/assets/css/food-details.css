@@ -12,7 +12,7 @@
     background-color: rgba(10, 25, 15, 0.65);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
-    z-index: 1050;
+    z-index: 1200;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -253,7 +253,7 @@
 
 .base-nutrition-grid {
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(54px, 1fr));
     gap: 6px;
     margin-bottom: 8px;
 }
@@ -620,12 +620,12 @@
     letter-spacing: -0.3px;
 }
 
-/* 5 Live Nutrition Cards */
+/* 5 or 6 Live Nutrition Cards */
 .live-metrics-grid {
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
     gap: 6px;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
 }
 
 .live-metric-box {
@@ -811,7 +811,7 @@
     }
 
     .base-nutrition-grid {
-        grid-template-columns: repeat(5, minmax(0, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(46px, 1fr));
         gap: 4px;
     }
 

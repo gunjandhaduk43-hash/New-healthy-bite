@@ -64,7 +64,11 @@ const Checkout = {
         if (!itemsList) return;
 
         itemsList.innerHTML = '';
+        let totalCheckoutCalories = 0;
+        let totalCheckoutProtein = 0;
         let totalCheckoutSugar = 0;
+        let hasAnyCal = false;
+        let hasAnyProtein = false;
         let hasAnySugar = false;
 
         State.cart.forEach(item => {
@@ -75,18 +79,36 @@ const Checkout = {
 
             let nutDetail = '';
             if (item.nutrition) {
+                const parts = [];
+                const qty = Math.max(1, parseInt(item.quantity) || 1);
+                if (item.nutrition.calories !== null && item.nutrition.calories !== undefined) {
+                    parts.push(`${item.nutrition.calories} kcal`);
+                    totalCheckoutCalories += (parseFloat(item.nutrition.calories) * qty);
+                    hasAnyCal = true;
+                }
+                if (item.nutrition.protein !== null && item.nutrition.protein !== undefined) {
+                    parts.push(`${item.nutrition.protein}g protein`);
+                    totalCheckoutProtein += (parseFloat(item.nutrition.protein) * qty);
+                    hasAnyProtein = true;
+                }
                 if (item.nutrition.sugar !== null && item.nutrition.sugar !== undefined) {
-                    nutDetail = ` · ${item.nutrition.sugar}g sugar`;
-                    totalCheckoutSugar += (parseFloat(item.nutrition.sugar) * item.quantity);
+                    parts.push(`${item.nutrition.sugar}g sugar`);
+                    totalCheckoutSugar += (parseFloat(item.nutrition.sugar) * qty);
                     hasAnySugar = true;
+                }
+                if (item.nutrition.caffeine !== null && item.nutrition.caffeine !== undefined && parseFloat(item.nutrition.caffeine) > 0) {
+                    parts.push(`${item.nutrition.caffeine}mg caffeine`);
+                }
+                if (parts.length > 0) {
+                    nutDetail = parts.join(' · ');
                 }
             }
 
             row.innerHTML = `
                 <div>
                     <div><strong>${item.quantity}x</strong> ${Utils.escapeHtml(detail)}</div>
-                    ${item.customizations && item.customizations.length > 0 ? `<small style="color:var(--text-muted)">+ ${item.customizations.map(c => c.name).join(', ')}</small>` : ''}
-                    ${nutDetail ? `<div style="font-size:11px;color:#b45309;font-weight:600;">${nutDetail.replace(/^ · /, '')} per item</div>` : ''}
+                    ${item.customizations && item.customizations.length > 0 ? `<small style="color:var(--text-muted); display:block; margin:2px 0;">+ ${item.customizations.map(c => c.name).join(', ')}</small>` : ''}
+                    ${nutDetail ? `<div style="font-size:11px;color:#047857;font-weight:600;">${nutDetail} per item</div>` : ''}
                 </div>
                 <div><strong>${Utils.formatCurrency(item.line_total)}</strong></div>
             `;
@@ -97,11 +119,19 @@ const Checkout = {
         const subtotalEl = document.getElementById('checkoutSubtotal');
         const taxEl = document.getElementById('checkoutTax');
         const totalEl = document.getElementById('checkoutTotal');
+        const totalCalEl = document.getElementById('checkoutTotalCalories');
+        const totalProtEl = document.getElementById('checkoutTotalProtein');
         const totalSugarEl = document.getElementById('checkoutTotalSugar');
         const submitBtnText = document.getElementById('btnSubmitOrderText');
 
+        if (totalCalEl) {
+            totalCalEl.textContent = hasAnyCal ? `${Math.round(totalCheckoutCalories)} kcal` : '—';
+        }
+        if (totalProtEl) {
+            totalProtEl.textContent = hasAnyProtein ? `${Math.round(totalCheckoutProtein * 10) / 10} g` : '—';
+        }
         if (totalSugarEl) {
-            totalSugarEl.textContent = hasAnySugar ? `${Math.round(totalCheckoutSugar * 10) / 10} g` : 'Not available';
+            totalSugarEl.textContent = hasAnySugar ? `${Math.round(totalCheckoutSugar * 10) / 10} g` : '0 g';
         }
         if (subtotalEl) subtotalEl.textContent = Utils.formatCurrency(totals.subtotal);
         if (taxEl) taxEl.textContent = Utils.formatCurrency(totals.tax);
@@ -175,6 +205,12 @@ const Checkout = {
 
                 // Simulate instant payment
                 await Api.simulatePayment(order.id, this.selectedPaymentMethod);
+
+                // Save active order number in localStorage for instant 1-tap Live Kitchen access
+                if (order && order.order_number) {
+                    localStorage.setItem('active_order_number', order.order_number);
+                    localStorage.setItem('active_order_id', order.id);
+                }
 
                 // Clear cart from storage
                 Cart.clear();

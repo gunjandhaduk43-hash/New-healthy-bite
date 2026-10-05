@@ -202,6 +202,9 @@
                                         <?php if ($food['sugar'] !== null): ?>
                                             <span class="macro-chip macro-sugar" style="background:#fef3c7; color:#92400e; border-color:#fde68a; font-weight:600;"><i class="bi bi-droplet-half" style="color:#d97706;"></i> <?= (float)$food['sugar'] ?>g sugar</span>
                                         <?php endif; ?>
+                                        <?php if ($food['caffeine'] !== null && (float)$food['caffeine'] > 0): ?>
+                                            <span class="macro-chip macro-caffeine" style="background:#f3e8ff; color:#6b21a8; border-color:#e9d5ff; font-weight:600;"><i class="bi bi-cup-hot" style="color:#7e22ce;"></i> <?= (int)$food['caffeine'] ?>mg caffeine</span>
+                                        <?php endif; ?>
                                     </div>
 
                                     <!-- Footer: Price & Add Action -->
@@ -258,9 +261,26 @@
                 </div>
 
                 <div class="order-widget-footer" id="sidebarOrderFooter" style="display:none;">
-                    <div class="order-nutrition-row" id="sidebarOrderNutritionRow" style="display:flex; justify-content:space-between; font-size:12px; color:#475569; margin-bottom:8px; background:#f8fafc; padding:6px 10px; border-radius:6px;">
-                        <span style="display:flex; align-items:center; gap:5px; font-weight:600;"><i class="bi bi-heart-pulse-fill" style="color:var(--primary-green);"></i> Total Sugar:</span>
-                        <span id="sidebarTotalSugar" style="font-weight:700; color:#b45309;">0 g</span>
+                    <div class="cart-nutrition-summary" id="sidebarOrderNutritionRow">
+                        <div class="cart-nutrition-header">
+                            <span style="display:flex; align-items:center; gap:5px;">
+                                <i class="bi bi-activity" style="color:var(--primary-green);"></i> Order Nutrition Totals:
+                            </span>
+                        </div>
+                        <div class="cart-nutrition-chips">
+                            <div class="cart-nutrition-chip chip-calories" title="Total Calories">
+                                <span class="chip-label"><i class="bi bi-fire"></i> Calories</span>
+                                <span class="chip-value" id="sidebarTotalCalories">0 kcal</span>
+                            </div>
+                            <div class="cart-nutrition-chip chip-protein" title="Total Protein">
+                                <span class="chip-label"><i class="bi bi-shield-check"></i> Protein</span>
+                                <span class="chip-value" id="sidebarTotalProtein">0 g</span>
+                            </div>
+                            <div class="cart-nutrition-chip chip-sugar" title="Total Sugar">
+                                <span class="chip-label"><i class="bi bi-heart-pulse-fill"></i> Sugar</span>
+                                <span class="chip-value" id="sidebarTotalSugar">0 g</span>
+                            </div>
+                        </div>
                     </div>
                     <div class="order-total-row">
                         <span class="total-label">Subtotal (<span id="sidebarTotalItemsLabel">0</span> items)</span>

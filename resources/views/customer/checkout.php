@@ -139,9 +139,26 @@
                 </div>
 
                 <div class="checkout-totals-breakdown">
-                    <div class="cart-summary-line nutrition-line" id="checkoutNutritionLine" style="background:#f8fafc; padding:6px 10px; border-radius:6px; margin-bottom:8px; font-size:12px; display:flex; justify-content:space-between;">
-                        <span style="display:flex; align-items:center; gap:5px; color:#475569; font-weight:600;"><i class="bi bi-heart-pulse-fill" style="color:var(--primary-green);"></i> Total Sugar:</span>
-                        <span id="checkoutTotalSugar" style="font-weight:700; color:#b45309;">0 g</span>
+                    <div class="cart-nutrition-summary" id="checkoutNutritionLine">
+                        <div class="cart-nutrition-header">
+                            <span style="display:flex; align-items:center; gap:5px;">
+                                <i class="bi bi-activity" style="color:var(--primary-green);"></i> Order Nutrition Totals:
+                            </span>
+                        </div>
+                        <div class="cart-nutrition-chips">
+                            <div class="cart-nutrition-chip chip-calories" title="Total Calories">
+                                <span class="chip-label"><i class="bi bi-fire"></i> Calories</span>
+                                <span class="chip-value" id="checkoutTotalCalories">0 kcal</span>
+                            </div>
+                            <div class="cart-nutrition-chip chip-protein" title="Total Protein">
+                                <span class="chip-label"><i class="bi bi-shield-check"></i> Protein</span>
+                                <span class="chip-value" id="checkoutTotalProtein">0 g</span>
+                            </div>
+                            <div class="cart-nutrition-chip chip-sugar" title="Total Sugar">
+                                <span class="chip-label"><i class="bi bi-heart-pulse-fill"></i> Sugar</span>
+                                <span class="chip-value" id="checkoutTotalSugar">0 g</span>
+                            </div>
+                        </div>
                     </div>
                     <div class="cart-summary-line">
                         <span>Items Subtotal</span>

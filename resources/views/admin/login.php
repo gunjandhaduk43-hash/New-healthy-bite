@@ -1,7 +1,9 @@
 <div class="auth-page">
     <div class="auth-card">
         <div class="auth-header">
-            <i class="bi bi-shield-lock-fill auth-brand-icon" style="color:#2563eb;"></i>
+            <div style="width:72px;height:72px;margin:0 auto 12px;border-radius:50%;overflow:hidden;box-shadow:0 4px 14px rgba(37,99,235,0.18);border:2px solid #e2e8f0;background:#fff;display:flex;align-items:center;justify-content:center;">
+                <img src="<?= asset('images/logo.png') ?>" alt="Healthy Bite Logo" style="width:100%;height:100%;object-fit:cover;">
+            </div>
             <h1 class="auth-title">Platform Admin</h1>
             <p class="auth-subtitle">Healthy Bite System Infrastructure & Multi-Tenancy</p>
         </div>

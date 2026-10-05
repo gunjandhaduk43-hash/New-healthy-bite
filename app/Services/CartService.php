@@ -34,7 +34,14 @@ class CartService
 
         foreach ($rawCartItems as $index => $item) {
             $foodId = (int)($item['food_id'] ?? 0);
-            $quantity = max(1, (int)($item['quantity'] ?? 1));
+            $quantityInput = $item['quantity'] ?? 1;
+            if (!is_scalar($quantityInput) || filter_var($quantityInput, FILTER_VALIDATE_INT) === false) {
+                throw new \InvalidArgumentException('Item quantity must be a positive whole number.');
+            }
+            $quantity = (int)$quantityInput;
+            if ($quantity < 1 || $quantity > 2147483647) {
+                throw new \InvalidArgumentException('Item quantity must be a positive whole number within the supported range.');
+            }
 
             // 1. Validate food item
             $food = $this->foodRepo->getByIdAndRestaurant($foodId, $restaurantId);
@@ -69,9 +76,18 @@ class CartService
             }
 
             $validatedCustomizations = [];
+            $selectedCustomizationIds = [];
+            $selectedByGroup = [];
             foreach ($customizationsInput as $cIn) {
+                if (!is_array($cIn)) {
+                    throw new \InvalidArgumentException('Cart contains an invalid customization.');
+                }
                 $cId = (int)($cIn['id'] ?? 0);
-                $cQty = max(1, (int)($cIn['quantity'] ?? 1));
+                $cQtyInput = $cIn['quantity'] ?? 1;
+                if (!is_scalar($cQtyInput) || filter_var($cQtyInput, FILTER_VALIDATE_INT) === false || (int)$cQtyInput < 1) {
+                    throw new \InvalidArgumentException('Customization quantity must be a positive whole number.');
+                }
+                $cQty = (int)$cQtyInput;
 
                 if (!isset($availableCustomMap[$cId])) {
                     throw new \InvalidArgumentException("Customization #{$cId} does not belong to {$food['name']}.");
@@ -86,8 +102,32 @@ class CartService
                     throw new \InvalidArgumentException("Customization '{$cDef['name']}' exceeds max allowed quantity of {$cDef['max_quantity']}.");
                 }
 
+                if (isset($selectedCustomizationIds[$cId])) {
+                    throw new \InvalidArgumentException("Customization '{$cDef['name']}' was selected more than once.");
+                }
+                $selectedCustomizationIds[$cId] = true;
+                $groupName = (string)$cDef['group_name'];
+                $selectedByGroup[$groupName] = ($selectedByGroup[$groupName] ?? 0) + $cQty;
+
                 $cDef['quantity'] = $cQty;
                 $validatedCustomizations[] = $cDef;
+            }
+
+            $requiredByGroup = [];
+            foreach ($availableCustomizations as $customization) {
+                $groupName = (string)$customization['group_name'];
+                if ((bool)$customization['is_required'] || (int)$customization['min_quantity'] > 0) {
+                    $requiredByGroup[$groupName] = max(
+                        $requiredByGroup[$groupName] ?? 0,
+                        (int)$customization['min_quantity'],
+                        (bool)$customization['is_required'] ? 1 : 0
+                    );
+                }
+            }
+            foreach ($requiredByGroup as $groupName => $minQuantity) {
+                if (($selectedByGroup[$groupName] ?? 0) < $minQuantity) {
+                    throw new \InvalidArgumentException("Select at least {$minQuantity} option(s) from '{$groupName}'.");
+                }
             }
 
             // 4. Calculate verified price

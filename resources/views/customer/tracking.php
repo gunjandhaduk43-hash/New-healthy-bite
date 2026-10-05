@@ -127,6 +127,13 @@
                                     <?php endforeach; ?>
                                 </div>
                             <?php endif; ?>
+                            <?php if (!empty($item['calories'])): ?>
+                                <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">
+                                    <i class="bi bi-fire" style="color:#f59e0b;"></i> <?= (int)$item['calories'] ?> kcal · <?= (float)$item['protein'] ?>g protein
+                                    <?php if ($item['sugar'] !== null): ?> · <?= (float)$item['sugar'] ?>g sugar<?php endif; ?>
+                                    <?php if (!empty($item['caffeine']) && (float)$item['caffeine'] > 0): ?> · <i class="bi bi-cup-hot" style="color:#7e22ce;"></i> <?= (int)$item['caffeine'] ?>mg caffeine<?php endif; ?>
+                                </div>
+                            <?php endif; ?>
                         </div>
                         <div style="font-size: 14px; font-weight: 700; color: var(--text-primary); text-align:right; white-space:nowrap;">
                             <?= formatCurrency((float)$item['total_price']) ?>
@@ -201,6 +208,10 @@
 <script src="<?= asset('js/order.js') ?>"></script>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
+        try {
+            localStorage.setItem('active_order_number', <?= json_encode($order['order_number']) ?>);
+            localStorage.setItem('active_order_id', <?= json_encode($order['id'] ?? 0) ?>);
+        } catch(e) {}
         OrderTracker.init(<?= json_encode($order['order_number']) ?>);
     });
 </script>

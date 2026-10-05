@@ -6,6 +6,9 @@
     <meta name="csrf-token" content="<?= \App\Core\Csrf::getToken() ?>">
     <title><?= e($title ?? 'Healthy Bite Platform Control Center') ?></title>
     
+    <link rel="icon" type="image/png" href="<?= asset('images/logo.png') ?>">
+    <link rel="apple-touch-icon" href="<?= asset('images/logo.png') ?>">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -21,8 +24,8 @@
         <!-- Sidebar Navigation -->
         <aside class="dashboard-sidebar">
             <div class="sidebar-header">
-                <div class="sidebar-logo-icon">
-                    <i class="bi bi-flower1"></i>
+                <div class="sidebar-logo-icon" style="padding:0; overflow:hidden; background:transparent;">
+                    <img src="<?= asset('images/logo.png') ?>" alt="Healthy Bite Logo" style="width:36px; height:36px; border-radius:50%; object-fit:cover; display:block;">
                 </div>
                 <div class="sidebar-brand-text">
                     <span class="sidebar-brand-title">Healthy Bite</span>

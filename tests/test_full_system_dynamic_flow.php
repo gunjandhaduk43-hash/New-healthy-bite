@@ -199,15 +199,24 @@ runTest("OrderService creates an order with accurate sugar snapshot in order_ite
     $variants = $foodRepo->getVariants($foodId);
     $customizations = $foodRepo->getCustomizations($foodId);
 
-    // Build cart items array
+    // Build cart items selecting 1 option per required customization group
+    $selectedCustoms = [];
+    $groupedCustoms = [];
+    foreach ($customizations as $c) {
+        $groupedCustoms[$c['group_name']][] = $c;
+    }
+    foreach ($groupedCustoms as $gName => $cList) {
+        if (!empty($cList[0]['is_required']) || (int)$cList[0]['min_quantity'] > 0) {
+            $selectedCustoms[] = ['id' => (int)$cList[0]['id'], 'quantity' => 1];
+        }
+    }
+
     $cartItems = [
         [
             'food_id' => $foodId,
             'quantity' => 2,
             'variant_id' => !empty($variants) ? (int)$variants[0]['id'] : null,
-            'customizations' => !empty($customizations) ? [
-                ['id' => (int)$customizations[0]['id'], 'quantity' => 1]
-            ] : []
+            'customizations' => $selectedCustoms
         ]
     ];
 

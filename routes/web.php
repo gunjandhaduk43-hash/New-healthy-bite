@@ -19,6 +19,7 @@ $router->get('/menu/cart', fn() => \App\Core\Response::redirect('/menu/checkout'
 $router->get('/menu/checkout', [CheckoutController::class, 'index']);
 $router->get('/menu/confirmation/{orderNumber}', [OrderController::class, 'confirmation']);
 $router->get('/menu/tracking/{orderNumber}', [OrderController::class, 'tracking']);
+$router->get('/menu/live-kitchen', [OrderController::class, 'liveKitchen']);
 
 // -------------------------------------------------------------
 // Restaurant Owner Portal Routes (Matching Figma Design System)
@@ -66,6 +67,7 @@ $router->post('/owner/staff/{id}/toggle', [\App\Controllers\Owner\StaffControlle
 
 // 8. Sales & Macro Analytics
 $router->get('/owner/analytics', [\App\Controllers\Owner\AnalyticsController::class, 'index']);
+$router->get('/owner/analytics/export', [\App\Controllers\Owner\AnalyticsController::class, 'export']);
 
 // 9. Live Menu Preview
 $router->get('/owner/live-menu', [\App\Controllers\Owner\MenuController::class, 'livePreview']);

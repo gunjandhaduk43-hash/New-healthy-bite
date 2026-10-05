@@ -1,4 +1,5 @@
 .env
+.venv/
 /vendor/
 /storage/logs/*
 !/storage/logs/.gitkeep
@@ -7,3 +8,17 @@
 /public/uploads/*
 !/public/uploads/.gitkeep
 cookies.txt
+
+# Python caches
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Microsoft Office temporary lock files
+~$*.docx
+~$*.xlsx
+~$*.pptx
+~$*.doc
+
+# Temporary and scratch files
+*.tmp
