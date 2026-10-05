@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 1440" width="100%" height="100%">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#000000" />
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="960" height="1440" fill="#ffffff" />
+
+  <!-- Top Title Banner -->
+  <rect x="0" y="0" width="960" height="65" fill="#000000" />
+  <text x="30" y="32" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" letter-spacing="0.5">AD-03: KITCHEN LIVE ORDER MANAGEMENT</text>
+  <text x="30" y="52" fill="#d1d5db" font-family="Arial, Helvetica, sans-serif" font-size="12">UML Activity Diagram • Kitchen Kanban Transitions (placed -&gt; accepted -&gt; preparing -&gt; ready -&gt; completed)</text>
+
+  <!-- Start Node -->
+  <circle cx="420" cy="110" r="15" fill="#000000" stroke="#000000" stroke-width="2" />
+  <line x1="420" y1="125" x2="420" y2="155" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Activity 1 -->
+  <rect x="170" y="155" width="500" height="46" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="420" y="183" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="500">Kitchen Staff Logs In &amp; Navigates to Kitchen Kanban Board (/owner/orders)</text>
+  <line x1="420" y1="201" x2="420" y2="231" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Activity 2 -->
+  <rect x="170" y="231" width="500" height="46" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="420" y="259" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="500">Poll Orders API for Active Branch (Auto-Refresh every 10 seconds)</text>
+  <line x1="420" y1="277" x2="420" y2="307" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Activity 3 -->
+  <rect x="170" y="307" width="500" height="46" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="420" y="335" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="500">New Order Card Appears in 'New Orders' Column (status = 'placed')</text>
+  <line x1="420" y1="353" x2="420" y2="383" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Activity 4 -->
+  <rect x="170" y="383" width="500" height="46" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="420" y="411" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="500">Staff Inspects Table Number, Line-Items, Portions &amp; Customizations</text>
+  <line x1="420" y1="429" x2="420" y2="465" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Decision Node -->
+  <polygon points="420,465 525,502 420,539 315,502" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="420" y="497" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold">Can Kitchen</text>
+  <text x="420" y="513" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold">Fulfill Order?</text>
+
+  <!-- Right Branch: Reject / Out of Stock -->
+  <path d="M 525 502 L 780 502 L 780 550" fill="none" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="650" y="494" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="bold">[Out of Stock / Reject]</text>
+
+  <!-- Reject Action Box -->
+  <rect x="640" y="550" width="280" height="52" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="780" y="572" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="500">Update Order Status to 'cancelled'</text>
+  <text x="780" y="590" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="500">Record Rejection Reason</text>
+  <line x1="780" y1="602" x2="780" y2="640" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Reject End Node -->
+  <circle cx="780" cy="657" r="16" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <circle cx="780" cy="657" r="10" fill="#000000" stroke="#000000" stroke-width="1" />
+
+  <!-- Main Branch: Accept -->
+  <line x1="420" y1="539" x2="420" y2="610" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="430" y="575" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="bold">[Yes: Accept]</text>
+
+  <!-- Activity 5 -->
+  <rect x="170" y="610" width="500" height="46" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="420" y="638" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="500">Click 'Accept Order' Button (Status moves to 'accepted')</text>
+  <line x1="420" y1="656" x2="420" y2="686" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Activity 6 -->
+  <rect x="170" y="686" width="500" height="46" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="420" y="714" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="500">Order Card Shifts to 'Accepted' Column on Kanban Board</text>
+  <line x1="420" y1="732" x2="420" y2="762" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Activity 7 -->
+  <rect x="170" y="762" width="500" height="46" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="420" y="790" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="500">Click 'Start Preparing' Button (Status moves to 'preparing')</text>
+  <line x1="420" y1="808" x2="420" y2="838" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Activity 8 -->
+  <rect x="170" y="838" width="500" height="46" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="420" y="866" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="500">Kitchen Chef Prepares Dishes according to Customization Notes</text>
+  <line x1="420" y1="884" x2="420" y2="914" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Activity 9 -->
+  <rect x="170" y="914" width="500" height="46" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="420" y="942" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="500">Click 'Mark Ready' Button (Status moves to 'ready')</text>
+  <line x1="420" y1="960" x2="420" y2="990" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Activity 10 -->
+  <rect x="170" y="990" width="500" height="46" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="420" y="1018" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="500">Audible Alert &amp; Order Card Moves to 'Ready' Column</text>
+  <line x1="420" y1="1036" x2="420" y2="1066" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Activity 11 -->
+  <rect x="170" y="1066" width="500" height="46" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="420" y="1094" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="500">Service Staff Delivers Food Items to Customer's Dining Table</text>
+  <line x1="420" y1="1112" x2="420" y2="1142" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Activity 12 -->
+  <rect x="170" y="1142" width="500" height="46" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="420" y="1170" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="500">Staff Clicks 'Complete Order' (Status moves to 'completed')</text>
+  <line x1="420" y1="1188" x2="420" y2="1218" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Activity 13 -->
+  <rect x="170" y="1218" width="500" height="46" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="420" y="1246" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="500">Order Archived to Completed Sales History in Database</text>
+  <line x1="420" y1="1264" x2="420" y2="1302" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Final State Node -->
+  <circle cx="420" cy="1320" r="17" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <circle cx="420" cy="1320" r="11" fill="#000000" stroke="#000000" stroke-width="1" />
+</svg>

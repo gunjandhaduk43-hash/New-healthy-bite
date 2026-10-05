@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1220" width="100%" height="100%">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#000000" />
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect width="1200" height="1220" fill="#ffffff" />
+
+  <!-- Top Title Banner -->
+  <rect x="0" y="0" width="1200" height="65" fill="#000000" />
+  <text x="35" y="32" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" letter-spacing="0.5">AD-04: RESTAURANT OWNER FOOD &amp; MENU MANAGEMENT</text>
+  <text x="35" y="52" fill="#d1d5db" font-family="Arial, Helvetica, sans-serif" font-size="12">UML Activity Diagram • Category CRUD, Dish Creation, 8 Macros, Portion Variants &amp; Availability Toggles</text>
+
+  <!-- Start Node -->
+  <circle cx="600" cy="105" r="14" fill="#000000" stroke="#000000" stroke-width="2" />
+  <line x1="600" y1="119" x2="600" y2="148" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Initial Activity Box -->
+  <rect x="340" y="148" width="520" height="46" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="600" y="176" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="500">Owner Authenticates &amp; Accesses Menu Management Portal (/owner/menu)</text>
+  <line x1="600" y1="194" x2="600" y2="225" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Decision Node -->
+  <polygon points="600,225 730,258 600,291 470,258" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="600" y="253" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="bold">Select Management</text>
+  <text x="600" y="269" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="bold">Action</text>
+
+  <!-- Branch Distribution Lines -->
+  <!-- Col 1: cx = 175 | Col 2: cx = 460 | Col 3: cx = 740 | Col 4: cx = 1025 -->
+  <path d="M 470 258 L 175 258 L 175 350" fill="none" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+  <path d="M 535 275 L 460 275 L 460 350" fill="none" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+  <path d="M 665 275 L 740 275 L 740 350" fill="none" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+  <path d="M 730 258 L 1025 258 L 1025 350" fill="none" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Branch Decision Labels -->
+  <text x="175" y="340" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="bold">[Manage Categories]</text>
+  <text x="460" y="340" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="bold">[Add New Dish]</text>
+  <text x="740" y="340" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="bold">[Edit Dish &amp; Macros]</text>
+  <text x="1025" y="340" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="bold">[Toggle / Delete]</text>
+
+  <!-- ==================== COLUMN 1: MANAGE CATEGORIES ==================== -->
+  <rect x="55" y="350" width="240" height="54" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="175" y="372" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="500">Create New Menu Category</text>
+  <text x="175" y="390" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="11" fill-opacity="0.85">(Name, Slug, Description, Image)</text>
+  <line x1="175" y1="404" x2="175" y2="440" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <rect x="55" y="440" width="240" height="54" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="175" y="462" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="500">Validate Category Uniqueness</text>
+  <text x="175" y="480" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="500">&amp; Assign Sort Order</text>
+  <line x1="175" y1="494" x2="175" y2="530" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <rect x="55" y="530" width="240" height="46" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="175" y="558" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="500">Persist to 'categories' Table</text>
+  <line x1="175" y1="576" x2="175" y2="766" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- ==================== COLUMN 2: ADD NEW DISH ==================== -->
+  <rect x="340" y="350" width="240" height="54" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="460" y="372" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="500">Enter Dish Details &amp; Price</text>
+  <text x="460" y="390" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="11" fill-opacity="0.85">(Name, Category, Food Type)</text>
+  <line x1="460" y1="404" x2="460" y2="440" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <rect x="340" y="440" width="240" height="54" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="460" y="462" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="500">Enter 8 Base Nutrition Macros</text>
+  <text x="460" y="480" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="11" fill-opacity="0.85">(kcal, protein, carbs, fat, fiber, etc.)</text>
+  <line x1="460" y1="494" x2="460" y2="530" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <rect x="340" y="530" width="240" height="54" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="460" y="552" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="500">Configure Portion Variants</text>
+  <text x="460" y="570" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="500">&amp; Customization Add-on Groups</text>
+  <line x1="460" y1="584" x2="460" y2="620" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <rect x="340" y="620" width="240" height="46" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="460" y="648" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="500">Save Dish to 'food_items' &amp; Child Tables</text>
+  <line x1="460" y1="666" x2="460" y2="766" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- ==================== COLUMN 3: EDIT DISH & MACROS ==================== -->
+  <rect x="620" y="350" width="240" height="54" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="740" y="382" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="500">Select Existing Dish from Catalog View</text>
+  <line x1="740" y1="404" x2="740" y2="440" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <rect x="620" y="440" width="240" height="54" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="740" y="462" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="500">Update Recipe, Price or</text>
+  <text x="740" y="480" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="500">8 Nutritional Values</text>
+  <line x1="740" y1="494" x2="740" y2="530" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <rect x="620" y="530" width="240" height="54" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="740" y="552" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="500">Update Portion Adjustments</text>
+  <text x="740" y="570" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="500">&amp; Min/Max Selection Rules</text>
+  <line x1="740" y1="584" x2="740" y2="620" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <rect x="620" y="620" width="240" height="46" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="740" y="648" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="500">Save Updates to Database</text>
+  <line x1="740" y1="666" x2="740" y2="766" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- ==================== COLUMN 4: TOGGLE / DELETE ==================== -->
+  <rect x="905" y="350" width="240" height="54" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="1025" y="382" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="500">Select Dish from Catalog List</text>
+  <line x1="1025" y1="404" x2="1025" y2="440" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <rect x="905" y="440" width="240" height="54" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="1025" y="462" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="500">Click Instant Availability Switch</text>
+  <text x="1025" y="480" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="11" fill-opacity="0.85">(is_available = 1 / 0)</text>
+  <line x1="1025" y1="494" x2="1025" y2="530" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <rect x="905" y="530" width="240" height="54" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="1025" y="552" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="500">Dispatch PATCH API Request</text>
+  <text x="1025" y="570" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="500">&amp; Update Cache Instantly</text>
+  <line x1="1025" y1="584" x2="1025" y2="766" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Synchronization Bar (Join Bar) -->
+  <line x1="70" y1="770" x2="1130" y2="770" stroke="#000000" stroke-width="8" stroke-linecap="round" />
+  <line x1="600" y1="774" x2="600" y2="825" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Action 1 Post-Join -->
+  <rect x="310" y="825" width="580" height="46" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="600" y="853" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="500">Refresh Menu Catalog View with Updated Dishes &amp; Real-Time Availability</text>
+  <line x1="600" y1="871" x2="600" y2="915" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Action 2 Post-Join -->
+  <rect x="310" y="915" width="580" height="46" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="600" y="943" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="500">Updated Menu Instantly Synchronized to Customer QR Menu View</text>
+  <line x1="600" y1="961" x2="600" y2="1010" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Final Node -->
+  <circle cx="600" cy="1030" r="18" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <circle cx="600" cy="1030" r="11" fill="#000000" stroke="#000000" stroke-width="1" />
+</svg>

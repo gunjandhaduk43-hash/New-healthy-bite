@@ -1,0 +1,159 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 1860" width="100%" height="100%">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#000000" />
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect width="1020" height="1860" fill="#ffffff" />
+
+  <!-- Top Header Banner -->
+  <rect x="0" y="0" width="1020" height="65" fill="#000000" />
+  <text x="35" y="32" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" letter-spacing="0.5">AD-01: CUSTOMER ORDERING WORKFLOW</text>
+  <text x="35" y="52" fill="#d1d5db" font-family="Arial, Helvetica, sans-serif" font-size="12">UML Activity Diagram • End-to-End Table QR Dining, Cart Validation, Tracking &amp; Review</text>
+
+  <!-- Start Node -->
+  <circle cx="500" cy="102" r="14" fill="#000000" stroke="#000000" stroke-width="2" />
+  <line x1="500" y1="116" x2="500" y2="145" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Step 1 -->
+  <rect x="250" y="145" width="500" height="46" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="500" y="173" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="500">Scan Table QR Code with Smartphone Camera</text>
+  <line x1="500" y1="191" x2="500" y2="220" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Step 2 -->
+  <rect x="250" y="220" width="500" height="46" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="500" y="248" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="500">Resolve Dining Context via QrService</text>
+  <line x1="500" y1="266" x2="500" y2="295" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Decision 1: QR Valid? -->
+  <polygon points="500,295 595,330 500,365 405,330" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="500" y="325" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="bold">QR Token</text>
+  <text x="500" y="340" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="bold">Valid &amp; Active?</text>
+
+  <!-- Right Branch: Invalid QR -->
+  <path d="M 595 330 L 850 330 L 850 365" fill="none" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="720" y="322" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="bold">[Invalid / Expired]</text>
+
+  <rect x="730" y="365" width="240" height="48" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="850" y="386" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="500">Display Invalid QR Error</text>
+  <text x="850" y="403" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="500">Request Server Assistance</text>
+  <line x1="850" y1="413" x2="850" y2="445" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <circle cx="850" cy="460" r="15" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <circle cx="850" cy="460" r="9" fill="#000000" stroke="#000000" stroke-width="1" />
+
+  <!-- Main Branch: Valid -->
+  <line x1="500" y1="365" x2="500" y2="420" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="510" y="393" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="bold">[Valid]</text>
+
+  <!-- Step 3 -->
+  <rect x="250" y="420" width="500" height="46" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="500" y="448" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="500">Load Active Restaurant Digital Menu &amp; Categories</text>
+  <line x1="500" y1="466" x2="500" y2="495" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Step 4 -->
+  <rect x="250" y="495" width="500" height="46" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="500" y="523" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="500">Browse Dishes &amp; Filter by Dietary Preference (Veg, Jain, etc.)</text>
+  <line x1="500" y1="541" x2="500" y2="570" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Step 5 -->
+  <rect x="250" y="570" width="500" height="46" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="500" y="598" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="500">Select Food Dish, Choose Portion Variant &amp; Add-ons</text>
+  <line x1="500" y1="616" x2="500" y2="645" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Step 6 -->
+  <rect x="250" y="645" width="500" height="46" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="500" y="673" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="500">Calculate Live Item Price &amp; Scaled 8 Nutrition Macros</text>
+  <line x1="500" y1="691" x2="500" y2="720" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Step 7 -->
+  <rect x="250" y="720" width="500" height="46" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="500" y="748" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="500">Add Configured Dish to Client LocalStorage Cart</text>
+  <line x1="500" y1="766" x2="500" y2="795" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Step 8 -->
+  <rect x="250" y="795" width="500" height="46" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="500" y="823" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="500">Review Cart Items, Subtotal, Tax &amp; Total Price</text>
+  <line x1="500" y1="841" x2="500" y2="870" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Decision 2: Cart Empty? -->
+  <polygon points="500,870 580,900 500,930 420,900" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="500" y="904" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="bold">Cart Empty?</text>
+
+  <!-- Left Loop: Cart Empty = Yes -->
+  <path d="M 420 900 L 160 900 L 160 443 L 250 443" fill="none" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="215" y="890" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="bold">[Yes: Empty]</text>
+
+  <!-- Main Branch: Not Empty -->
+  <line x1="500" y1="930" x2="500" y2="975" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="510" y="955" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="bold">[No: Has Items]</text>
+
+  <!-- Step 9 -->
+  <rect x="250" y="975" width="500" height="46" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="500" y="1003" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="500">Proceed to Checkout &amp; Enter Customer Name/Mobile</text>
+  <line x1="500" y1="1021" x2="500" y2="1050" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Step 10 -->
+  <rect x="250" y="1050" width="500" height="46" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="500" y="1078" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="500">Select Dining Type (Dine-In) &amp; Payment Method (Cash/UPI/Card)</text>
+  <line x1="500" y1="1096" x2="500" y2="1125" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Step 11 -->
+  <rect x="250" y="1125" width="500" height="46" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="500" y="1153" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="500">Server Revalidation of Cart, Live Prices &amp; Availability</text>
+  <line x1="500" y1="1171" x2="500" y2="1200" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Step 12 -->
+  <rect x="250" y="1200" width="500" height="46" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="500" y="1228" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="500">Process Simulated Payment Tender via PaymentService</text>
+  <line x1="500" y1="1246" x2="500" y2="1275" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Decision 3: Payment Succeeded? -->
+  <polygon points="500,1275 585,1308 500,1341 415,1308" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="500" y="1304" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="bold">Payment</text>
+  <text x="500" y="1318" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="bold">Succeeded?</text>
+
+  <!-- Right Branch: Failed Payment (Retry Loop back to Select Dining Type / Payment) -->
+  <path d="M 585 1308 L 810 1308 L 810 1073 L 750 1073" fill="none" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="685" y="1300" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="bold">[No: Failed]</text>
+
+  <!-- Main Branch: Approved -->
+  <line x1="500" y1="1341" x2="500" y2="1385" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="510" y="1364" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="bold">[Yes: Approved]</text>
+
+  <!-- Step 13 -->
+  <rect x="250" y="1385" width="500" height="46" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="500" y="1413" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="500">Create Order, Order Items &amp; Customization Snapshots in DB</text>
+  <line x1="500" y1="1431" x2="500" y2="1460" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Step 14 -->
+  <rect x="250" y="1460" width="500" height="46" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="500" y="1488" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="500">Display Order Confirmation &amp; Order Number (e.g. HB-1001)</text>
+  <line x1="500" y1="1506" x2="500" y2="1535" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Step 15 -->
+  <rect x="250" y="1535" width="500" height="46" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="500" y="1563" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="500">Redirect to Live Order Tracking Page (/menu/tracking/{orderNumber})</text>
+  <line x1="500" y1="1581" x2="500" y2="1610" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Step 16 -->
+  <rect x="250" y="1610" width="500" height="46" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="500" y="1638" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="500">Poll Order Status: Placed -&gt; Accepted -&gt; Preparing -&gt; Ready -&gt; Completed</text>
+  <line x1="500" y1="1656" x2="500" y2="1685" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Step 17 -->
+  <rect x="250" y="1685" width="500" height="46" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="500" y="1713" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="500">Food Served at Table &amp; Order Marked 'completed'</text>
+  <line x1="500" y1="1731" x2="500" y2="1760" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Step 18 -->
+  <rect x="250" y="1760" width="500" height="46" rx="8" ry="8" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <text x="500" y="1788" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="500">Submit Verified Order Review &amp; Rating (1-5 Stars)</text>
+  <line x1="500" y1="1806" x2="500" y2="1832" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Final Node -->
+  <circle cx="500" cy="1844" r="15" fill="#ffffff" stroke="#000000" stroke-width="2" />
+  <circle cx="500" cy="1844" r="9" fill="#000000" stroke="#000000" stroke-width="1" />
+</svg>
