@@ -1,4 +1,9 @@
+# Environment variables & secrets
 .env
+.env.*
+!.env.example
+!.env.*.example
+
 .venv/
 /vendor/
 /storage/logs/*
@@ -22,3 +27,5 @@ __pycache__/
 
 # Temporary and scratch files
 *.tmp
+scratch/
+
