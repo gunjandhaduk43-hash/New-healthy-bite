@@ -32,8 +32,18 @@ const Api = {
         return data;
     },
 
+    _foodDetailsCache: new Map(),
+
     async fetchFoodDetails(foodId, restaurantId) {
-        return this.get(`/api/foods/${foodId}?restaurant_id=${restaurantId}`);
+        const cacheKey = `${restaurantId}_${foodId}`;
+        if (this._foodDetailsCache.has(cacheKey)) {
+            return this._foodDetailsCache.get(cacheKey);
+        }
+        const data = await this.get(`/api/foods/${foodId}?restaurant_id=${restaurantId}`);
+        if (data && data.data) {
+            this._foodDetailsCache.set(cacheKey, data);
+        }
+        return data;
     },
 
     async validateCart(cartItems, restaurantId) {

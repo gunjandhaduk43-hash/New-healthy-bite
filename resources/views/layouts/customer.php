@@ -36,7 +36,7 @@
             <!-- Left: Brand Logo & Restaurant Context -->
             <a href="<?= url('/menu') ?>" class="brand-section" aria-label="Healthy Bite Menu">
                 <div class="restaurant-logo-circle">
-                    <img src="<?= asset('images/logo.png') ?>" alt="Healthy Bite Logo" class="restaurant-brand-logo">
+                    <img src="<?= asset('images/logo.png') ?>" alt="Healthy Bite Logo" class="restaurant-brand-logo" width="40" height="40" decoding="async">
                 </div>
                 <div class="brand-info">
                     <span class="brand-name">Healthy Bite</span>

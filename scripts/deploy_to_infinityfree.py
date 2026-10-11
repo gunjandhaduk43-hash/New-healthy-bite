@@ -9,6 +9,9 @@ ftp_pass = "Gunjan1230"
 
 # Directories and files to synchronize to htdocs/
 DEPLOY_TARGETS = [
+    # Server & Performance configurations
+    ".htaccess",
+    
     # Core app files
     "app/Controllers/HomeController.php",
     "app/Core/App.php",
@@ -23,12 +26,22 @@ DEPLOY_TARGETS = [
     # Routes
     "routes/web.php",
     
-    # Public assets
+    # Public assets & rewrite rules
+    "public/.htaccess",
     "public/index.php",
-    "public/assets/js/menu.js",
+    "public/assets/js/state.js",
+    "public/assets/js/utils.js",
+    "public/assets/js/api.js",
+    "public/assets/js/pricing.js",
+    "public/assets/js/nutrition.js",
     "public/assets/js/food-details.js",
     "public/assets/js/cart.js",
+    "public/assets/js/checkout.js",
+    "public/assets/js/live-kitchen.js",
+    "public/assets/js/menu.js",
+    "public/assets/js/app.js",
     "public/assets/js/order.js",
+    "public/assets/js/dashboard.js",
     "public/assets/css/customer.css",
     "public/assets/css/responsive.css",
     "public/assets/css/checkout.css",

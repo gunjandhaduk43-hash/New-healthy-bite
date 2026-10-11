@@ -154,6 +154,7 @@
                                         alt="<?= e($food['name']) ?>" 
                                         class="food-card-img" 
                                         loading="lazy"
+                                        decoding="async"
                                         onerror="this.src='<?= asset('images/foods/placeholder-dish.svg') ?>'"
                                     >
                                     
@@ -417,14 +418,14 @@
     window.State.qrToken = <?= json_encode($qrToken, JSON_HEX_TAG | JSON_HEX_AMP) ?>;
 </script>
 
-<!-- Scripts -->
-<script src="<?= asset('js/state.js') ?>"></script>
-<script src="<?= asset('js/utils.js') ?>"></script>
-<script src="<?= asset('js/api.js') ?>"></script>
-<script src="<?= asset('js/pricing.js') ?>"></script>
-<script src="<?= asset('js/nutrition.js') ?>"></script>
-<script src="<?= asset('js/food-details.js') ?>"></script>
-<script src="<?= asset('js/cart.js') ?>"></script>
-<script src="<?= asset('js/live-kitchen.js') ?>"></script>
-<script src="<?= asset('js/menu.js') ?>"></script>
-<script src="<?= asset('js/app.js') ?>"></script>
+<!-- Scripts (Non-blocking deferred execution) -->
+<script src="<?= asset('js/state.js') ?>" defer></script>
+<script src="<?= asset('js/utils.js') ?>" defer></script>
+<script src="<?= asset('js/api.js') ?>" defer></script>
+<script src="<?= asset('js/pricing.js') ?>" defer></script>
+<script src="<?= asset('js/nutrition.js') ?>" defer></script>
+<script src="<?= asset('js/food-details.js') ?>" defer></script>
+<script src="<?= asset('js/cart.js') ?>" defer></script>
+<script src="<?= asset('js/live-kitchen.js') ?>" defer></script>
+<script src="<?= asset('js/menu.js') ?>" defer></script>
+<script src="<?= asset('js/app.js') ?>" defer></script>
