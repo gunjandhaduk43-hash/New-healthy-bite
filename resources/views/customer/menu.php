@@ -26,6 +26,30 @@
         </div>
     </div>
 
+    <!-- Quick Dietary Filter Chips (Mobile & Desktop 1-Tap Filters) -->
+    <div class="diet-filters-bar diet-filters-mobile-bar" id="dietFiltersBar" role="radiogroup" aria-label="Dietary Preferences">
+        <button type="button" class="diet-filter-chip active" data-diet="all" onclick="Menu.setDietFilter('all', this)" aria-label="Show all items">
+            <i class="bi bi-circle-fill" style="font-size:7px; color:var(--primary-500);"></i>
+            <span>All Diets</span>
+        </button>
+        <button type="button" class="diet-filter-chip" data-diet="veg" onclick="Menu.setDietFilter('veg', this)" aria-label="Vegetarian only">
+            <span class="diet-symbol diet-symbol-veg"></span>
+            <span>Pure Veg</span>
+        </button>
+        <button type="button" class="diet-filter-chip" data-diet="high-protein" onclick="Menu.setDietFilter('high-protein', this)" aria-label="High Protein 25g+">
+            <i class="bi bi-lightning-charge-fill" style="color:#f59e0b;"></i>
+            <span>High Protein (25g+)</span>
+        </button>
+        <button type="button" class="diet-filter-chip" data-diet="non-veg" onclick="Menu.setDietFilter('non-veg', this)" aria-label="Non-Vegetarian only">
+            <span class="diet-symbol diet-symbol-nonveg"></span>
+            <span>Non-Veg</span>
+        </button>
+        <button type="button" class="diet-filter-chip" data-diet="vegan" onclick="Menu.setDietFilter('vegan', this)" aria-label="Vegan only">
+            <i class="bi bi-flower1" style="color:#059669;"></i>
+            <span>Vegan</span>
+        </button>
+    </div>
+
     <!-- 3. Category Navigation Pills with Scroll-Snap (Prompt Requirement #16) -->
     <nav class="category-pills-nav" id="categoryPillsNav" aria-label="Food Categories">
         <?php 
@@ -104,7 +128,7 @@
                                 $foodType = strtolower($food['food_type'] ?? 'veg');
                                 $isVeg = ($foodType === 'veg' || $foodType === 'vegetarian');
                                 $isVegan = ($foodType === 'vegan');
-                                $isNonVeg = ($foodType === 'non_veg' || $foodType === 'non-vegetarian' || $foodType === 'nonveg');
+                                $isNonVeg = ($foodType === 'non_veg' || $foodType === 'non-vegetarian' || $foodType === 'nonveg' || $foodType === 'non_vegetarian');
                                 $isJain = ($foodType === 'jain');
                             ?>
                             <article 
@@ -116,6 +140,8 @@
                                 data-food-ingredients="<?= e($food['ingredients'] ?? '') ?>"
                                 data-base-price="<?= (float)$food['base_price'] ?>"
                                 data-food-type="<?= e($foodType) ?>"
+                                data-protein="<?= (float)($food['protein'] ?? 0) ?>"
+                                data-calories="<?= (int)($food['calories'] ?? 0) ?>"
                                 onclick="openFoodDetails(<?= (int)$food['id'] ?>)"
                                 tabindex="0"
                                 role="button"

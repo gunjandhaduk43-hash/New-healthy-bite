@@ -16,6 +16,8 @@ $router->get('/t/{token}', [MenuController::class, 'resolveQr']);
 $router->get('/qr/{token}', [MenuController::class, 'resolveQr']);
 $router->get('/cart', fn() => \App\Core\Response::redirect('/menu/checkout'));
 $router->get('/menu/cart', fn() => \App\Core\Response::redirect('/menu/checkout'));
+$router->get('/checkout', fn() => \App\Core\Response::redirect('/menu/checkout'));
+$router->get('/orders/track', fn() => \App\Core\Response::redirect('/menu'));
 $router->get('/menu/checkout', [CheckoutController::class, 'index']);
 $router->get('/menu/confirmation/{orderNumber}', [OrderController::class, 'confirmation']);
 $router->get('/menu/tracking/{orderNumber}', [OrderController::class, 'tracking']);

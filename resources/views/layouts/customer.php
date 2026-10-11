@@ -19,15 +19,15 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     
     <!-- CSS Design Tokens & Modules -->
-    <link rel="stylesheet" href="<?= asset('css/variables.css') ?>?v=3.3">
-    <link rel="stylesheet" href="<?= asset('css/reset.css') ?>?v=3.3">
-    <link rel="stylesheet" href="<?= asset('css/layout.css') ?>?v=3.3">
-    <link rel="stylesheet" href="<?= asset('css/components.css') ?>?v=3.3">
-    <link rel="stylesheet" href="<?= asset('css/customer.css') ?>?v=3.3">
-    <link rel="stylesheet" href="<?= asset('css/food-details.css') ?>?v=3.3">
-    <link rel="stylesheet" href="<?= asset('css/cart.css') ?>?v=3.3">
-    <link rel="stylesheet" href="<?= asset('css/checkout.css') ?>?v=3.3">
-    <link rel="stylesheet" href="<?= asset('css/responsive.css') ?>?v=3.3">
+    <link rel="stylesheet" href="<?= asset('css/variables.css') ?>?v=4.0">
+    <link rel="stylesheet" href="<?= asset('css/reset.css') ?>?v=4.0">
+    <link rel="stylesheet" href="<?= asset('css/layout.css') ?>?v=4.0">
+    <link rel="stylesheet" href="<?= asset('css/components.css') ?>?v=4.0">
+    <link rel="stylesheet" href="<?= asset('css/customer.css') ?>?v=4.0">
+    <link rel="stylesheet" href="<?= asset('css/food-details.css') ?>?v=4.0">
+    <link rel="stylesheet" href="<?= asset('css/cart.css') ?>?v=4.0">
+    <link rel="stylesheet" href="<?= asset('css/checkout.css') ?>?v=4.0">
+    <link rel="stylesheet" href="<?= asset('css/responsive.css') ?>?v=4.0">
 </head>
 <body class="customer-body">
     <!-- Header: Restaurant Identity & Quick Actions -->
@@ -114,6 +114,48 @@
             </div>
         </div>
     </footer>
+
+    <!-- Floating Mobile Cart Bar (Docked above bottom nav on mobile) -->
+    <aside class="floating-cart-bar" id="mobileFloatingCartBar" style="display:none;" onclick="if(window.Cart) Cart.open();" aria-label="Open Cart Order" role="button" tabindex="0">
+        <div class="floating-cart-left">
+            <div class="floating-cart-icon-wrap">
+                <i class="bi bi-bag-check-fill"></i>
+                <span class="floating-cart-badge" id="mobileFloatingCartCount">0</span>
+            </div>
+            <div class="floating-cart-text">
+                <span class="floating-cart-title"><span id="mobileFloatingItemLabel">0 Items</span> added</span>
+                <span class="floating-cart-price" id="mobileFloatingCartTotal">₹0</span>
+            </div>
+        </div>
+        <div class="floating-cart-right">
+            <span>View Order</span>
+            <i class="bi bi-arrow-right"></i>
+        </div>
+    </aside>
+
+    <!-- Mobile Bottom Navigation Bar (High Ergonomics, 1-Tap Access) -->
+    <nav class="mobile-bottom-nav" aria-label="Mobile Navigation">
+        <a href="<?= url('/') ?>" class="mobile-nav-item <?= (($_SERVER['REQUEST_URI'] ?? '') === '/' || ($_SERVER['REQUEST_URI'] ?? '') === '') ? 'active' : '' ?>" id="mobileNavHome">
+            <i class="bi bi-house-door-fill"></i>
+            <span>Home</span>
+        </a>
+        <a href="<?= url('/menu') ?>" class="mobile-nav-item <?= (strpos($_SERVER['REQUEST_URI'] ?? '', '/menu') !== false && strpos($_SERVER['REQUEST_URI'] ?? '', '/tracking') === false && strpos($_SERVER['REQUEST_URI'] ?? '', '/checkout') === false) ? 'active' : '' ?>" id="mobileNavMenu">
+            <i class="bi bi-grid-fill"></i>
+            <span>Menu</span>
+        </a>
+        <a href="<?= url('/menu/live-kitchen') ?>" class="mobile-nav-item <?= (strpos($_SERVER['REQUEST_URI'] ?? '', '/tracking') !== false) ? 'active' : '' ?>" id="mobileNavKitchen" onclick="return handleLiveKitchenClick(event)">
+            <i class="bi bi-fire" style="color:var(--accent-amber);"></i>
+            <span>Kitchen</span>
+        </a>
+        <button type="button" class="mobile-nav-item" id="mobileNavCart" onclick="if(window.Cart) Cart.open();" style="background:none; border:none; cursor:pointer;" aria-label="Open Shopping Bag">
+            <div style="position:relative; display:inline-flex;">
+                <i class="bi bi-bag-fill"></i>
+                <span class="mobile-nav-badge" id="mobileNavCartBadge" style="display:none;">0</span>
+            </div>
+            <span>Cart</span>
+        </button>
+    </nav>
+
 
     <script>
     function handleLiveKitchenClick(e) {

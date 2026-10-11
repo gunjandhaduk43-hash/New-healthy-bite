@@ -201,7 +201,8 @@
             <?php foreach ($featuredFoods as $food): ?>
                 <?php 
                     $foodType = strtolower($food['food_type'] ?? 'veg');
-                    $isVeg = in_array($foodType, ['veg', 'vegetarian']);
+                    $isNonVeg = in_array($foodType, ['non_veg', 'non-veg', 'nonveg', 'non_vegetarian']);
+                    $isVegan = ($foodType === 'vegan');
                 ?>
                 <div class="welcome-dish-card">
                     <div class="dish-card-media">
@@ -212,9 +213,13 @@
                             loading="lazy"
                             onerror="this.src='<?= asset('images/foods/placeholder-dish.svg') ?>'"
                         >
-                        <span class="dish-badge-type <?= $isVeg ? 'veg' : 'non-veg' ?>">
-                            <?= $isVeg ? '🌱 Veg' : '🍗 Non-Veg' ?>
-                        </span>
+                        <?php if ($isNonVeg): ?>
+                            <span class="dish-badge-type non-veg">🍗 Non-Veg</span>
+                        <?php elseif ($isVegan): ?>
+                            <span class="dish-badge-type vegan">🌿 Vegan</span>
+                        <?php else: ?>
+                            <span class="dish-badge-type veg">🌱 Veg</span>
+                        <?php endif; ?>
                         <?php if (!empty($food['category_name'])): ?>
                             <span class="dish-badge-cat"><?= e($food['category_name']) ?></span>
                         <?php endif; ?>

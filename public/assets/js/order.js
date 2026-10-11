@@ -123,20 +123,81 @@ const OrderTracker = {
         const status = (order.order_status || '').toLowerCase();
         const statusBadge = document.getElementById('orderStatusBadge');
         const statusText = document.getElementById('orderStatusText');
+
+        const stageConfigs = {
+            placed: {
+                badgeClass: 'badge-placed',
+                text: 'ORDER PLACED',
+                progress: '10%',
+                title: 'Order Queued & Received',
+                desc: 'Your order ticket has been received by the kitchen queue. Line chefs are assigning your ticket.',
+                eta: '~15-20 Mins',
+                icon: 'bi-hourglass-split'
+            },
+            accepted: {
+                badgeClass: 'badge-accepted',
+                text: 'KITCHEN ACCEPTED',
+                progress: '35%',
+                title: 'Ticket Accepted — Line Assembling',
+                desc: 'The kitchen confirmed your ticket. Fresh, high-protein ingredients are being selected and measured.',
+                eta: '~12-16 Mins',
+                icon: 'bi-card-checklist'
+            },
+            preparing: {
+                badgeClass: 'badge-preparing',
+                text: 'CHEFS COOKING',
+                progress: '62%',
+                title: 'Chefs Firing Up Your Dishes',
+                desc: 'Our line chefs are actively cooking, seasoning, and garnishing your wholesome meal.',
+                eta: '~6-10 Mins',
+                icon: 'bi-fire'
+            },
+            ready: {
+                badgeClass: 'badge-ready',
+                text: 'READY FOR YOU',
+                progress: '88%',
+                title: 'Fresh & Hot — Ready for Pickup / Table!',
+                desc: 'Your meal is freshly plated and ready for pickup at the counter, or being brought right to your table.',
+                eta: 'Ready Now!',
+                icon: 'bi-bell'
+            },
+            completed: {
+                badgeClass: 'badge-completed',
+                text: 'SERVED & ENJOYED',
+                progress: '100%',
+                title: 'Order Completed — Enjoy Your Meal!',
+                desc: 'Your meal has been served. Thank you for dining with Healthy Bite — fuel your body with wholesome nutrition!',
+                eta: 'Completed',
+                icon: 'bi-emoji-smile'
+            },
+            cancelled: {
+                badgeClass: 'badge-cancelled',
+                text: 'ORDER CANCELLED',
+                progress: '0%',
+                title: 'Order Cancelled',
+                desc: 'This order was cancelled. Please speak with restaurant staff if you need assistance.',
+                eta: 'Cancelled',
+                icon: 'bi-x-octagon'
+            }
+        };
+
+        const config = stageConfigs[status] || stageConfigs.placed;
+
         if (statusText) {
-            statusText.textContent = status.toUpperCase();
+            statusText.textContent = config.text;
         }
 
         if (statusBadge) {
-            statusBadge.className = 'badge';
-            if (status === 'placed') statusBadge.classList.add('badge-warning');
-            else if (status === 'accepted' || status === 'preparing') statusBadge.classList.add('badge-info');
-            else if (status === 'ready') statusBadge.classList.add('badge-success');
-            else if (status === 'completed') statusBadge.classList.add('badge-neutral');
-            else if (status === 'cancelled') statusBadge.classList.add('badge-danger');
-            else statusBadge.classList.add('badge-neutral');
+            statusBadge.className = `order-status-badge ${config.badgeClass}`;
         }
 
+        // Update progress bar line
+        const progressFill = document.getElementById('trackingProgressFill');
+        if (progressFill) {
+            progressFill.style.width = config.progress;
+        }
+
+        // Update 5-stage timeline steps
         const steps = ['placed', 'accepted', 'preparing', 'ready', 'completed'];
         const currentIdx = steps.indexOf(status);
 
@@ -145,27 +206,49 @@ const OrderTracker = {
             if (!el) return;
 
             el.classList.remove('active', 'completed');
+            const dotEl = el.querySelector('.step-dot i');
+
             if (idx < currentIdx) {
                 el.classList.add('completed');
+                if (dotEl) dotEl.className = 'bi bi-check-lg';
             } else if (idx === currentIdx) {
                 el.classList.add('active');
+                if (dotEl) {
+                    const activeIcons = {
+                        placed: 'bi-clipboard-check',
+                        accepted: 'bi-check2-circle',
+                        preparing: 'bi-fire',
+                        ready: 'bi-bell-fill',
+                        completed: 'bi-bag-check-fill'
+                    };
+                    dotEl.className = `bi ${activeIcons[step] || 'bi-circle-fill'}`;
+                }
+            } else {
+                if (dotEl) {
+                    const defaultIcons = {
+                        placed: 'bi-clipboard-check',
+                        accepted: 'bi-check2-circle',
+                        preparing: 'bi-fire',
+                        ready: 'bi-bell-fill',
+                        completed: 'bi-bag-check-fill'
+                    };
+                    dotEl.className = `bi ${defaultIcons[step] || 'bi-circle'}`;
+                }
             }
         });
 
+        // Update Kitchen Hero Banner
+        const heroTitle = document.getElementById('kitchenHeroTitle');
+        if (heroTitle) heroTitle.textContent = config.title;
+
         const kitchenDesc = document.getElementById('kitchenStatusDesc');
-        if (kitchenDesc) {
-            if (status === 'placed') {
-                kitchenDesc.textContent = 'Your order is securely queued and waiting for kitchen staff confirmation.';
-            } else if (status === 'accepted') {
-                kitchenDesc.textContent = 'The kitchen accepted your ticket and ingredients are being assembled!';
-            } else if (status === 'preparing') {
-                kitchenDesc.textContent = 'Our chefs are firing up fresh, wholesome ingredients for your dishes.';
-            } else if (status === 'ready') {
-                kitchenDesc.textContent = 'Fresh and hot! Your food is ready for service / pickup at the counter.';
-            } else if (status === 'completed') {
-                kitchenDesc.textContent = 'Order finished. Enjoy your meal and thank you for dining with Healthy Bite!';
-            }
-        }
+        if (kitchenDesc) kitchenDesc.textContent = config.desc;
+
+        const etaText = document.getElementById('kitchenEtaText');
+        if (etaText) etaText.textContent = config.eta;
+
+        const heroIcon = document.getElementById('kitchenHeroIcon');
+        if (heroIcon) heroIcon.className = `bi ${config.icon}`;
     }
 };
 

@@ -134,77 +134,85 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
 
-                <!-- ====================================================
-                     BOTTOM SUMMARY: Dark Green Live Nutrition & Add to Cart
-                     ==================================================== -->
-                <div class="custom-bottom-summary">
-                    <div class="summary-top-row">
-                        <span class="summary-title" id="summaryHeaderLabel">Updated nutrition (for 1 bowl)</span>
-                        <span class="summary-total-price" id="modalSummaryPrice">₹249</span>
+        <!-- ====================================================
+             BOTTOM SUMMARY: Dark Green Live Nutrition & Add to Cart
+             Permanently docked at bottom of food-custom-modal
+             ==================================================== -->
+        <div class="custom-bottom-summary">
+            <div class="summary-meta-block">
+                <div class="summary-top-row">
+                    <span class="summary-title" id="summaryHeaderLabel">Updated nutrition (for 1 bowl)</span>
+                    <div class="summary-footnote" id="modalLiveScaleNote">
+                        <i class="bi bi-info-circle"></i> Scaled for <span id="modalLiveQtyLabel">1 item</span>
                     </div>
-
-                    <!-- 4 Live Nutrition Cards with Delta Badges -->
-                    <div class="live-metrics-grid">
-                        <div class="live-metric-box">
-                            <div class="live-metric-header">
-                                <span class="live-val" id="metricLiveCalories">520 kcal</span>
-                                <span class="delta-badge" id="deltaCalories" style="display:none;">+0</span>
-                            </div>
-                            <span class="live-lbl">Calories</span>
-                        </div>
-
-                        <div class="live-metric-box">
-                            <div class="live-metric-header">
-                                <span class="live-val" id="metricLiveProtein">38 g</span>
-                                <span class="delta-badge" id="deltaProtein" style="display:none;">+0</span>
-                            </div>
-                            <span class="live-lbl">Protein</span>
-                        </div>
-
-                        <div class="live-metric-box">
-                            <div class="live-metric-header">
-                                <span class="live-val" id="metricLiveCarbs">48 g</span>
-                                <span class="delta-badge" id="deltaCarbs" style="display:none;">+0</span>
-                            </div>
-                            <span class="live-lbl">Carbs</span>
-                        </div>
-
-                        <div class="live-metric-box">
-                            <div class="live-metric-header">
-                                <span class="live-val" id="metricLiveFat">18 g</span>
-                                <span class="delta-badge" id="deltaFat" style="display:none;">+0</span>
-                            </div>
-                            <span class="live-lbl">Fat</span>
-                        </div>
-
-                        <div class="live-metric-box">
-                            <div class="live-metric-header">
-                                <span class="live-val" id="metricLiveSugar">0 g</span>
-                                <span class="delta-badge" id="deltaSugar" style="display:none;">+0</span>
-                            </div>
-                            <span class="live-lbl">Sugar</span>
-                        </div>
-
-                        <div class="live-metric-box" id="boxLiveCaffeine" style="display:none;">
-                            <div class="live-metric-header">
-                                <span class="live-val" id="metricLiveCaffeine">0 mg</span>
-                                <span class="delta-badge" id="deltaCaffeine" style="display:none;">+0</span>
-                            </div>
-                            <span class="live-lbl">Caffeine</span>
-                        </div>
-                    </div>
-
-                    <div class="summary-footnote" id="modalLiveScaleNote" style="font-size: 11px; color: rgba(255,255,255,0.75); margin-bottom: 10px; text-align: center;">
-                        <i class="bi bi-info-circle"></i> Nutrition &amp; caffeine scaled for <span id="modalLiveQtyLabel" style="font-weight:700; color:#fff;">1 item</span>
-                    </div>
-
-                    <!-- Full-Width Add to Cart Button -->
-                    <button type="button" class="btn-modal-add-cart" id="modalAddToCartBtn">
-                        <span id="modalAddToCartText">Add to cart · ₹249</span>
-                    </button>
                 </div>
+
+                <!-- Live Nutrition Cards with Delta Badges -->
+                <div class="live-metrics-grid">
+                    <div class="live-metric-box">
+                        <div class="live-metric-header">
+                            <span class="live-val" id="metricLiveCalories">520 kcal</span>
+                            <span class="delta-badge" id="deltaCalories" style="display:none;">+0</span>
+                        </div>
+                        <span class="live-lbl">Calories</span>
+                    </div>
+
+                    <div class="live-metric-box">
+                        <div class="live-metric-header">
+                            <span class="live-val" id="metricLiveProtein">38 g</span>
+                            <span class="delta-badge" id="deltaProtein" style="display:none;">+0</span>
+                        </div>
+                        <span class="live-lbl">Protein</span>
+                    </div>
+
+                    <div class="live-metric-box">
+                        <div class="live-metric-header">
+                            <span class="live-val" id="metricLiveCarbs">48 g</span>
+                            <span class="delta-badge" id="deltaCarbs" style="display:none;">+0</span>
+                        </div>
+                        <span class="live-lbl">Carbs</span>
+                    </div>
+
+                    <div class="live-metric-box">
+                        <div class="live-metric-header">
+                            <span class="live-val" id="metricLiveFat">18 g</span>
+                            <span class="delta-badge" id="deltaFat" style="display:none;">+0</span>
+                        </div>
+                        <span class="live-lbl">Fat</span>
+                    </div>
+
+                    <div class="live-metric-box">
+                        <div class="live-metric-header">
+                            <span class="live-val" id="metricLiveSugar">0 g</span>
+                            <span class="delta-badge" id="deltaSugar" style="display:none;">+0</span>
+                        </div>
+                        <span class="live-lbl">Sugar</span>
+                    </div>
+
+                    <div class="live-metric-box" id="boxLiveCaffeine" style="display:none;">
+                        <div class="live-metric-header">
+                            <span class="live-val" id="metricLiveCaffeine">0 mg</span>
+                            <span class="delta-badge" id="deltaCaffeine" style="display:none;">+0</span>
+                        </div>
+                        <span class="live-lbl">Caffeine</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="summary-actions-block">
+                <div class="summary-price-wrapper">
+                    <span class="summary-price-caption">Total Price</span>
+                    <span class="summary-total-price" id="modalSummaryPrice">₹249</span>
+                </div>
+                <button type="button" class="btn-modal-add-cart" id="modalAddToCartBtn">
+                    <i class="bi bi-bag-plus-fill btn-add-icon"></i>
+                    <span id="modalAddToCartText">Add to cart · ₹249</span>
+                </button>
             </div>
         </div>
     </div>
 </div>
+

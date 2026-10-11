@@ -36,8 +36,12 @@ require_once HB_ROOT . '/app/Helpers/format.php';
 require_once HB_ROOT . '/app/Helpers/security.php';
 require_once HB_ROOT . '/app/Helpers/food.php';
 
-// 3. Load Environment
-\App\Core\Env::load(HB_ROOT . '/.env');
+// 3. Load Environment (.env or .env.production fallback)
+if (file_exists(HB_ROOT . '/.env')) {
+    \App\Core\Env::load(HB_ROOT . '/.env');
+} elseif (file_exists(HB_ROOT . '/.env.production')) {
+    \App\Core\Env::load(HB_ROOT . '/.env.production');
+}
 
 // 4. Initialize Core Application
 $app = new \App\Core\App();

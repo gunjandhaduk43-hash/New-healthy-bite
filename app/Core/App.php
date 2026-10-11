@@ -59,10 +59,14 @@ class App
                 ], 500);
             } else {
                 Response::setStatusCode(500);
-                $controller = new Controller();
-                echo $controller->render('customer/errors/500', [
-                    'exception' => $isDebug ? $e : null
-                ], 'minimal');
+                try {
+                    $controller = new Controller();
+                    echo $controller->render('customer/errors/500', [
+                        'exception' => $isDebug ? $e : null
+                    ], 'minimal');
+                } catch (\Throwable $renderErr) {
+                    echo "<!DOCTYPE html><html><head><title>500 Internal Error</title></head><body><div style='text-align:center;padding:50px;font-family:sans-serif;'><h1>500 Internal Server Error</h1><p>An unexpected error occurred. Please try again shortly.</p></div></body></html>";
+                }
             }
             exit;
         });

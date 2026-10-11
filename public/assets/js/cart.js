@@ -33,13 +33,15 @@ const Cart = {
         }
 
         // Floating Cart Bar (Mobile)
-        const floatingBar = document.getElementById('floatingCartBar');
-        if (floatingBar) {
-            floatingBar.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.open();
-            });
-        }
+        ['floatingCartBar', 'mobileFloatingCartBar'].forEach(id => {
+            const bar = document.getElementById(id);
+            if (bar) {
+                bar.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.open();
+                });
+            }
+        });
 
         // Checkout Button in Drawer
         const checkoutBtn = document.getElementById('btnProceedCheckout');
@@ -245,19 +247,34 @@ const Cart = {
             headerBadge.style.display = totalItemsCount > 0 ? 'inline-flex' : 'none';
         }
 
-        // 2. Update Mobile Floating Cart Bar
-        const floatingBar = document.getElementById('floatingCartBar');
-        if (floatingBar) {
-            if (totalItemsCount > 0) {
-                floatingBar.style.display = 'flex';
-                const floatingBadge = document.getElementById('floatingCartBadge');
-                const floatingTotal = document.getElementById('floatingCartTotal');
-                if (floatingBadge) floatingBadge.textContent = `${totalItemsCount} item${totalItemsCount > 1 ? 's' : ''}`;
-                if (floatingTotal) floatingTotal.textContent = window.Utils ? Utils.formatCurrency(totals.total_amount) : ('₹' + totals.total_amount);
-            } else {
-                floatingBar.style.display = 'none';
-            }
+        // 2. Update Mobile Floating Cart Bar & Mobile Bottom Nav Badge
+        const mobileNavBadge = document.getElementById('mobileNavCartBadge');
+        if (mobileNavBadge) {
+            mobileNavBadge.textContent = totalItemsCount;
+            mobileNavBadge.style.display = totalItemsCount > 0 ? 'inline-flex' : 'none';
         }
+
+        const floatingBars = [
+            document.getElementById('mobileFloatingCartBar'),
+            document.getElementById('floatingCartBar')
+        ].filter(Boolean);
+
+        floatingBars.forEach(bar => {
+            if (totalItemsCount > 0) {
+                bar.style.display = 'flex';
+                const floatingCount = bar.querySelector('.floating-cart-badge') || document.getElementById('mobileFloatingCartCount') || document.getElementById('floatingCartBadge');
+                const floatingTotal = bar.querySelector('.floating-cart-price') || document.getElementById('mobileFloatingCartTotal') || document.getElementById('floatingCartTotal');
+                const floatingLabel = document.getElementById('mobileFloatingItemLabel');
+
+                const totalStr = window.Utils ? Utils.formatCurrency(totals.total_amount) : ('₹' + totals.total_amount);
+
+                if (floatingCount) floatingCount.textContent = totalItemsCount;
+                if (floatingTotal) floatingTotal.textContent = totalStr;
+                if (floatingLabel) floatingLabel.textContent = `${totalItemsCount} ${totalItemsCount === 1 ? 'Item' : 'Items'}`;
+            } else {
+                bar.style.display = 'none';
+            }
+        });
 
         // 3. Render Right Sidebar Widget (Menu Page Desktop)
         const sidebarItems = document.getElementById('sidebarOrderItems');

@@ -1,62 +1,739 @@
 /* ============================================================
-   HEALTHY BITE — Responsive Media Queries (Mobile First & Breakpoints)
+   HEALTHY BITE — Comprehensive Responsive & Mobile Design System
+   Breakpoints:
+     Desktop:     > 1024px
+     Tablet/Pad:  768px – 1024px
+     Mobile:      < 768px
+     Small Phone: < 480px
    ============================================================ */
 
-/* Mobile (max-width: 768px) */
-@media (max-width: 768px) {
-    .food-grid {
+/* ------------------------------------------------------------
+   1. TABLET & LAPTOP (max-width: 1024px)
+   ------------------------------------------------------------ */
+@media (max-width: 1024px) {
+    .main-layout-grid {
         grid-template-columns: 1fr;
+        gap: var(--space-5);
+    }
+
+    /* Hide desktop cart sidebar on tablet & mobile; use drawer & floating bar */
+    .cart-sidebar-col {
+        display: none !important;
+    }
+
+    .app-container {
+        padding-left: var(--space-4);
+        padding-right: var(--space-4);
+    }
+
+    .food-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: var(--space-4);
     }
 
     .checkout-grid {
         grid-template-columns: 1fr;
-    }
-
-    .restaurant-hero {
-        padding: var(--space-5);
-    }
-
-    .hero-title {
-        font-size: 22px;
-    }
-
-    .modal-backdrop {
-        padding: 0;
-        align-items: flex-end;
-    }
-
-    .modal-container {
-        max-width: 100%;
-        max-height: 85vh;
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
-    }
-
-    .cart-drawer {
-        max-width: 100%;
-    }
-
-    .tracking-stepper {
-        overflow-x: auto;
-        padding-bottom: 10px;
+        gap: var(--space-6);
     }
 }
 
-/* Small Mobile (max-width: 420px) */
-@media (max-width: 420px) {
-    .hero-meta-top {
-        gap: 4px;
+/* ------------------------------------------------------------
+   2. MOBILE DEVICES (max-width: 768px)
+   ------------------------------------------------------------ */
+@media (max-width: 768px) {
+    :root {
+        --space-4: 14px;
+        --space-6: 18px;
+    }
+
+    body.customer-body {
+        padding-bottom: calc(var(--mobile-nav-height) + var(--safe-area-bottom) + 16px);
+    }
+
+    /* Header Mobile Refinement */
+    .site-header {
+        position: sticky;
+        top: 0;
+        z-index: var(--z-fixed-nav);
+        background: rgba(255, 255, 255, 0.94);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+    }
+
+    .header-inner {
+        height: 60px;
+        padding-left: var(--space-3);
+        padding-right: var(--space-3);
+    }
+
+    .restaurant-logo-circle {
+        width: 38px;
+        height: 38px;
+    }
+
+    .brand-name {
+        font-size: 16px;
+    }
+
+    .brand-meta {
+        font-size: 11px;
+        max-width: 140px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* Hide desktop text nav on mobile */
+    .header-nav {
+        display: none;
+    }
+
+    .header-actions {
+        gap: 8px;
+    }
+
+    .table-badge {
+        padding: 5px 10px;
+        font-size: 11px;
+    }
+
+    .table-badge span {
+        max-width: 90px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .btn-cart-trigger {
+        width: 42px;
+        height: 42px;
+        font-size: 18px;
+    }
+
+    /* Restaurant Header / Banner Mobile */
+    .restaurant-header-bar {
+        padding: var(--space-3) var(--space-4);
+        margin: var(--space-2) 0 var(--space-3) 0;
+        border-radius: 14px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .restaurant-header-right {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    /* Search & Filter Bar Mobile */
+    .search-section {
+        margin-bottom: var(--space-3);
+        padding: 0 var(--space-1);
+    }
+
+    .search-input-wrapper {
+        border-radius: 14px;
+        height: 48px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .search-input {
+        font-size: 14px;
+        padding-left: 42px;
+    }
+
+    .search-input::placeholder {
+        font-size: 13px;
+    }
+
+    .search-icon {
+        left: 14px;
+        font-size: 16px;
+    }
+
+    /* Category Navigation Pills Mobile: Frictionless horizontal scroll */
+    .category-pills-nav {
+        display: flex;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        padding: 4px var(--space-2) 10px var(--space-2);
+        margin-left: calc(-1 * var(--space-3));
+        margin-right: calc(-1 * var(--space-3));
+        gap: 8px;
+        mask-image: linear-gradient(to right, black 88%, transparent 100%);
+        -webkit-mask-image: linear-gradient(to right, black 88%, transparent 100%);
+    }
+
+    .category-pills-nav::-webkit-scrollbar {
+        display: none;
+    }
+
+    .category-pill-btn {
+        scroll-snap-align: start;
+        flex-shrink: 0;
+        padding: 8px 16px;
+        font-size: 13px;
+        border-radius: 9999px;
+        white-space: nowrap;
+        height: 40px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        transition: all var(--transition-fast);
+    }
+
+    .category-pill-btn.active {
+        box-shadow: 0 4px 12px rgba(46, 125, 50, 0.25);
+        transform: translateY(-1px);
+    }
+
+    /* Quick Dietary Filter Bar on Mobile */
+    .diet-filters-mobile-bar {
+        display: flex;
+        gap: 6px;
+        overflow-x: auto;
+        scrollbar-width: none;
+        padding: 0 var(--space-1) 8px var(--space-1);
+        margin-bottom: var(--space-2);
+    }
+
+    .diet-filters-mobile-bar::-webkit-scrollbar {
+        display: none;
+    }
+
+    .diet-filter-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        height: 36px;
+        padding: 0 14px;
+        border-radius: 9999px;
+        font-size: 12.5px;
+        font-weight: 600;
+        border: 1.5px solid var(--border-color);
+        background: #ffffff;
+        color: #334155;
+        white-space: nowrap;
+        cursor: pointer;
+        transition: all var(--transition-fast);
+        -webkit-appearance: none;
+        appearance: none;
+    }
+
+    .diet-filter-chip.active {
+        background: linear-gradient(135deg, #15803D 0%, #14532D 100%) !important;
+        color: #ffffff !important;
+        border-color: #14532D !important;
+        box-shadow: 0 3px 10px rgba(22, 101, 52, 0.28) !important;
+    }
+
+    /* Food Grid & Cards Mobile */
+    .food-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .food-card {
+        border-radius: 16px;
+        display: flex;
+        flex-direction: row;
+        overflow: hidden;
+        min-height: 140px;
+        border: 1px solid var(--border-subtle);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+        transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+    }
+
+    .food-card:active {
+        transform: scale(0.985);
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
     }
 
     .food-card-media {
-        height: 160px;
+        width: 125px;
+        min-width: 125px;
+        height: auto;
+        position: relative;
+        overflow: hidden;
     }
 
-    .payment-methods-grid {
-        grid-template-columns: 1fr;
+    .food-card-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.35s ease;
     }
 
-    .nutrition-metrics-row {
-        grid-template-columns: repeat(2, 1fr);
+    .food-card:hover .food-card-img {
+        transform: scale(1.06);
+    }
+
+    .card-top-badges {
+        top: 6px;
+        left: 6px;
+        gap: 3px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .diet-badge {
+        padding: 2px 6px;
+        font-size: 9.5px;
+        border-radius: 6px;
+    }
+
+    .macro-highlight-badge {
+        display: none; /* Keep card media clean on compact mobile */
+    }
+
+    .food-card-fav-btn {
+        top: 6px;
+        right: 6px;
+        width: 28px;
+        height: 28px;
+        font-size: 13px;
+        background: rgba(255, 255, 255, 0.9);
+    }
+
+    .food-card-body {
+        padding: 12px 14px 12px 12px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .food-card-name {
+        font-size: 15px;
+        font-weight: 700;
+        line-height: 1.3;
+        margin-bottom: 3px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .food-card-desc {
+        font-size: 12px;
+        line-height: 1.35;
+        color: var(--text-muted);
+        margin-bottom: 6px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .food-card-allergens {
+        display: none; /* Shown in modal */
+    }
+
+    .food-card-nutrition {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        margin-bottom: 8px;
+    }
+
+    .macro-chip {
+        font-size: 10.5px;
+        padding: 2px 6px;
+        border-radius: 6px;
+    }
+
+    .macro-sugar, .macro-caffeine {
+        display: none; /* Shown inside details bottom sheet */
+    }
+
+    .food-card-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: auto;
+        padding-top: 4px;
+        border-top: 1px dashed var(--border-subtle);
+    }
+
+    .food-card-price .price-value {
+        font-size: 17px;
+        font-weight: 800;
+    }
+
+    .btn-add-food {
+        height: 34px;
+        padding: 0 16px;
+        font-size: 12.5px;
+        border-radius: 9999px;
+        box-shadow: 0 2px 6px rgba(46, 125, 50, 0.2);
+    }
+
+    .btn-add-food:active {
+        transform: scale(0.94);
+    }
+
+    /* Food Customization Modal as Native Mobile Bottom Sheet */
+    .modal-backdrop, .food-modal-backdrop {
+        padding: 0;
+        align-items: flex-end !important;
+        background: rgba(15, 23, 42, 0.6) !important;
+        backdrop-filter: blur(8px) !important;
+        -webkit-backdrop-filter: blur(8px) !important;
+    }
+
+    .modal-container, .food-modal-container {
+        max-width: 100% !important;
+        width: 100% !important;
+        max-height: 90vh !important;
+        border-top-left-radius: 24px !important;
+        border-top-right-radius: 24px !important;
+        border-bottom-left-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+        padding-bottom: calc(var(--safe-area-bottom) + 12px) !important;
+        animation: slideUpMobile 0.32s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+
+    /* Drag handle indicator on bottom sheet */
+    .modal-drag-handle {
+        display: block !important;
+        width: 44px;
+        height: 5px;
+        background: #CBD5E1;
+        border-radius: 9999px;
+        margin: 10px auto 4px auto;
+    }
+
+    /* Cart Drawer on Mobile */
+    .cart-drawer {
+        width: 100% !important;
+        max-width: 100% !important;
+        border-top-left-radius: 22px;
+        border-bottom-left-radius: 0;
+    }
+
+    /* Sticky Bottom Floating Cart Bar */
+    .floating-cart-bar {
+        position: fixed;
+        bottom: calc(var(--mobile-nav-height) + var(--safe-area-bottom) + 10px);
+        left: 12px;
+        right: 12px;
+        z-index: var(--z-floating-cart);
+        background: linear-gradient(135deg, #1B5E20 0%, #2E7D32 100%);
+        color: #ffffff;
+        border-radius: 16px;
+        padding: 12px 18px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 0 10px 25px -4px rgba(27, 94, 32, 0.4), 0 4px 10px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        animation: springBounce 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+        transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+    }
+
+    .floating-cart-bar:active {
+        transform: scale(0.98);
+    }
+
+    .floating-cart-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .floating-cart-icon-wrap {
+        position: relative;
+        width: 38px;
+        height: 38px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+    }
+
+    .floating-cart-badge {
+        position: absolute;
+        top: -4px;
+        right: -4px;
+        background: #F59E0B;
+        color: #0F172A;
+        font-size: 11px;
+        font-weight: 800;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .floating-cart-text {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .floating-cart-title {
+        font-size: 13px;
+        font-weight: 600;
+        opacity: 0.95;
+    }
+
+    .floating-cart-price {
+        font-size: 16px;
+        font-weight: 800;
+        letter-spacing: -0.2px;
+    }
+
+    .floating-cart-right {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 13px;
+        font-weight: 700;
+        background: rgba(255, 255, 255, 0.18);
+        padding: 8px 14px;
+        border-radius: 9999px;
+    }
+
+    /* Mobile Bottom Navigation Bar */
+    .mobile-bottom-nav {
+        display: flex !important;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: var(--z-bottom-nav);
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-top: 1px solid rgba(0, 0, 0, 0.07);
+        padding: 6px 16px calc(6px + var(--safe-area-bottom)) 16px;
+        justify-content: space-around;
+        align-items: center;
+        box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.04);
+    }
+
+    .mobile-nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        color: var(--text-muted);
+        font-size: 10.5px;
+        font-weight: 600;
+        gap: 3px;
+        padding: 4px 12px;
+        border-radius: 12px;
+        transition: all var(--transition-fast);
+        position: relative;
+    }
+
+    .mobile-nav-item i {
+        font-size: 19px;
+        transition: transform var(--transition-fast);
+    }
+
+    .mobile-nav-item.active {
+        color: var(--primary-500);
+    }
+
+    .mobile-nav-item.active i {
+        transform: translateY(-2px);
+    }
+
+    .mobile-nav-dot {
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: var(--primary-500);
+        margin-top: 1px;
+    }
+
+    .mobile-nav-badge {
+        position: absolute;
+        top: 2px;
+        right: 8px;
+        background: #DC2626;
+        color: #ffffff;
+        font-size: 9.5px;
+        font-weight: 800;
+        min-width: 15px;
+        height: 15px;
+        border-radius: 9999px;
+        padding: 0 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Checkout Page Mobile */
+    .checkout-container {
+        padding: var(--space-2) var(--space-3) 80px var(--space-3);
+    }
+
+    .checkout-header-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+        margin-bottom: var(--space-4);
+    }
+
+    .checkout-page-title {
+        font-size: 22px;
+    }
+
+    .checkout-card {
+        padding: var(--space-4);
+        border-radius: 16px;
+        margin-bottom: var(--space-4);
+    }
+
+    .segmented-switch {
+        padding: 4px;
+    }
+
+    .switch-btn {
+        padding: 9px 12px;
+        font-size: 13px;
+    }
+
+    /* Tracking Stepper Mobile (Fluid 5-Step Grid, Zero Overflow) */
+    .tracking-stepper {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        overflow: visible;
+        gap: 0;
+        width: 100%;
+        padding-bottom: 0;
+    }
+
+    .step-item {
+        min-width: 0;
+        width: 100%;
+        flex-shrink: 1;
+    }
+
+    .step-dot {
+        width: 32px;
+        height: 32px;
+        font-size: 13px;
+        margin-bottom: 5px;
+    }
+
+    .step-label {
+        font-size: 10px;
+        letter-spacing: -0.3px;
+    }
+
+    .stepper-line-track {
+        top: 15px;
+        left: 8%;
+        right: 8%;
+    }
+
+    .kitchen-hero-card {
+        padding: 14px 16px;
+        gap: 12px;
+    }
+
+    .kitchen-hero-icon-wrap {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+        border-radius: 12px;
+    }
+
+    .tracking-main-card {
+        padding: 20px 16px;
+        border-radius: 20px;
+    }
+
+    /* Footer Mobile */
+    .site-footer {
+        margin-top: var(--space-8);
+        padding: var(--space-6) 0 calc(var(--mobile-nav-height) + var(--safe-area-bottom) + 20px) 0;
+    }
+
+    .footer-inner {
+        flex-direction: column;
+        text-align: center;
+        gap: 16px;
+    }
+
+    .footer-center {
+        flex-wrap: wrap;
+        justify-content: center;
+        font-size: 12px;
+        gap: 6px;
+    }
+
+    .footer-right {
+        justify-content: center;
+    }
+}
+
+/* ------------------------------------------------------------
+   3. SMALL MOBILE (max-width: 480px)
+   ------------------------------------------------------------ */
+@media (max-width: 480px) {
+    .brand-meta {
+        display: none;
+    }
+
+    .welcome-hero-heading {
+        font-size: 26px !important;
+        line-height: 1.25 !important;
+    }
+
+    .welcome-hero-actions {
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+    }
+
+    .btn-welcome-hero {
+        width: 100% !important;
+        justify-content: center !important;
+    }
+
+    .welcome-metrics-strip {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .food-card-media {
+        width: 110px;
+        min-width: 110px;
+    }
+
+    .food-card-name {
+        font-size: 14px;
+    }
+
+    .food-card-desc {
+        display: none; /* Ultra-clean list layout on tiny phones */
+    }
+
+    .food-card-nutrition {
+        margin-bottom: 4px;
+    }
+}
+
+/* Keyframes for Mobile Bottom Sheet */
+@keyframes slideUpMobile {
+    from {
+        transform: translateY(100%);
+        opacity: 0.6;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
     }
 }

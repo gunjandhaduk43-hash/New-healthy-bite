@@ -259,7 +259,7 @@ const FoodDetails = {
                 badges.push('VEGETARIAN');
             } else if (typeStr === 'vegan') {
                 badges.push('VEGAN');
-            } else if (typeStr === 'non_vegetarian' || typeStr === 'non-veg') {
+            } else if (typeStr === 'non_vegetarian' || typeStr === 'non-veg' || typeStr === 'non-vegetarian' || typeStr === 'nonveg') {
                 badges.push('NON-VEG');
             } else if (food.category_name) {
                 badges.push(food.category_name.toUpperCase());

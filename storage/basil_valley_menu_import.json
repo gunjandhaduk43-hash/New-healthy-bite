@@ -1,0 +1,1984 @@
+{
+  "restaurant": {
+    "id": "basil-valley-rajkot",
+    "name": "Basil Valley",
+    "tagline": "The Ultimate Café Place! A Taste Beyond Expectations",
+    "location": "Rajkot, Gujarat",
+    "city": "Rajkot",
+    "state": "Gujarat",
+    "country": "India",
+    "currency": "INR",
+    "dietary_standards": {
+      "no_ajinomoto": true,
+      "no_food_colour": true,
+      "jain_options_available": true
+    },
+    "categories": [
+      {
+        "id": "maggi",
+        "name": "Maggi",
+        "slug": "maggi",
+        "description": "Comforting hot bowls of India's favorite noodle tossed with café-style house seasoning and fresh vegetables.",
+        "items": [
+          {
+            "id": "classic-masala-maggi",
+            "name": "Classic / Masala Maggi",
+            "description": "Nostalgic 2-minute noodles simmered with roasted aromatic spices and fresh coriander.",
+            "price": 119,
+            "currency": "INR",
+            "image": "basil_valley_classic_masala_maggi.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "peri-peri-maggi",
+            "name": "Peri Peri Maggi",
+            "description": "Zesty Maggi noodles tossed with fiery African bird's eye chili seasoning and bell peppers.",
+            "price": 139,
+            "currency": "INR",
+            "image": "basil_valley_peri_peri_maggi.jpg",
+            "dietary": [
+              "vegetarian",
+              "spicy"
+            ]
+          },
+          {
+            "id": "veg-maggi",
+            "name": "Veg. Maggi",
+            "description": "Wholesome noodle bowl stir-fried with diced farm carrots, green peas, onions, and sweet corn.",
+            "price": 149,
+            "currency": "INR",
+            "image": "basil_valley_veg_maggi.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "cheese-maggi",
+            "name": "Cheese Maggi",
+            "description": "Creamy noodles topped with an abundant layer of molten processed mozzarella cheese.",
+            "price": 169,
+            "currency": "INR",
+            "image": "basil_valley_cheese_maggi.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "tadka-maggi",
+            "name": "Tadka Maggi",
+            "description": "Desi dhaba-style noodles finished with a sizzling tempered garlic, cumin, and butter tadka.",
+            "price": 179,
+            "currency": "INR",
+            "image": "basil_valley_tadka_maggi.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "hot-beverages",
+        "name": "Hot Beverages",
+        "slug": "hot-beverages",
+        "description": "Slow-brewed regional teas and freshly steamed coffees crafted to energize your senses.",
+        "items": [
+          {
+            "id": "kathiyawadi-tea",
+            "name": "Kathiyawadi Tea",
+            "description": "Robust, full-bodied village-style tea infused with crushed ginger and aromatic green cardamom.",
+            "price": 49,
+            "currency": "INR",
+            "image": "basil_valley_kathiyawadi_tea.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "masala-tea",
+            "name": "Masala Tea",
+            "description": "Classic kadak Indian chai boiled with hand-ground cinnamon, cloves, black pepper, and nutmeg.",
+            "price": 59,
+            "currency": "INR",
+            "image": "basil_valley_masala_tea.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "ginger-phudina-tea",
+            "name": "Ginger Phudina Tea",
+            "description": "Invigorating hot tea stewed with fresh garden mint leaves and fiery crushed ginger root.",
+            "price": 59,
+            "currency": "INR",
+            "image": "basil_valley_ginger_phudina_tea.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "bourn-tea",
+            "name": "Bourn Tea",
+            "description": "A comforting fusion of traditional milk tea stirred with wholesome malty Bournvita.",
+            "price": 59,
+            "currency": "INR",
+            "image": "basil_valley_bourn_tea.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "basil-tea",
+            "name": "Basil Tea",
+            "description": "Signature café tea delicately steeped with fresh organic holy basil (tulsi) leaves for a soothing herbal note.",
+            "price": 59,
+            "currency": "INR",
+            "image": "basil_valley_basil_tea.jpg",
+            "dietary": [
+              "vegetarian",
+              "herbal"
+            ]
+          },
+          {
+            "id": "black-tea",
+            "name": "Black Tea",
+            "description": "Clear amber Assam tea infusion served hot with a fresh lemon slice and rock sugar.",
+            "price": 79,
+            "currency": "INR",
+            "image": "basil_valley_black_tea.jpg",
+            "dietary": [
+              "vegetarian",
+              "vegan"
+            ]
+          },
+          {
+            "id": "black-coffee",
+            "name": "Black Coffee",
+            "description": "Bold, dark roasted South Indian Arabica beans brewed clean with rich crema and zero dairy.",
+            "price": 79,
+            "currency": "INR",
+            "image": "basil_valley_black_coffee.jpg",
+            "dietary": [
+              "vegetarian",
+              "vegan"
+            ]
+          },
+          {
+            "id": "hot-coffee",
+            "name": "Hot Coffee",
+            "description": "Velvety whipped milk coffee topped with aromatic cocoa dust.",
+            "price": 89,
+            "currency": "INR",
+            "image": "basil_valley_hot_coffee.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "double-strong-coffee",
+            "name": "Double Strong Coffee",
+            "description": "Double espresso shot combined with frothy whole milk for deep caffeine punch.",
+            "price": 99,
+            "currency": "INR",
+            "image": "basil_valley_double_strong_coffee.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "hot-bournvita",
+            "name": "Hot Bournvita",
+            "description": "Classic steaming malted chocolate dairy drink prepared with creamy milk.",
+            "price": 99,
+            "currency": "INR",
+            "image": "basil_valley_hot_bournvita.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "green-tea-lemon-ginger",
+            "name": "Green Tea With Lemon Ginger",
+            "description": "Antioxidant-packed whole green tea leaves infused with zesty lemon essence and warm ginger.",
+            "price": 99,
+            "currency": "INR",
+            "image": "basil_valley_green_tea_lemon_ginger.jpg",
+            "dietary": [
+              "vegetarian",
+              "vegan",
+              "gluten-free"
+            ]
+          },
+          {
+            "id": "green-tea-honey",
+            "name": "Green Tea With Honey",
+            "description": "Delicate green tea sweetened naturally with raw floral honey.",
+            "price": 109,
+            "currency": "INR",
+            "image": "basil_valley_green_tea_honey.jpg",
+            "dietary": [
+              "vegetarian",
+              "gluten-free"
+            ]
+          },
+          {
+            "id": "hot-chocolate",
+            "name": "Hot Chocolate",
+            "description": "Rich Belgian dark cocoa melted in silky steamed milk with velvety chocolate swirls.",
+            "price": 119,
+            "currency": "INR",
+            "image": "basil_valley_hot_chocolate.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "mocktails",
+        "name": "Mocktails",
+        "slug": "mocktails",
+        "description": "Artisan non-alcoholic coolers shaken with sparkling soda, fresh fruit purees, and crushed ice.",
+        "items": [
+          {
+            "id": "lemonade",
+            "name": "Lemonade",
+            "description": "Chilled sparkling cooler with freshly squeezed sour limes, mint sprigs, and rock salt.",
+            "price": 89,
+            "currency": "INR",
+            "image": "basil_valley_lemonade.jpg",
+            "dietary": [
+              "vegetarian",
+              "vegan"
+            ]
+          },
+          {
+            "id": "mint-mojito",
+            "name": "Mint Mojito",
+            "description": "Muddled garden mint, lime wheels, and organic cane sugar topped with fizzy club soda.",
+            "price": 149,
+            "currency": "INR",
+            "image": "basil_valley_mint_mojito.jpg",
+            "dietary": [
+              "vegetarian",
+              "vegan"
+            ]
+          },
+          {
+            "id": "blue-lagoon",
+            "name": "Blue Lagoon",
+            "description": "Vibrant curaçao citrus syrup shaken with tangy lime juice and chilled lemon-lime soda.",
+            "price": 159,
+            "currency": "INR",
+            "image": "basil_valley_blue_lagoon.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "pink-lady",
+            "name": "Pink Lady",
+            "description": "Blushing pomegranate and raspberry nectar blended with sparkling spritz and crushed ice.",
+            "price": 159,
+            "currency": "INR",
+            "image": "basil_valley_pink_lady.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "fruit-punch",
+            "name": "Fruit Punch",
+            "description": "Exotic medley of orange, pineapple, and mango juices layered with vanilla cream.",
+            "price": 159,
+            "currency": "INR",
+            "image": "basil_valley_fruit_punch.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "rainbow-punch",
+            "name": "Rainbow Punch",
+            "description": "Stunning layered tropical mocktail featuring kiwi, orange, and grenadine cordials.",
+            "price": 159,
+            "currency": "INR",
+            "image": "basil_valley_rainbow_punch.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "barbie-mint",
+            "name": "Barbie Mint",
+            "description": "Pastel pink strawberry cooler muddled with fragrant sweet mint and fizzy bubbles.",
+            "price": 159,
+            "currency": "INR",
+            "image": "basil_valley_barbie_mint.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "cold-beverages",
+        "name": "Cold Beverages",
+        "slug": "cold-beverages",
+        "description": "Creamy iced coffees and cold tea coolers whipped fresh over crystal ice.",
+        "items": [
+          {
+            "id": "lemon-ice-tea",
+            "name": "Lemon Ice Tea",
+            "description": "Cold-brewed black tea steeped with zesty lemon citrus and fresh mint leaves.",
+            "price": 109,
+            "currency": "INR",
+            "image": "basil_valley_lemon_ice_tea.jpg",
+            "dietary": [
+              "vegetarian",
+              "vegan"
+            ]
+          },
+          {
+            "id": "cold-bournvita",
+            "name": "Cold Bournvita",
+            "description": "Rich malted chocolate milk blended with ice cubes and topped with crunchy Bournvita granules.",
+            "price": 109,
+            "currency": "INR",
+            "image": "basil_valley_cold_bournvita.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "double-vita",
+            "name": "Double Vita",
+            "description": "Extra-dense chocolate malt shake whipped with rich dairy cream for deep cocoa indulgence.",
+            "price": 129,
+            "currency": "INR",
+            "image": "basil_valley_double_vita.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "classic-cold-coffee",
+            "name": "Classic Cold Coffee",
+            "description": "Creamy froth-blended cold coffee prepared with South Indian Arabica beans and chilled milk.",
+            "price": 149,
+            "currency": "INR",
+            "image": "basil_valley_classic_cold_coffee.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "iced-cappuccino",
+            "name": "Iced Cappuccino",
+            "description": "Bold espresso poured over cold milk, crowned with a thick cloud of velvety chilled milk foam.",
+            "price": 159,
+            "currency": "INR",
+            "image": "basil_valley_iced_cappuccino.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "cafe-mocha",
+            "name": "Café Mocha",
+            "description": "Espresso and dark chocolate ganache whipped with chilled milk and chocolate drizzle.",
+            "price": 159,
+            "currency": "INR",
+            "image": "basil_valley_cafe_mocha.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "french-vanilla",
+            "name": "French Vanilla",
+            "description": "Smooth cold brew blended with aromatic Madagascan French vanilla bean syrup.",
+            "price": 159,
+            "currency": "INR",
+            "image": "basil_valley_french_vanilla.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "hazelnut-cold-coffee",
+            "name": "Hazelnut Cold Coffee",
+            "description": "Nutty roasted hazelnut praline syrup folded into rich whipped milk coffee.",
+            "price": 159,
+            "currency": "INR",
+            "image": "basil_valley_hazelnut_cold_coffee.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "chocolate-cold-coffee",
+            "name": "Chocolate Cold Coffee",
+            "description": "Creamy iced coffee swirled with Belgian chocolate syrup and chocolate shavings.",
+            "price": 159,
+            "currency": "INR",
+            "image": "basil_valley_chocolate_cold_coffee.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "thick-shakes",
+        "name": "Thick Shakes",
+        "slug": "thick-shakes",
+        "description": "Ultra-thick premium ice cream shakes blended with gourmet chocolates, cookies, and nuts.",
+        "items": [
+          {
+            "id": "vanilla-shake",
+            "name": "Vanilla Shake",
+            "description": "Classic thick shake spun with pure dairy vanilla ice cream and sweet cream.",
+            "price": 189,
+            "currency": "INR",
+            "image": "basil_valley_vanilla_shake.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "strawberry-shake",
+            "name": "Strawberry Shake",
+            "description": "Luscious pink shake blended with natural strawberry fruit compote and ice cream.",
+            "price": 219,
+            "currency": "INR",
+            "image": "basil_valley_strawberry_shake.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "kitkat-shake",
+            "name": "KitKat Shake",
+            "description": "Crispy KitKat wafer bars crushed into chilled vanilla ice cream and chocolate sauce.",
+            "price": 229,
+            "currency": "INR",
+            "image": "basil_valley_kitkat_shake.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "oreo-shake",
+            "name": "Oreo Shake",
+            "description": "Loaded with dark Oreo cocoa cookies churned into thick vanilla cream.",
+            "price": 229,
+            "currency": "INR",
+            "image": "basil_valley_oreo_shake.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "chocolate-chips-shake",
+            "name": "Chocolate Chips Shake",
+            "description": "Double chocolate shake packed with crunchy semi-sweet chocolate chips throughout.",
+            "price": 239,
+            "currency": "INR",
+            "image": "basil_valley_chocolate_chips_shake.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "brownie-shake",
+            "name": "Brownie Shake",
+            "description": "Decadent fresh-baked fudge brownie blended into a rich chocolate shake.",
+            "price": 249,
+            "currency": "INR",
+            "image": "basil_valley_brownie_shake.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "dry-fruit-shake",
+            "name": "Dry Fruit Shake",
+            "description": "Nourishing royal shake loaded with roasted almonds, cashews, pistachios, and saffron syrup.",
+            "price": 249,
+            "currency": "INR",
+            "image": "basil_valley_dry_fruit_shake.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "ferrero-rocher-shake",
+            "name": "Ferrero Rocher Shake",
+            "description": "Gourmet hazelnut shake crafted with genuine Ferrero Rocher pralines, Nutella, and roasted hazelnuts.",
+            "price": 329,
+            "currency": "INR",
+            "image": "basil_valley_ferrero_rocher_shake.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "brownie-desserts",
+        "name": "Brownie & Desserts",
+        "slug": "brownie-desserts",
+        "description": "Gooey chocolate brownies baked fresh and served hot with artisan vanilla ice cream.",
+        "items": [
+          {
+            "id": "brownie-with-vanilla-ice-cream",
+            "name": "Brownie With Vanilla Ice Cream",
+            "description": "Warm walnut fudge brownie accompanied by a scoop of velvety vanilla bean ice cream and chocolate drizzle.",
+            "price": 179,
+            "currency": "INR",
+            "image": "basil_valley_brownie_with_vanilla_ice_cream.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "sizzling-brownie-with-vanilla-ice-cream",
+            "name": "Sizzling Brownie With Vanilla Ice Cream",
+            "description": "Decadent chocolate brownie served on a smoking-hot cast iron skillet, drenched in bubbling hot chocolate sauce with cold vanilla ice cream.",
+            "price": 259,
+            "currency": "INR",
+            "image": "basil_valley_sizzling_brownie_with_vanilla_ice_cream.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "sizzlers",
+        "name": "Sizzlers",
+        "slug": "sizzlers",
+        "description": "Smoking hot cast-iron platters piled with butter-glazed rice, sautéed vegetables, french fries, and sizzling house gravies.",
+        "items": [
+          {
+            "id": "cheese-ball-sizzler",
+            "name": "Cheese Ball Sizzler",
+            "description": "Golden crispy melted cheese balls placed over butter herb rice, charred veggies, and piquant tomato herb reduction.",
+            "price": 499,
+            "currency": "INR",
+            "image": "basil_valley_cheese_ball_sizzler.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "veg-classic-sizzler",
+            "name": "Veg Classic Sizzler",
+            "description": "Wholesome vegetable patties, garlic herb rice, butter-sautéed broccoli, and golden fries bathed in sizzling pepper sauce.",
+            "price": 599,
+            "currency": "INR",
+            "image": "basil_valley_veg_classic_sizzler.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "paneer-shashlik-sizzler",
+            "name": "Paneer Shashlik Sizzler",
+            "description": "Char-grilled marinated cottage cheese skewers nestled with grilled capsicum, spiced rice, and smoky barbecue reduction.",
+            "price": 599,
+            "currency": "INR",
+            "image": "basil_valley_paneer_shashlik_sizzler.jpg",
+            "dietary": [
+              "vegetarian",
+              "high-protein"
+            ]
+          },
+          {
+            "id": "chinese-sizzler",
+            "name": "Chinese Sizzler",
+            "description": "Sizzling combo of veg fried rice, hakka noodles, crispy manchurian balls, and fiery schezwan gravy.",
+            "price": 599,
+            "currency": "INR",
+            "image": "basil_valley_chinese_sizzler.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "italian-sizzler",
+            "name": "Italian Sizzler",
+            "description": "Penne arrabbiata, herb butter rice, roasted zucchini, mozzarella garlic toast, and creamy parmesan cream.",
+            "price": 699,
+            "currency": "INR",
+            "image": "basil_valley_italian_sizzler.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "basil-valley-special-sizzler",
+            "name": "Basil Valley Special Sizzler",
+            "description": "Grand master chef platter loaded with paneer steak, cheese croquettes, sautéed exotic vegetables, loaded fries, and signature basil glaze.",
+            "price": 849,
+            "currency": "INR",
+            "image": "basil_valley_special_sizzler.jpg",
+            "dietary": [
+              "vegetarian",
+              "signature"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "sandwiches",
+        "name": "Sandwiches (Triple-Layer)",
+        "slug": "sandwiches",
+        "description": "Triple-decker artisan café sandwiches prepared fresh on white or brown bread with gourmet fillings.",
+        "items": [
+          {
+            "id": "bread-butter-sandwich",
+            "name": "Bread Butter Sandwich",
+            "description": "Simple nostalgic sandwich layered with creamy Amul butter and fresh mint chutney. Available Non-Grilled (₹79) or Grilled (₹99).",
+            "price": 79,
+            "currency": "INR",
+            "image": "basil_valley_bread_butter_sandwich.jpg",
+            "dietary": [
+              "vegetarian",
+              "jain_available"
+            ]
+          },
+          {
+            "id": "vegetable-sandwich",
+            "name": "Vegetable Sandwich",
+            "description": "Triple-layer sandwich stuffed with cucumber, tomato, beetroot slices, and tangy chaat masala. Available Non-Grilled (₹129) or Grilled (₹149).",
+            "price": 129,
+            "currency": "INR",
+            "image": "basil_valley_vegetable_sandwich.jpg",
+            "dietary": [
+              "vegetarian",
+              "jain_available"
+            ]
+          },
+          {
+            "id": "vegetable-cheese-sandwich",
+            "name": "Vegetable Cheese Sandwich",
+            "description": "Farm fresh garden vegetables layered with molten cheese and herb seasoning. Available Non-Grilled (₹169) or Grilled (₹189).",
+            "price": 169,
+            "currency": "INR",
+            "image": "basil_valley_vegetable_cheese_sandwich.jpg",
+            "dietary": [
+              "vegetarian",
+              "jain_available"
+            ]
+          },
+          {
+            "id": "cheese-masala-sandwich",
+            "name": "Cheese Masala Sandwich",
+            "description": "Grilled sandwich with spicy potato masala, chopped green chilies, and melted processed cheese.",
+            "price": 189,
+            "currency": "INR",
+            "image": "basil_valley_cheese_masala_sandwich.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "chocolate-sandwich",
+            "name": "Chocolate Sandwich",
+            "description": "Non-grilled sweet sandwich filled with thick chocolate ganache, chocolate chips, and sweet butter.",
+            "price": 169,
+            "currency": "INR",
+            "image": "basil_valley_chocolate_sandwich.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "cheese-pineapple-sandwich",
+            "name": "Cheese Pineapple Sandwich",
+            "description": "Sweet and savory non-grilled sandwich featuring sweet pineapple slices, creamy cheese, and butter.",
+            "price": 179,
+            "currency": "INR",
+            "image": "basil_valley_cheese_pineapple_sandwich.jpg",
+            "dietary": [
+              "vegetarian",
+              "jain_available"
+            ]
+          },
+          {
+            "id": "cheese-chilli-sandwich",
+            "name": "Cheese Chilli Sandwich",
+            "description": "Spicy grilled sandwich loaded with sharp green chilies, bell peppers, and bubbling melted cheese.",
+            "price": 209,
+            "currency": "INR",
+            "image": "basil_valley_cheese_chilli_sandwich.jpg",
+            "dietary": [
+              "vegetarian",
+              "jain_available",
+              "spicy"
+            ]
+          },
+          {
+            "id": "corn-capsicum-sandwich",
+            "name": "Corn Capsicum Sandwich",
+            "description": "Grilled triple-layer bread stuffed with juicy sweet American corn, crunchy green capsicum, and herb mayo.",
+            "price": 209,
+            "currency": "INR",
+            "image": "basil_valley_corn_capsicum_sandwich.jpg",
+            "dietary": [
+              "vegetarian",
+              "jain_available"
+            ]
+          },
+          {
+            "id": "mexican-sandwich",
+            "name": "Mexican Sandwich",
+            "description": "Grilled sandwich filled with kidney beans, salsa reduction, jalapeños, sweet corn, and chipotle cheese.",
+            "price": 219,
+            "currency": "INR",
+            "image": "basil_valley_mexican_sandwich.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "american-club-sandwich",
+            "name": "American Club Sandwich",
+            "description": "Towering triple-decker club sandwich stuffed with coleslaw, potato rosti, cheese slice, and fresh veggies.",
+            "price": 229,
+            "currency": "INR",
+            "image": "basil_valley_american_club_sandwich.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "tandoori-paneer-sandwich",
+            "name": "Tandoori Paneer Sandwich",
+            "description": "Charcoal-spiced tandoori marinated paneer cubes layered with roasted onions, bell peppers, and mint mayo.",
+            "price": 239,
+            "currency": "INR",
+            "image": "basil_valley_tandoori_paneer_sandwich.jpg",
+            "dietary": [
+              "vegetarian",
+              "high-protein"
+            ]
+          },
+          {
+            "id": "cheese-burst-sandwich",
+            "name": "Cheese Burst Sandwich",
+            "description": "Overloaded gourmet sandwich filled with molten liquid cheese, mozzarella, and cheddar cheese.",
+            "price": 249,
+            "currency": "INR",
+            "image": "basil_valley_cheese_burst_sandwich.jpg",
+            "dietary": [
+              "vegetarian",
+              "jain_available"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "garlic-bread",
+        "name": "Garlic Bread",
+        "slug": "garlic-bread",
+        "description": "Oven-toasted French baguette slices infused with fresh garlic herb butter and Italian seasoning.",
+        "items": [
+          {
+            "id": "garlic-toast",
+            "name": "Garlic Toast",
+            "description": "Crisp baguette slices baked with pure aromatic garlic butter, parsley, and sea salt.",
+            "price": 109,
+            "currency": "INR",
+            "image": "basil_valley_garlic_toast.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "cheese-garlic-bread",
+            "name": "Cheese Garlic Bread",
+            "description": "Golden baked garlic baguette smothered with bubbling 100% mozzarella cheese.",
+            "price": 159,
+            "currency": "INR",
+            "image": "basil_valley_cheese_garlic_bread.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "american-cheese-corn-garlic-bread",
+            "name": "American Cheese Corn Garlic Bread",
+            "description": "Garlic toast crowned with sweet American golden corn kernels and molten cheese.",
+            "price": 179,
+            "currency": "INR",
+            "image": "basil_valley_american_cheese_corn_garlic_bread.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "italian-cheese-garlic-bread",
+            "name": "Italian Cheese Garlic Bread",
+            "description": "Topped with black olives, diced bell peppers, oregano, and melted Italian cheeses.",
+            "price": 189,
+            "currency": "INR",
+            "image": "basil_valley_italian_cheese_garlic_bread.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "basil-valley-special-garlic-bread",
+            "name": "Basil Valley Special Garlic Bread",
+            "description": "Chef's signature garlic loaf loaded with paneer tikka, jalapeños, sweet corn, double mozzarella, and fresh basil.",
+            "price": 229,
+            "currency": "INR",
+            "image": "basil_valley_special_garlic_bread.jpg",
+            "dietary": [
+              "vegetarian",
+              "signature"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "pasta",
+        "name": "Pasta",
+        "slug": "pasta",
+        "description": "Durum wheat penne tossed in slow-simmered scratch sauces, fresh herbs, and parmesan.",
+        "items": [
+          {
+            "id": "creamy-alfredo-penne",
+            "name": "Creamy Alfredo Penne",
+            "description": "Al dente penne folded in a velvety white sauce of fresh cream, butter, garlic, and parmesan cheese.",
+            "price": 299,
+            "currency": "INR",
+            "image": "basil_valley_creamy_alfredo_penne.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "classic-arrabbiata-penne",
+            "name": "Classic Arrabbiata Penne",
+            "description": "Penne simmered in a spicy Italian San Marzano tomato reduction with chili flakes, garlic, and fresh basil.",
+            "price": 299,
+            "currency": "INR",
+            "image": "basil_valley_classic_arrabbiata_penne.jpg",
+            "dietary": [
+              "vegetarian",
+              "spicy"
+            ]
+          },
+          {
+            "id": "basil-pesto-penne",
+            "name": "Basil Pesto Penne",
+            "description": "Vibrant emerald penne coated in house-ground Genovese basil, roasted pine nuts, garlic, and extra virgin olive oil.",
+            "price": 319,
+            "currency": "INR",
+            "image": "basil_valley_basil_pesto_penne.jpg",
+            "dietary": [
+              "vegetarian",
+              "signature"
+            ]
+          },
+          {
+            "id": "pink-sauce-penne",
+            "name": "Pink Sauce Penne",
+            "description": "Harmonious blend of rich creamy Alfredo and zesty tomato Arrabbiata sauces with sautéed exotic veggies.",
+            "price": 319,
+            "currency": "INR",
+            "image": "basil_valley_pink_sauce_penne.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "pizzas",
+        "name": "Pizzas",
+        "slug": "pizzas",
+        "description": "Hand-stretched café pizzas stone-baked with Italian herb sauce and 100% real mozzarella.",
+        "items": [
+          {
+            "id": "margherita-pizza",
+            "name": "Margherita Pizza",
+            "description": "Classic Italian pizza with slow-cooked tomato reduction, mozzarella, and fresh sweet basil leaves.",
+            "price": 199,
+            "currency": "INR",
+            "image": "basil_valley_margherita_pizza.jpg",
+            "dietary": [
+              "vegetarian",
+              "jain_available"
+            ]
+          },
+          {
+            "id": "classic-veg-pizza",
+            "name": "Classic Veg. Pizza",
+            "description": "Topped with crunchy green capsicum, crisp red onions, diced tomatoes, and stringy mozzarella.",
+            "price": 249,
+            "currency": "INR",
+            "image": "basil_valley_classic_veg_pizza.jpg",
+            "dietary": [
+              "vegetarian",
+              "jain_available"
+            ]
+          },
+          {
+            "id": "american-pizza",
+            "name": "American Pizza",
+            "description": "Loaded with sweet golden corn, diced bell peppers, sliced black olives, and melted cheese.",
+            "price": 279,
+            "currency": "INR",
+            "image": "basil_valley_american_pizza.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "italian-pizza",
+            "name": "Italian Pizza",
+            "description": "Authentic Mediterranean pizza with black olives, sun-dried tomatoes, mushroom slices, and Italian herbs.",
+            "price": 279,
+            "currency": "INR",
+            "image": "basil_valley_italian_pizza.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "exotic-veg-pizza",
+            "name": "Exotic Veg Pizza",
+            "description": "Gourmet crust loaded with zucchini, broccoli florets, baby corn, red paprika, and mozzarella.",
+            "price": 299,
+            "currency": "INR",
+            "image": "basil_valley_exotic_veg_pizza.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "tandoori-paneer-pizza",
+            "name": "Tandoori Paneer Pizza",
+            "description": "Spiced tandoori marinated cottage cheese cubes, charred bell peppers, red onions, and coriander.",
+            "price": 299,
+            "currency": "INR",
+            "image": "basil_valley_tandoori_paneer_pizza.jpg",
+            "dietary": [
+              "vegetarian",
+              "high-protein"
+            ]
+          },
+          {
+            "id": "four-cheese-pizza",
+            "name": "Four Cheese Pizza",
+            "description": "Decadent Quattro Formaggi with mozzarella, cheddar, gouda, and creamy processed cheese.",
+            "price": 299,
+            "currency": "INR",
+            "image": "basil_valley_four_cheese_pizza.jpg",
+            "dietary": [
+              "vegetarian",
+              "jain_available"
+            ]
+          },
+          {
+            "id": "basil-valley-signature-pizza",
+            "name": "Basil Valley Signature Pizza",
+            "description": "House special thin-crust pizza with roasted paneer, exotic bell peppers, jalapeños, olives, and fresh basil drizzle.",
+            "price": 319,
+            "currency": "INR",
+            "image": "basil_valley_signature_pizza.jpg",
+            "dietary": [
+              "vegetarian",
+              "signature"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "burgers",
+        "name": "Burgers",
+        "slug": "burgers",
+        "description": "Brioche buns toasted in butter and filled with crisp patties, fresh lettuce, and house dressing.",
+        "items": [
+          {
+            "id": "aloo-tikki-burger",
+            "name": "Aloo Tikki Burger",
+            "description": "Crisp spiced potato patty, sliced tomatoes, onions, and sweet-spicy herb mayonnaise.",
+            "price": 119,
+            "currency": "INR",
+            "image": "basil_valley_aloo_tikki_burger.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "classic-veg-burger",
+            "name": "Classic Veg Burger",
+            "description": "Golden vegetable patty packed with peas, carrots, and potatoes, topped with crunchy iceberg lettuce.",
+            "price": 129,
+            "currency": "INR",
+            "image": "basil_valley_classic_veg_burger.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "cheese-burger",
+            "name": "Cheese Burger",
+            "description": "Crispy vegetable patty layered with a slice of rich cheddar cheese and creamy burger spread.",
+            "price": 149,
+            "currency": "INR",
+            "image": "basil_valley_cheese_burger.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "tandoori-paneer-burger",
+            "name": "Tandoori Paneer Burger",
+            "description": "Thick paneer patty grilled in clay-oven tandoori spices, topped with pickled red onions and mint mayo.",
+            "price": 179,
+            "currency": "INR",
+            "image": "basil_valley_tandoori_paneer_burger.jpg",
+            "dietary": [
+              "vegetarian",
+              "high-protein"
+            ]
+          },
+          {
+            "id": "cheese-blast-burger",
+            "name": "Cheese Blast Burger",
+            "description": "Over-the-top burger stuffed with a molten cheese patty that bursts with every bite.",
+            "price": 199,
+            "currency": "INR",
+            "image": "basil_valley_cheese_blast_burger.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "wraps",
+        "name": "Wraps",
+        "slug": "wraps",
+        "description": "Soft wheat flatbreads rolled with seasoned fillings, crunchy veggies, and signature dressings.",
+        "items": [
+          {
+            "id": "veggie-delight-wrap",
+            "name": "Veggie Delight Wrap",
+            "description": "Crisp farm veggies, shredded cabbage, and creamy herb dressing wrapped in a toasted tortilla.",
+            "price": 149,
+            "currency": "INR",
+            "image": "basil_valley_veggie_delight_wrap.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "aloo-tikki-wrap",
+            "name": "Aloo Tikki Wrap",
+            "description": "Crunchy spiced potato croquette, tangy mint chutney, sliced onions, and chaat spices.",
+            "price": 159,
+            "currency": "INR",
+            "image": "basil_valley_aloo_tikki_wrap.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "paneer-tikka-wrap",
+            "name": "Paneer Tikka Wrap",
+            "description": "Succulent tandoori spiced paneer cubes, roasted bell peppers, and zesty tandoori mayo.",
+            "price": 169,
+            "currency": "INR",
+            "image": "basil_valley_paneer_tikka_wrap.jpg",
+            "dietary": [
+              "vegetarian",
+              "high-protein"
+            ]
+          },
+          {
+            "id": "cheesy-loaded-wrap",
+            "name": "Cheesy Loaded Wrap",
+            "description": "Rolled tortilla brimming with melted mozzarella, cheese sauce, sweet corn, and spiced paneer.",
+            "price": 189,
+            "currency": "INR",
+            "image": "basil_valley_cheesy_loaded_wrap.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "waffles",
+        "name": "Waffles",
+        "slug": "waffles",
+        "description": "Freshly iron-pressed Belgian waffles with crisp golden crusts and fluffy centers.",
+        "items": [
+          {
+            "id": "belgian-dark-indulgence",
+            "name": "Belgian Dark Indulgence",
+            "description": "Warm Belgian waffle drizzled generously with 55% dark chocolate ganache and chocolate curls.",
+            "price": 159,
+            "currency": "INR",
+            "image": "basil_valley_belgian_dark_indulgence.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "belgian-milk-melt",
+            "name": "Belgian Milk Melt",
+            "description": "Crisp waffle coated in creamy Swiss milk chocolate and powdered sugar.",
+            "price": 159,
+            "currency": "INR",
+            "image": "basil_valley_belgian_milk_melt.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "kitkat-crunch-bliss",
+            "name": "KitKat Crunch Bliss",
+            "description": "Topped with crushed crispy KitKat wafer bars, milk chocolate sauce, and cocoa dust.",
+            "price": 169,
+            "currency": "INR",
+            "image": "basil_valley_kitkat_crunch_bliss.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "oreo-dream-bites",
+            "name": "Oreo Dream Bites",
+            "description": "Warm waffle crowned with crushed Oreo cookies, white chocolate, and dark chocolate sauce.",
+            "price": 169,
+            "currency": "INR",
+            "image": "basil_valley_oreo_dream_bites.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "black-and-white-symphony",
+            "name": "Black And White Symphony",
+            "description": "Striking dual-chocolate presentation featuring ribbons of dark chocolate and ivory white chocolate.",
+            "price": 189,
+            "currency": "INR",
+            "image": "basil_valley_black_and_white_symphony.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "triple-chocolate-overdose",
+            "name": "Triple Chocolate Overdose",
+            "description": "Loaded with dark, milk, and white chocolate ganaches with crunchy chocolate chips.",
+            "price": 199,
+            "currency": "INR",
+            "image": "basil_valley_triple_chocolate_overdose.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "ferrero-royale",
+            "name": "Ferrero Royale",
+            "description": "Luxury waffle layered with creamy Nutella, crushed Ferrero Rocher praline, and toasted hazelnuts.",
+            "price": 249,
+            "currency": "INR",
+            "image": "basil_valley_ferrero_royale.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "ice-cream",
+        "name": "Ice Cream",
+        "slug": "ice-cream",
+        "description": "Classic dairy ice cream scoops served chilled.",
+        "items": [
+          {
+            "id": "vanilla-ice-cream",
+            "name": "Vanilla Ice Cream",
+            "description": "Classic creamy scoop of smooth vanilla bean ice cream.",
+            "price": 59,
+            "currency": "INR",
+            "image": "basil_valley_vanilla_ice_cream.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "chocolate-ice-cream",
+            "name": "Chocolate Ice Cream",
+            "description": "Rich and dense cocoa dairy ice cream scoop.",
+            "price": 69,
+            "currency": "INR",
+            "image": "basil_valley_chocolate_ice_cream.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "strawberry-ice-cream",
+            "name": "Strawberry Ice Cream",
+            "description": "Refreshing strawberry fruit flavored creamy ice cream scoop.",
+            "price": 69,
+            "currency": "INR",
+            "image": "basil_valley_strawberry_ice_cream.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "chocolate-vanilla-ice-cream",
+            "name": "Chocolate Vanilla Ice Cream",
+            "description": "Twin scoop duo of rich chocolate and fragrant vanilla ice cream.",
+            "price": 109,
+            "currency": "INR",
+            "image": "basil_valley_chocolate_vanilla_ice_cream.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "add-ons",
+        "name": "Add On",
+        "slug": "add-ons",
+        "description": "Custom extra toppings and condiments to complement your meals.",
+        "items": [
+          {
+            "id": "extra-jam",
+            "name": "Jam",
+            "description": "Extra portion of mixed fruit preserve.",
+            "price": 19,
+            "currency": "INR",
+            "image": "basil_valley_extra_jam.jpg",
+            "dietary": [
+              "vegetarian",
+              "vegan"
+            ]
+          },
+          {
+            "id": "extra-maggi-masala",
+            "name": "Maggi Masala",
+            "description": "Extra sachet of savory roasted noodle spices.",
+            "price": 19,
+            "currency": "INR",
+            "image": "basil_valley_extra_maggi_masala.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "extra-chocolate",
+            "name": "Chocolate",
+            "description": "Rich melted chocolate drizzle portion.",
+            "price": 29,
+            "currency": "INR",
+            "image": "basil_valley_extra_chocolate.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "extra-cheese",
+            "name": "Cheese",
+            "description": "Generous serving of grated processed mozzarella cheese.",
+            "price": 39,
+            "currency": "INR",
+            "image": "basil_valley_extra_cheese.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "extra-ice-cream-scoop",
+            "name": "Ice Cream Scoop",
+            "description": "Single additional scoop of dairy vanilla ice cream.",
+            "price": 59,
+            "currency": "INR",
+            "image": "basil_valley_extra_ice_cream_scoop.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "cold-drinks",
+        "name": "Cold Drinks",
+        "slug": "cold-drinks",
+        "description": "Chilled bottled beverages, aerated sodas, and energy drinks.",
+        "items": [
+          {
+            "id": "mineral-water",
+            "name": "Mineral Water",
+            "description": "Packaged premium drinking water bottle served chilled.",
+            "price": 20,
+            "currency": "INR",
+            "image": "basil_valley_mineral_water.jpg",
+            "dietary": [
+              "vegetarian",
+              "vegan"
+            ]
+          },
+          {
+            "id": "coke",
+            "name": "Coke",
+            "description": "Chilled 300ml bottle of classic Coca-Cola.",
+            "price": 40,
+            "currency": "INR",
+            "image": "basil_valley_coke.jpg",
+            "dietary": [
+              "vegetarian",
+              "vegan"
+            ]
+          },
+          {
+            "id": "sprite",
+            "name": "Sprite",
+            "description": "Crisp lemon-lime aerated soft drink.",
+            "price": 40,
+            "currency": "INR",
+            "image": "basil_valley_sprite.jpg",
+            "dietary": [
+              "vegetarian",
+              "vegan"
+            ]
+          },
+          {
+            "id": "maaza",
+            "name": "Maaza",
+            "description": "Sweet Alfonso mango fruit pulp beverage.",
+            "price": 40,
+            "currency": "INR",
+            "image": "basil_valley_maaza.jpg",
+            "dietary": [
+              "vegetarian",
+              "vegan"
+            ]
+          },
+          {
+            "id": "fanta",
+            "name": "Fanta",
+            "description": "Tangy orange flavored sparkling soda.",
+            "price": 40,
+            "currency": "INR",
+            "image": "basil_valley_fanta.jpg",
+            "dietary": [
+              "vegetarian",
+              "vegan"
+            ]
+          },
+          {
+            "id": "monster",
+            "name": "Monster",
+            "description": "Carbonated high-energy beverage with taurine, ginseng, and B vitamins.",
+            "price": 125,
+            "currency": "INR",
+            "image": "basil_valley_monster.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "red-bull",
+            "name": "Red Bull",
+            "description": "Vitalizing energy drink can served ice cold.",
+            "price": 125,
+            "currency": "INR",
+            "image": "basil_valley_red_bull.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "coolberg",
+            "name": "Coolberg",
+            "description": "Craft brewed non-alcoholic premium malt beverage.",
+            "price": 99,
+            "currency": "INR",
+            "image": "basil_valley_coolberg.jpg",
+            "dietary": [
+              "vegetarian",
+              "vegan"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "soups",
+        "name": "Soup",
+        "slug": "soup",
+        "description": "Hearty, piping hot Asian and Continental broths prepared with fresh seasonal vegetables.",
+        "items": [
+          {
+            "id": "manchow-soup",
+            "name": "Manchow Soup",
+            "description": "Spicy and tangy Indo-Chinese soup with finely chopped vegetables, garlic, and crisp fried noodles.",
+            "price": 159,
+            "currency": "INR",
+            "image": "basil_valley_manchow_soup.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "hot-and-sour-soup",
+            "name": "Hot And Sour",
+            "description": "Classic Chinese vegetable broth balancing fiery white pepper and sharp vinegar with black mushrooms.",
+            "price": 159,
+            "currency": "INR",
+            "image": "basil_valley_hot_and_sour_soup.jpg",
+            "dietary": [
+              "vegetarian",
+              "spicy"
+            ]
+          },
+          {
+            "id": "veg-lemon-coriander-soup",
+            "name": "Veg Lemon Coriander",
+            "description": "Light, refreshing clear soup bursting with fresh lime juice, green coriander stalks, and tender cabbage.",
+            "price": 159,
+            "currency": "INR",
+            "image": "basil_valley_veg_lemon_coriander_soup.jpg",
+            "dietary": [
+              "vegetarian",
+              "gluten-free"
+            ]
+          },
+          {
+            "id": "veg-manchurian-soup",
+            "name": "Veg Manchurian Soup",
+            "description": "Savory dark soy broth studded with mini minced vegetable dumplings and spring onions.",
+            "price": 179,
+            "currency": "INR",
+            "image": "basil_valley_veg_manchurian_soup.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "cream-of-tomato-soup",
+            "name": "Cream Of Tomato Soup",
+            "description": "Silky European tomato bisque prepared with sun-ripened tomatoes, sweet butter, and crispy bread croutons.",
+            "price": 199,
+            "currency": "INR",
+            "image": "basil_valley_cream_of_tomato_soup.jpg",
+            "dietary": [
+              "vegetarian",
+              "jain_available"
+            ]
+          },
+          {
+            "id": "cream-of-sweet-corn-soup",
+            "name": "Cream Of Sweet Corn",
+            "description": "Gentle, velvety soup filled with tender sweet corn kernels and farm vegetables.",
+            "price": 199,
+            "currency": "INR",
+            "image": "basil_valley_cream_of_sweet_corn_soup.jpg",
+            "dietary": [
+              "vegetarian",
+              "jain_available"
+            ]
+          },
+          {
+            "id": "cream-of-veg-soup",
+            "name": "Cream Of Veg Soup",
+            "description": "Rich cream-based soup loaded with puréed farm vegetables and cracked black pepper.",
+            "price": 199,
+            "currency": "INR",
+            "image": "basil_valley_cream_of_veg_soup.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "cream-of-broccoli-almond-soup",
+            "name": "Cream Of Broccoli & Almond",
+            "description": "Nutritious gourmet soup made of fresh broccoli florets simmered with rich cream and toasted almond slivers.",
+            "price": 219,
+            "currency": "INR",
+            "image": "basil_valley_cream_of_broccoli_almond_soup.jpg",
+            "dietary": [
+              "vegetarian",
+              "high-protein"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "desi-chatka",
+        "name": "Desi Chatka",
+        "slug": "desi-chatka",
+        "description": "Traditional Saurashtra tea-time snacks prepared fresh using Gujarati heritage recipes.",
+        "items": [
+          {
+            "id": "gathiya-vanela",
+            "name": "Gathiya - 100 Gm (Vanela)",
+            "description": "Authentic Kathiyawadi hand-rolled gram flour gathiya seasoned with ajwain and black pepper, served with raw papaya sambharo.",
+            "price": 79,
+            "currency": "INR",
+            "image": "basil_valley_gathiya_vanela.jpg",
+            "dietary": [
+              "vegetarian",
+              "gluten-free"
+            ]
+          },
+          {
+            "id": "gathiya-fafda",
+            "name": "Gathiya - 100 Gm (Fafda)",
+            "description": "Crisp and delicate ribbon-shaped fafda strips served with spicy green chilies and besan kadhi.",
+            "price": 79,
+            "currency": "INR",
+            "image": "basil_valley_gathiya_fafda.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "bhajiya-seasonal",
+            "name": "Bhajiya - 200 Gm (Seasonal)",
+            "description": "Hot golden fritters prepared from seasonal vegetables dipped in spiced gram flour batter and fried crisp.",
+            "price": 129,
+            "currency": "INR",
+            "image": "basil_valley_bhajiya_seasonal.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "quick-bites",
+        "name": "Quick Bites",
+        "slug": "quick-bites",
+        "description": "Crispy golden potato fries and corn tortilla chips loaded with artisan seasonings.",
+        "items": [
+          {
+            "id": "salted-french-fries",
+            "name": "Salted French Fries",
+            "description": "Deep golden French potato fries sprinkled with fine sea salt.",
+            "price": 109,
+            "currency": "INR",
+            "image": "basil_valley_salted_french_fries.jpg",
+            "dietary": [
+              "vegetarian",
+              "vegan"
+            ]
+          },
+          {
+            "id": "peri-peri-french-fries",
+            "name": "Peri Peri French Fries",
+            "description": "Hot crispy fries tossed vigorously in tangy, spicy African peri peri seasoning.",
+            "price": 129,
+            "currency": "INR",
+            "image": "basil_valley_peri_peri_french_fries.jpg",
+            "dietary": [
+              "vegetarian",
+              "spicy"
+            ]
+          },
+          {
+            "id": "nachos",
+            "name": "Nachos",
+            "description": "Crispy Mexican corn tortilla chips served with tangy tomato salsa dip.",
+            "price": 129,
+            "currency": "INR",
+            "image": "basil_valley_nachos.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "cheese-french-fries",
+            "name": "Cheese French Fries",
+            "description": "Crispy salted fries smothered with warm, rich velvety cheddar cheese sauce.",
+            "price": 149,
+            "currency": "INR",
+            "image": "basil_valley_cheese_french_fries.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "cheesy-loaded-nachos",
+            "name": "Cheesy Loaded Nachos",
+            "description": "Warm corn tortilla chips layered with jalapeños, olives, diced bell peppers, salsa, and molten cheese.",
+            "price": 179,
+            "currency": "INR",
+            "image": "basil_valley_cheesy_loaded_nachos.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "chhat",
+        "name": "Chhat",
+        "slug": "chhat",
+        "description": "Fresh, tangy roadside-style street chaats tossed with roasted peanuts, sweet corn, and lemon spices.",
+        "items": [
+          {
+            "id": "peanut-chhat",
+            "name": "Peanut Chhat",
+            "description": "Crunchy roasted peanuts tossed with finely diced tomatoes, green chilies, coriander, and fresh lemon juice.",
+            "price": 149,
+            "currency": "INR",
+            "image": "basil_valley_peanut_chhat.jpg",
+            "dietary": [
+              "vegetarian",
+              "jain_available",
+              "high-protein",
+              "vegan"
+            ]
+          },
+          {
+            "id": "sweet-corn-chhat",
+            "name": "Sweet Corn Chhat",
+            "description": "Steamed tender American sweet corn tossed in butter, chaat spices, lime zest, and chopped herbs.",
+            "price": 149,
+            "currency": "INR",
+            "image": "basil_valley_sweet_corn_chhat.jpg",
+            "dietary": [
+              "vegetarian",
+              "jain_available"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "continental",
+        "name": "Continental",
+        "slug": "continental",
+        "description": "Aromatic Thai curries and European cottage cheese preparations accompanied by rice or toasted breads.",
+        "items": [
+          {
+            "id": "thai-red-curry",
+            "name": "Thai Red Curry (Served with Rice)",
+            "description": "Fragrant Thai curry crafted from red chilies, lemongrass, galangal, and rich coconut milk with Asian veggies, served with steamed rice.",
+            "price": 349,
+            "currency": "INR",
+            "image": "basil_valley_thai_red_curry.jpg",
+            "dietary": [
+              "vegetarian",
+              "spicy"
+            ]
+          },
+          {
+            "id": "thai-green-curry",
+            "name": "Thai Green Curry (Served with Rice)",
+            "description": "Aromatic green chili and kaffir lime infused coconut curry loaded with baby corn, zucchini, and bamboo shoots, served with steamed rice.",
+            "price": 349,
+            "currency": "INR",
+            "image": "basil_valley_thai_green_curry.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "hum-pum-paneer",
+            "name": "Hum Pum Paneer (4 pc. Bread)",
+            "description": "Special Continental cottage cheese delicacy slow-cooked in a rich spiced herb reduction, served with 4 toasted bread slices.",
+            "price": 349,
+            "currency": "INR",
+            "image": "basil_valley_hum_pum_paneer.jpg",
+            "dietary": [
+              "vegetarian",
+              "high-protein"
+            ]
+          },
+          {
+            "id": "cottage-cheese-shalmargo",
+            "name": "Cottage Cheese Shalmargo",
+            "description": "Grilled paneer steaks finished in an exotic Mediterranean white pepper reduction with charred vegetables.",
+            "price": 349,
+            "currency": "INR",
+            "image": "basil_valley_cottage_cheese_shalmargo.jpg",
+            "dietary": [
+              "vegetarian",
+              "high-protein"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "chinese",
+        "name": "Chinese",
+        "slug": "chinese",
+        "description": "Wok-tossed noodles, aromatic fried rice bowls, and sizzling Indo-Chinese appetizers prepared fresh.",
+        "items": [
+          {
+            "id": "veg-fried-rice",
+            "name": "Veg. Fried Rice",
+            "description": "Fluffy long-grain rice wok-tossed with finely diced seasonal carrots, beans, spring onions, and light soy seasoning.",
+            "price": 209,
+            "currency": "INR",
+            "image": "basil_valley_veg_fried_rice.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "schezwan-fried-rice",
+            "name": "Schezwan Fried Rice",
+            "description": "Fiery wok-fried rice tossed in house-made red Schezwan chili paste, celery, and garlic.",
+            "price": 209,
+            "currency": "INR",
+            "image": "basil_valley_schezwan_fried_rice.jpg",
+            "dietary": [
+              "vegetarian",
+              "spicy"
+            ]
+          },
+          {
+            "id": "dragon-potato",
+            "name": "Dragon Potato",
+            "description": "Crispy finger potatoes glazed in a sticky, sweet-and-spicy dragon chili sauce with toasted sesame seeds.",
+            "price": 219,
+            "currency": "INR",
+            "image": "basil_valley_dragon_potato.jpg",
+            "dietary": [
+              "vegetarian",
+              "spicy"
+            ]
+          },
+          {
+            "id": "manchurian-rice",
+            "name": "Manchurian Rice",
+            "description": "Aromatic fried rice served with crispy vegetable Manchurian balls in a savory coriander soy sauce.",
+            "price": 239,
+            "currency": "INR",
+            "image": "basil_valley_manchurian_rice.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "honey-chilli-potato",
+            "name": "Honey Chilli Potato",
+            "description": "Crispy fried potato wedges tossed with natural honey, roasted sesame, and spicy red chili reduction.",
+            "price": 239,
+            "currency": "INR",
+            "image": "basil_valley_honey_chilli_potato.jpg",
+            "dietary": [
+              "vegetarian",
+              "jain_available"
+            ]
+          },
+          {
+            "id": "chinese-bhel",
+            "name": "Chinese Bhel",
+            "description": "Crisp fried noodles tossed with shredded cabbage, capsicum, onions, and sweet-spicy Schezwan sauce.",
+            "price": 239,
+            "currency": "INR",
+            "image": "basil_valley_chinese_bhel.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "corn-pepper-paneer",
+            "name": "Corn Pepper Paneer",
+            "description": "Soft cottage cheese and juicy sweet corn stir-fried with crushed black peppercorns and green capsicum.",
+            "price": 249,
+            "currency": "INR",
+            "image": "basil_valley_corn_pepper_paneer.jpg",
+            "dietary": [
+              "vegetarian",
+              "high-protein"
+            ]
+          },
+          {
+            "id": "hakka-noodles",
+            "name": "Hakka Noodles",
+            "description": "Traditional wok-tossed thin noodles with julienned vegetables, white pepper, and light aromatic soy.",
+            "price": 249,
+            "currency": "INR",
+            "image": "basil_valley_hakka_noodles.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "manchurian-noodles",
+            "name": "Manchurian Noodles",
+            "description": "Stir-fried noodles combined with crispy minced vegetable Manchurian nuggets in a rich gravy.",
+            "price": 249,
+            "currency": "INR",
+            "image": "basil_valley_manchurian_noodles.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "paneer-garlic-rice",
+            "name": "Paneer Garlic Rice",
+            "description": "Fragrant fried rice loaded with sautéed cottage cheese cubes and golden roasted garlic flakes.",
+            "price": 249,
+            "currency": "INR",
+            "image": "basil_valley_paneer_garlic_rice.jpg",
+            "dietary": [
+              "vegetarian",
+              "high-protein"
+            ]
+          },
+          {
+            "id": "crispy-veg",
+            "name": "Crispy Veg",
+            "description": "Assorted farm vegetables battered and flash-fried to an irresistible crunch, tossed in Chinese spices.",
+            "price": 249,
+            "currency": "INR",
+            "image": "basil_valley_crispy_veg.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "crispy-corn",
+            "name": "Crispy Corn",
+            "description": "Plump American sweet corn kernels tossed with cornstarch, flash-fried, and seasoned with chatpata masala.",
+            "price": 249,
+            "currency": "INR",
+            "image": "basil_valley_crispy_corn.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "veg-pepper-paneer",
+            "name": "Veg Pepper Paneer",
+            "description": "Cottage cheese cubes wok-charred with tri-color bell peppers, scallions, and cracked pepper.",
+            "price": 249,
+            "currency": "INR",
+            "image": "basil_valley_veg_pepper_paneer.jpg",
+            "dietary": [
+              "vegetarian",
+              "high-protein"
+            ]
+          },
+          {
+            "id": "schezwan-noodles",
+            "name": "Schezwan Noodles",
+            "description": "Fiery wok-tossed noodles in piquant spicy Schezwan sauce with shredded vegetables.",
+            "price": 259,
+            "currency": "INR",
+            "image": "basil_valley_schezwan_noodles.jpg",
+            "dietary": [
+              "vegetarian",
+              "spicy"
+            ]
+          },
+          {
+            "id": "manchurian-dry",
+            "name": "Manchurian Dry",
+            "description": "Crisp vegetable dumplings tossed with ginger, garlic, green chilies, and dark soy reduction.",
+            "price": 259,
+            "currency": "INR",
+            "image": "basil_valley_manchurian_dry.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "manchurian-gravy",
+            "name": "Manchurian Gravy",
+            "description": "Vegetable dumplings immersed in a glossy, flavorful garlic-soy gravy, ideal with fried rice.",
+            "price": 259,
+            "currency": "INR",
+            "image": "basil_valley_manchurian_gravy.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "singapuri-noodles",
+            "name": "Singapuri Noodles",
+            "description": "Vermicelli-style noodles tossed with a touch of aromatic curry powder, bell peppers, and scallions.",
+            "price": 279,
+            "currency": "INR",
+            "image": "basil_valley_singapuri_noodles.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "singapuri-rice",
+            "name": "Singapuri Rice",
+            "description": "Fragrant rice stir-fried with exotic Singaporean spices, crunchy cashews, and garden vegetables.",
+            "price": 289,
+            "currency": "INR",
+            "image": "basil_valley_singapuri_rice.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "paneer-chilli-dry",
+            "name": "Paneer Chilli Dry",
+            "description": "Pan-fried cottage cheese cubes wok-tossed with crunchy onions, capsicum, and spicy soy-chili glaze.",
+            "price": 299,
+            "currency": "INR",
+            "image": "basil_valley_paneer_chilli_dry.jpg",
+            "dietary": [
+              "vegetarian",
+              "high-protein",
+              "spicy"
+            ]
+          },
+          {
+            "id": "paneer-65",
+            "name": "Paneer 65",
+            "description": "South Indian style deep-fried paneer cubes tempered with curry leaves, mustard seeds, and yogurt chili sauce.",
+            "price": 319,
+            "currency": "INR",
+            "image": "basil_valley_paneer_65.jpg",
+            "dietary": [
+              "vegetarian",
+              "high-protein",
+              "spicy"
+            ]
+          },
+          {
+            "id": "chinese-chopsuey",
+            "name": "Chinese Chopsuey",
+            "description": "Crispy fried noodle nest topped with a colorful sweet and sour vegetable sauce.",
+            "price": 319,
+            "currency": "INR",
+            "image": "basil_valley_chinese_chopsuey.jpg",
+            "dietary": [
+              "vegetarian"
+            ]
+          },
+          {
+            "id": "basil-valley-special-platter",
+            "name": "Basil Valley Special Platter",
+            "description": "Chef's ultimate Chinese feast featuring paneer chilli, crispy veg, dragon potato, and spring rolls.",
+            "price": 399,
+            "currency": "INR",
+            "image": "basil_valley_special_platter.jpg",
+            "dietary": [
+              "vegetarian",
+              "signature"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

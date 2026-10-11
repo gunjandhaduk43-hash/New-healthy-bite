@@ -165,4 +165,79 @@
     /* Focus Rings */
     --focus-ring: 0 0 0 3px rgba(46, 125, 50, 0.2);
     --focus-ring-error: 0 0 0 3px rgba(220, 38, 38, 0.2);
+
+    /* Mobile Safe Area & Layout */
+    --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+    --safe-area-top: env(safe-area-inset-top, 0px);
+    --mobile-nav-height: 64px;
+    --floating-cart-height: 64px;
+
+    /* Z-Index Hierarchy */
+    --z-base: 1;
+    --z-sticky: 100;
+    --z-fixed-nav: 200;
+    --z-floating-cart: 300;
+    --z-bottom-nav: 350;
+    --z-drawer: 500;
+    --z-modal: 1000;
+    --z-toast: 1500;
 }
+
+/* Global Keyframe Animations for Micro-Interactions */
+@keyframes slideUpFade {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideDownFade {
+    from {
+        opacity: 0;
+        transform: translateY(-16px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulseGlow {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(46, 125, 50, 0.4);
+    }
+    50% {
+        transform: scale(1.03);
+        box-shadow: 0 0 0 8px rgba(46, 125, 50, 0);
+    }
+}
+
+@keyframes springBounce {
+    0% { transform: scale(0.8); opacity: 0; }
+    50% { transform: scale(1.12); }
+    70% { transform: scale(0.96); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes heartPop {
+    0% { transform: scale(1); }
+    30% { transform: scale(1.35) rotate(-8deg); }
+    60% { transform: scale(0.9) rotate(4deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+
+@keyframes shimmerEffect {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+@keyframes rippleTouch {
+    0% { transform: scale(0); opacity: 0.6; }
+    100% { transform: scale(2.4); opacity: 0; }
+}
+

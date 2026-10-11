@@ -13,7 +13,7 @@ class HomeController extends Controller
 {
     public function index(): void
     {
-        $restaurantId = (int)config('app.default_restaurant_id', 1);
+        $restaurantId = (int)\App\Core\Request::getQuery('restaurant_id', (string)config('app.default_restaurant_id', 1));
 
         $restaurantRepo = new RestaurantRepository();
         $restaurant = $restaurantRepo->findById($restaurantId);

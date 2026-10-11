@@ -1,0 +1,174 @@
+================================================================================
+          HEALTHY BITE — COLLEGE PC SETUP & RUN GUIDE (NOTEPAD VERSION)
+================================================================================
+
+This guide explains step-by-step how to set up and run the Healthy Bite project
+on any college lab PC or laptop. You can follow these simple steps to get the
+project running in less than 5 minutes.
+
+--------------------------------------------------------------------------------
+1. SOFTWARE REQUIREMENTS
+--------------------------------------------------------------------------------
+You only need TWO main things installed on the college PC:
+
+1. XAMPP (Recommended: version 8.0, 8.1, or 8.2+)
+   - Includes: Apache Web Server, PHP (>= 8.0), MySQL Server, and phpMyAdmin.
+   - If XAMPP is already installed in your college lab, you are ready to go!
+
+2. Any Web Browser
+   - Google Chrome, Microsoft Edge, or Mozilla Firefox.
+
+* Note: You DO NOT need Composer, Node.js, or Python to run the website.
+  The project has its own built-in autoloader and zero external dependencies!
+
+--------------------------------------------------------------------------------
+2. PROJECT FILES CHECKLIST
+--------------------------------------------------------------------------------
+Make sure your project folder contains these essential folders and files:
+  [app]               -> Backend controllers, models, repositories, router
+  [config]            -> App settings and database configuration
+  [database]          -> Contains the database dump: "healthy_bite_dump.sql"
+  [public]            -> Entry point (index.php), CSS, JavaScript, and images
+  [resources]         -> Views/HTML templates (Customer, Owner, Admin)
+  [routes]            -> Route files (web.php, api.php)
+  .env                -> Database connection configuration
+
+--------------------------------------------------------------------------------
+3. STEP-BY-STEP SETUP INSTRUCTIONS
+--------------------------------------------------------------------------------
+
+STEP 1: Copy Project to the College PC
+-------------------------------------
+* If using XAMPP Apache:
+  Copy your project folder into the XAMPP web root directory:
+  Path: C:\xampp\htdocs\healthy-bite
+
+* If running via PHP command line:
+  You can place the folder anywhere (e.g., Desktop or D:\healthy-bite).
+
+
+STEP 2: Start Apache and MySQL in XAMPP
+---------------------------------------
+1. Open the "XAMPP Control Panel".
+2. Click the [Start] button next to "Apache".
+3. Click the [Start] button next to "MySQL".
+   (Both should turn GREEN).
+
+
+STEP 3: Import the Database
+---------------------------
+1. Open your web browser and go to:
+   http://localhost/phpmyadmin
+
+2. Click on the "Import" tab in the top navigation bar.
+
+3. Click "Choose File" / "Browse", and select:
+   database\healthy_bite_dump.sql
+   (located inside your project's "database" folder).
+
+4. Scroll down to the bottom and click the [Import] or [Go] button.
+
+   * Done! The script will automatically create the `healthy_bite` database
+     along with all 12+ tables, sample food dishes, categories, and test accounts.
+
+
+STEP 4: Verify or Create the .env File
+--------------------------------------
+Check if there is a file named ".env" in the root of the project folder.
+If you only see ".env.example", make a copy of it and name it ".env".
+
+Open ".env" in Notepad and make sure the database settings match XAMPP defaults:
+
+  APP_NAME="Healthy Bite"
+  APP_ENV=development
+  APP_URL=http://localhost:8000
+  APP_KEY=hb_secret_key_college_demo
+
+  DB_HOST=127.0.0.1
+  DB_PORT=3306
+  DB_DATABASE=healthy_bite
+  DB_USERNAME=root
+  DB_PASSWORD=
+  DB_CHARSET=utf8mb4
+
+  DEFAULT_RESTAURANT_ID=1
+  TAX_RATE=0.05
+  SERVICE_CHARGE=0.00
+
+*(Note: In standard XAMPP, DB_USERNAME is "root" and DB_PASSWORD is empty/blank).*
+
+
+STEP 5: Run the Project (CHOOSE ONE METHOD)
+-------------------------------------------
+
+METHOD A: Fast 1-Command Run (RECOMMENDED FOR VIVA / LAB DEMO)
+1. Open Command Prompt or PowerShell inside the project folder.
+   (Shortcut: Open project folder in File Explorer, click the address bar,
+    type "cmd" and press Enter).
+2. Type this command and press Enter:
+   
+   php -S localhost:8000 -t public
+
+3. Open your browser and go to:
+   http://localhost:8000
+
+
+METHOD B: Direct via XAMPP Apache
+If you placed the project in "C:\xampp\htdocs\healthy-bite":
+1. Open your browser and go to:
+   http://localhost/healthy-bite/public/
+
+--------------------------------------------------------------------------------
+4. TEST LOGIN CREDENTIALS (FOR PROJECT DEMONSTRATION)
+--------------------------------------------------------------------------------
+
+All test accounts use the SAME password:
+Password:  Secret@123
+
+1. SUPER ADMIN PORTAL
+   URL:       http://localhost:8000/admin/login
+   Email:     admin@healthybite.com
+   Password:  Secret@123
+   Role:      Platform manager (manage all restaurants, approvals, users)
+
+2. RESTAURANT OWNER PORTAL
+   URL:       http://localhost:8000/owner/login
+   Email:     owner@greenhousekitchen.com
+   Password:  Secret@123
+   Role:      Manage menu items, live kitchen orders, tables, and analytics
+
+3. MANAGER / STAFF
+   URL:       http://localhost:8000/owner/login
+   Email:     manager@greenhousekitchen.com
+   Password:  Secret@123
+   Role:      Supervises live orders, kitchen kanban, and table service
+
+4. CUSTOMER DIGITAL MENU & QR ORDERING
+   URL:       http://localhost:8000/
+   Table QR:  http://localhost:8000/menu?table=1&token=demo_token
+   Role:      Browse categories, filter nutrition/allergens, add to cart,
+              and place instant dine-in/takeaway orders.
+
+--------------------------------------------------------------------------------
+5. COMMON TROUBLESHOOTING & FIXES
+--------------------------------------------------------------------------------
+
+Issue 1: "Apache Port 80 in use / Port conflict"
+Fix: Run using Method A (php -S localhost:8000 -t public).
+     This completely bypasses Apache and runs directly on port 8000!
+
+Issue 2: "Access denied for user 'root'@'localhost'"
+Fix: Open ".env" in Notepad. Ensure DB_PASSWORD is completely blank:
+     DB_PASSWORD=
+
+Issue 3: "Unknown database 'healthy_bite'"
+Fix: You forgot Step 3! Go to http://localhost/phpmyadmin and import
+     database\healthy_bite_dump.sql.
+
+Issue 4: "CSS or images not loading"
+Fix: Make sure you included the "-t public" flag when running the PHP server:
+     php -S localhost:8000 -t public
+
+================================================================================
+                             SETUP COMPLETE!
+================================================================================
